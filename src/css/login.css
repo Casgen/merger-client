@@ -1,0 +1,20 @@
+#login-button {
+  text-decoration: none;
+  color: white;
+  font-family: PTSansBold;
+  font-size: 23px;
+  background-color: #2b50aa;
+  display: flex; /* has to be set to display width*/
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  height: 40px;
+  width: 180px;
+  text-align: center;
+}
+
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
