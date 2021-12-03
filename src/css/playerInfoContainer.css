@@ -1,0 +1,46 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+
+#player-info-container #headers-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 20px 0px 20px;
+}
+
+#player-info-container {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#player-info-container #headers-container #artist,
+#player-info-container #headers-container #song-name {
+  color: white;
+  text-decoration: none;
+}
+
+#player-info-container #headers-container #artist {
+  font-family: PTSansRegular;
+  font-size: 12px;
+}
+
+#player-info-container #headers-container #song-name {
+  font-family: PTSansBold;
+  font-size: 15px;
+  margin: 5px 0px 5px 0px;
+}
+
+#player-info-container img {
+  width: auto;
+  height: auto;
+  aspect-ratio: 1;
+}

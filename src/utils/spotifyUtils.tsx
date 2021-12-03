@@ -1,10 +1,11 @@
 import {SpotifyPlayer} from "react-spotify-web-playback-sdk";
+import Merger from "../interfaces/Merger";
 
-export const pause = (player: Spotify.Player | undefined, deviceId: string | null) => {
-    if (player !== undefined) {
-        player._options.getOAuthToken((access_token: string) => {
-          if (deviceId !== null) {
-            fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`, {
+export const pause = (player: Merger.SpotifyPlayer | null) => {
+    if (player !== null) {
+        player.spotify._options.getOAuthToken((access_token: string) => {
+          if (player.deviceId !== null) {
+            fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${player.deviceId}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -20,13 +21,14 @@ export const pause = (player: Spotify.Player | undefined, deviceId: string | nul
     console.error("Couldn't pause, player is undefined!");
 }
 
-export const play = (player: Spotify.Player | undefined, {spotify_uri}: {spotify_uri: string[]}, deviceId: string | null ) => {
-  if (player !== undefined) {
-    player._options.getOAuthToken((access_token: string) => {
-      if (deviceId !== null) {
-        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+export const play = (player: Merger.SpotifyPlayer | null, spotify_uris: string[]) => {
+  
+  if (player !== null) {
+    player.spotify._options.getOAuthToken((access_token: string) => {
+      if (player.deviceId !== null) {
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${player.deviceId}`, {
           method: "PUT",
-          body: JSON.stringify({uris:spotify_uri}),
+          body: JSON.stringify({uris:spotify_uris}),
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${access_token}`,

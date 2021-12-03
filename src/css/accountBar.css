@@ -1,0 +1,32 @@
+#account-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 75%;
+  height: 35px;
+  margin: auto;
+  background-color: #1d1d1d;
+  border-radius: 6px;
+}
+
+#account-bar img {
+  filter: invert(100%);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+#account-bar > div {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: black;
+}
+
+#account-bar h3 {
+  font-size: 16px;
+}
+
+#account-bar h3 {
+  color: white;
+}

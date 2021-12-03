@@ -1,0 +1,69 @@
+body {
+  margin: 0px;
+}
+
+#main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+#horizontal-container {
+  display: flex;
+  flex-direction: row;
+  height: 87vh;
+  width: 100%;
+}
+
+#side-bar {
+  background: linear-gradient(180deg, rgb(13, 17, 48) 0%, rgb(0, 0, 0) 100%);
+  width: 220px;
+  height: 100%;
+  padding-top: 20px;
+  border-right: 1px solid rgb(37, 37, 37);
+}
+
+#main-window {
+  flex-grow: 1;
+  height: 100%;
+  background: linear-gradient(180deg, rgb(13, 17, 48) 0%, rgb(0, 0, 0) 100%);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#player {
+  height: 9vh;
+  width: 96%;
+  padding: 2vh 2% 2vh 2%;
+  background-color: rgb(14, 14, 14);
+  display: flex;
+  flex-direction: row;
+}
+
+#player div:nth-child(2) {
+  display: flex;
+  width: 60%;
+  height: 100%;
+  flex-direction: column;
+  margin: auto;
+}
+
+#player-buttons-container {
+  height: 50%;
+  width: 20%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#progress-bar-container {
+  height: 50%;
+  display: flex;
+}
+
+#volume-container {
+  width: 20%;
+  height: 100%;
+}

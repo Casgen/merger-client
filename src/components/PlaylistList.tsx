@@ -1,11 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 
-interface Props {
-    
-}
-
-const PlaylistList = (props: Props) => {
+export const PlaylistList: React.FC = () => {
 
     const fetchPlaylists = () => {
         axios.get("url");
@@ -17,5 +13,3 @@ const PlaylistList = (props: Props) => {
         </div>
     )
 }
-
-export default PlaylistList

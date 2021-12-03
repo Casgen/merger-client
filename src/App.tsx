@@ -1,35 +1,24 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import {Player} from "./components/Player";
 import SideBar from "./components/SideBar";
-import MainWindow from "./components/MainWindow";
 import { Login } from "./components/Login";
 import axios, { AxiosResponse } from "axios";
+import { MainWindow } from "./pages/MainWindow";
+import { Router } from "react-router";
+import { BrowserHistory, createBrowserHistory } from "history";
+import { Routes } from "./router/routes";
+import { MergerSpotifyPlayerContext } from "./contexts/MergerSpotifyPlayerContext";
+import Merger from "./interfaces/Merger";
+
+export const history: BrowserHistory = createBrowserHistory();
 
 export const App: React.FC = () => {
 
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    async function getToken() {
-      const response: Promise<AxiosResponse<unknown, any>>  = axios.get('http://localhost:8080/spotify/auth/token');
-      const json: any = (await response).data;
-      setToken(json.access_token);
-    }
-
-    getToken();
-  },[]);
+  const [player, setPlayer] = useState<Merger.SpotifyPlayer | null>(null);
 
   return (
-    <div id="main-container">
-      <div id="horizontal-container">
-        <SideBar>
-          <Login></Login>
-        </SideBar>
-        <MainWindow>
-          <></>
-        </MainWindow>
-      </div>
-      <Player token={token}></Player>
-    </div>
+    <MergerSpotifyPlayerContext.Provider value = {{player, setPlayer}}>
+      <Routes></Routes>
+    </MergerSpotifyPlayerContext.Provider>
   );
 }
