@@ -1,12 +1,4 @@
-@font-face {
-  font-family: PTSansBold;
-  src: url("../fonts/PTSans/PTSans-Bold.ttf");
-}
-
-@font-face {
-  font-family: PTSansRegular;
-  src: url("../fonts/PTSans/PTSans-Regular.ttf");
-}
+@import url("fonts.css");
 
 #player-info-container #headers-container {
   display: flex;

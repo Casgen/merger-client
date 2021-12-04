@@ -1,30 +1,31 @@
+@import url("fonts.css");
+
 #account-bar {
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  width: 75%;
+  justify-content: flex-end;
+  width: auto;
   height: 35px;
-  margin: auto;
   background-color: #1d1d1d;
-  border-radius: 6px;
 }
 
 #account-bar img {
   filter: invert(100%);
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #account-bar > div {
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
+  aspect-ratio: 1;
+  margin-right: auto;
+  height: 100%;
   background-color: black;
 }
 
 #account-bar h3 {
+  margin-right: auto;
   font-size: 16px;
+  font-family: PTSansRegular;
 }
 
 #account-bar h3 {

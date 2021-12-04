@@ -20,7 +20,6 @@ body {
   background: linear-gradient(180deg, rgb(13, 17, 48) 0%, rgb(0, 0, 0) 100%);
   width: 220px;
   height: 100%;
-  padding-top: 20px;
   border-right: 1px solid rgb(37, 37, 37);
 }
 
@@ -56,14 +55,4 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-#progress-bar-container {
-  height: 50%;
-  display: flex;
-}
-
-#volume-container {
-  width: 20%;
-  height: 100%;
 }

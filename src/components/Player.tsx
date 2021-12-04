@@ -5,11 +5,13 @@ import PlayerButton from "./PlayerButton";
 import Cookies from 'js-cookie';
 import { MergerSpotifyPlayerContext, MergerSpotifyPlayerContextType } from "../contexts/MergerSpotifyPlayerContext";
 import InfoPlayerContainer from "./InfoPlayerContainer";
+import ProgressBar from "./ProgressBar";
+import VolumeSlider from "./VolumeSlider";
 
 export const Player: React.FC = () => {
     const playerContext: MergerSpotifyPlayerContextType = useContext(MergerSpotifyPlayerContext);
     const [togglePlaySvg, setTogglePlaySvg] = useState<string>("/images/PlayButton.svg");
-    const [currentTrack, setCurrentTrack] = useState<Spotify.Track | undefined>(); 
+    const [currentState, setCurrentState] = useState<Spotify.PlaybackState | undefined>(); 
 
     const initPlayer = () => {
       console.log("Initializing player");
@@ -56,10 +58,9 @@ export const Player: React.FC = () => {
 
         spotifyPlayer.addListener('player_state_changed', (state: Spotify.PlaybackState) => {
           if (state !== null) {
-            setCurrentTrack(state.track_window.current_track);
-            console.log('Currently Playing', state.track_window.current_track);
-            console.log('Position in Song', state.position);
-            console.log('Duration of Song', state.duration);
+            setCurrentState(state);
+            state.paused ? setTogglePlaySvg("/images/PlayButton.svg") : setTogglePlaySvg("/images/PauseButton.svg");
+            console.log('Currently Playing', state);
           }
         });
         
@@ -80,9 +81,8 @@ export const Player: React.FC = () => {
 
   const togglePlayback = async () => {
     if (playerContext !== null && playerContext.player !== null) {
-      let playback: Spotify.PlaybackState | null = await playerContext.player.spotify.getCurrentState();
-      if (playback !== null) {
-        playback.paused ? setTogglePlaySvg("/images/PlayButton.svg") : setTogglePlaySvg("/images/PauseButton.svg");
+      if (currentState !== undefined) {
+        currentState.paused ? setTogglePlaySvg("/images/PauseButton.svg") : setTogglePlaySvg("/images/PlayButton.svg");
         playerContext.player.spotify.togglePlay();
         return;
       }
@@ -97,16 +97,16 @@ export const Player: React.FC = () => {
 
   return (
     <div id="player">
-      <InfoPlayerContainer track={currentTrack}/>
+      <InfoPlayerContainer track={currentState?.track_window.current_track}/>
       <div>
         <div id="player-buttons-container">
           <PlayerButton id="prev-button" src="/images/PrevButton.svg" execFunc={togglePlayback} />
           <PlayerButton src={togglePlaySvg} text="Toggle Play" id="play-button" execFunc={togglePlayback} />
           <PlayerButton id="next-button" src="/images/NextButton.svg" execFunc={() => {}} />
         </div>
-        <div id="progress-bar-container"></div>
+        <ProgressBar duration={currentState?.duration}></ProgressBar>
       </div>
-      <div id="volume-container"></div>
+      <VolumeSlider></VolumeSlider>
     </div>
   );
 }

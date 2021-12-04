@@ -1,0 +1,14 @@
+#volume-container {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#volume-container input {
+  transform: rotate(-90deg);
+  width: 80px;
+  height: 20px;
+  margin: 0px;
+}
