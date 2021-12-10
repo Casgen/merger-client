@@ -1,0 +1,25 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+#search-window {
+  display: flex;
+  flex-direction: column;
+}
+#search-window #search-bar {
+  display: flex;
+  padding: 10px;
+}
+#search-window .text-field {
+  border-radius: 20px;
+  padding: 0px 8px 0px 8px;
+  font-family: PTSansRegular;
+  font-size: 14px;
+  height: 25px;
+}
+
+/*# sourceMappingURL=spotifySearchWindow.css.map */

@@ -1,11 +1,5 @@
-@font-face {
-  font-family: PTSansBold;
-  src: url("../fonts/PTSans/PTSans-Bold.ttf");
-}
-@font-face {
-  font-family: PTSansRegular;
-  src: url("../fonts/PTSans/PTSans-Regular.ttf");
-}
+@use "fonts";
+
 #player-info-container #headers-container {
   display: flex;
   flex-direction: column;
@@ -20,10 +14,12 @@
   flex-direction: row;
 }
 
-#player-info-container #headers-container #artist,
-#player-info-container #headers-container #song-name {
-  color: white;
-  text-decoration: none;
+#player-info-container #headers-container {
+  #artist,
+  #song-name {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 #player-info-container #headers-container #artist {
@@ -42,5 +38,3 @@
   height: auto;
   aspect-ratio: 1;
 }
-
-/*# sourceMappingURL=playerInfoContainer.css.map */

@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 import AccountBar from './AccountBar';
 import { Login } from './Login';
 import { PlaylistList } from './PlaylistList';
+import { SearchButton } from './SearchButton';
 
 interface Props {
 
@@ -35,6 +36,7 @@ export const SideBar: React.FC = (props: Props) => {
     <div id="side-bar">
       {accountComp()}
       <PlaylistList></PlaylistList>
+      <SearchButton/>
     </div>
   )
 }

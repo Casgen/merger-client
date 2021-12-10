@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import "../App.css";
-import "../css/playerButton.css";
+import "../scss/playerButton.scss";
 import PlayerButton from "./PlayerButton";
 import Cookies from 'js-cookie';
 import { MergerSpotifyPlayerContext, MergerSpotifyPlayerContextType } from "../contexts/MergerSpotifyPlayerContext";
@@ -104,7 +103,7 @@ export const Player: React.FC = () => {
           <PlayerButton src={togglePlaySvg} text="Toggle Play" id="play-button" execFunc={togglePlayback} />
           <PlayerButton id="next-button" src="/images/NextButton.svg" execFunc={() => {}} />
         </div>
-        <ProgressBar duration={currentState?.duration}></ProgressBar>
+        <ProgressBar duration={currentState?.duration} progressVal={currentState?.progress_ms}> </ProgressBar>
       </div>
       <VolumeSlider></VolumeSlider>
     </div>

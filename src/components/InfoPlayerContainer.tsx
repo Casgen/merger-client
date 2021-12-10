@@ -1,5 +1,5 @@
 import React from 'react'
-import "../css/playerInfoContainer.css";
+import "../scss/playerInfoContainer.scss";
 
 interface Props {
     track: Spotify.Track | undefined

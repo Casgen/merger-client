@@ -1,11 +1,17 @@
-@import url("fonts.css");
-
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
 #account-bar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   width: auto;
-  height: 35px;
+  height: 40px;
   background-color: #1d1d1d;
 }
 
@@ -13,6 +19,11 @@
   filter: invert(100%);
   width: 100%;
   height: 100%;
+}
+#account-bar h3 {
+  margin-right: auto;
+  font-size: 16px;
+  font-family: PTSansRegular;
 }
 
 #account-bar > div {
@@ -23,11 +34,7 @@
 }
 
 #account-bar h3 {
-  margin-right: auto;
-  font-size: 16px;
-  font-family: PTSansRegular;
-}
-
-#account-bar h3 {
   color: white;
 }
+
+/*# sourceMappingURL=accountBar.css.map */

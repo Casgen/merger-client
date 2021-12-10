@@ -1,10 +1,4 @@
-import React, { useState, useEffect, useContext} from "react";
-import {Player} from "./components/Player";
-import SideBar from "./components/SideBar";
-import { Login } from "./components/Login";
-import axios, { AxiosResponse } from "axios";
-import { MainWindow } from "./pages/MainWindow";
-import { Router } from "react-router";
+import React, { useState} from "react";
 import { BrowserHistory, createBrowserHistory } from "history";
 import { Routes } from "./router/routes";
 import { MergerSpotifyPlayerContext } from "./contexts/MergerSpotifyPlayerContext";

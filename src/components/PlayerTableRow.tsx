@@ -1,4 +1,5 @@
 import React from 'react'
+import { convertToMins } from '../utils/utils';
 
 interface Props {
     track: SpotifyApi.TrackObjectFull,
@@ -9,12 +10,6 @@ interface Props {
 // TODO: Seperate the names of the artists, when there are multiple of them (by comma or whitespac)
 
 export const PlayerTableRow: React.FC<Props> = ({track,execFunc}: Props) => {
-
-    const convertToMins = (duration: number) :string => {
-        var minutes: number  = Math.floor(duration / 60000);
-        var seconds: number  = ((duration % 60000) / 1000);
-        return minutes + ":" + (seconds < 10 ? '0' : '') + Math.floor(seconds);
-    }
 
     const handleClick = () => {
         execFunc();

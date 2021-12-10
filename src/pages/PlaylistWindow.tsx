@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { PlayerHeader } from '../components/PlayerHeader';
 import { PlayerTable } from '../components/PlayerTable';
-import "../css/playlistWindow.css"
+import "../scss/playlistWindow.scss"
 
 const PlaylistWindow: React.FC = () => {
 

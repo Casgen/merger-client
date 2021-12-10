@@ -1,3 +1,5 @@
+import axios, { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
 import {SpotifyPlayer} from "react-spotify-web-playback-sdk";
 import Merger from "../interfaces/Merger";
 
@@ -42,3 +44,13 @@ export const play = (player: Merger.SpotifyPlayer | null, spotify_uris: string[]
   }
   console.error("Couldn't pause, player is undefined!");
 };
+
+export const searchByQuery = async (query: string) => {
+  const result: Promise<AxiosResponse<SpotifyApi.SearchResponse, any>> = axios.get(`https://api.spotify.com/v1/search?q=${query}&type=album&include_external=audio`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Cookies.get('access_token')}`
+    }
+  });
+  return (await result).data;
+}

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { MergerSpotifyPlayerContext, MergerSpotifyPlayerContextType } from '../contexts/MergerSpotifyPlayerContext';
-import "../css/volumeSlider.css";
+import "../scss/volumeSlider.scss";
 
 interface Props {
     
@@ -16,7 +16,8 @@ const VolumeSlider: React.FC = (props: Props) => {
         if (player !== undefined) {
             if (value > 100) {
                 player?.spotify.setVolume(1); return;
-            } else if (value < 0) {
+            }
+            if (value < 0) {
                 player?.spotify.setVolume(0); return;
             }
             player?.spotify.setVolume(value/100); return;
@@ -26,7 +27,7 @@ const VolumeSlider: React.FC = (props: Props) => {
 
     return (
         <div id="volume-container">
-            <input type="range" min="-2" onChange={(e) => handleChange(e)} max="102" value={value}></input> 
+            <input id="volume-slider" type="range" min="-2" onChange={(e) => handleChange(e)} max="102" value={value}></input> 
         </div>
     )
 }

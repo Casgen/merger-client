@@ -1,0 +1,32 @@
+@use "fonts";
+
+#account-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  height: 40px;
+  background-color: #1d1d1d;
+}
+
+#account-bar {
+  img {
+    filter: invert(100%);
+    width: 100%;
+    height: 100%;
+  }
+
+  h3 {
+    margin-right: auto;
+    font-size: 16px;
+    font-family: PTSansRegular;
+    color: rgb(216, 216, 216);
+  }
+
+  > div {
+    aspect-ratio: 1;
+    margin-right: auto;
+    height: 100%;
+    background-color: black;
+  }
+}
