@@ -15,7 +15,7 @@ export const SideBar: React.FC = (props: Props) => {
 
   async function fetchUserInfo() {
     const response: Promise<AxiosResponse<unknown, any>> = axios.get('http://localhost:8080/spotify/me',{withCredentials: true}); 
-    setUserInfo((await response).data as SpotifyApi.UserObjectPublic); //Cast response to UserObjectPublic
+    setUserInfo((await response).data as SpotifyApi.UserObjectPrivate); //Cast response to UserObjectPublic
   }
 
   const accountComp = () :JSX.Element => {
@@ -35,8 +35,8 @@ export const SideBar: React.FC = (props: Props) => {
   return (
     <div id="side-bar">
       {accountComp()}
-      <PlaylistList></PlaylistList>
       <SearchButton/>
+      <PlaylistList/>
     </div>
   )
 }

@@ -8,7 +8,7 @@ export const SearchButton = (props: Props) => {
     return (
         <a id="search-button" href="/search">
             <div>
-                <img src="./images/search.png" alt="Wasn't found!"></img>
+                <img src="/images/search.png" alt="Wasn't found!"></img>
             </div>
             <h3>Search</h3>
         </a>

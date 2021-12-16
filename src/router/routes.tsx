@@ -8,7 +8,6 @@ import { Home } from "../pages/Home";
 import { MainWindow } from "../pages/MainWindow";
 import PlaylistWindow from "../pages/PlaylistWindow";
 import { SpotifySearchWindow } from "../pages/SpotifySearchWindow";
-import { SearchButton } from "../components/SearchButton";
 
 export const history: BrowserHistory = createBrowserHistory();
 

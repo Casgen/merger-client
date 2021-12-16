@@ -53,7 +53,7 @@ export const SpotifySearchWindow: React.FC = (props: Props) => {
                         <div id="tracks">
                             {
                                 results?.tracks.items.map((value: SpotifyApi.TrackObjectFull): JSX.Element => {
-                                    return <TrackRow track={value}/>
+                                    return <TrackRow key={value.id} track={value}/>
                                 })
                             }
                         </div>

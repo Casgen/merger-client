@@ -11,9 +11,12 @@ const PlaylistWindow: React.FC = () => {
     const [playlist, setPlaylist] = useState<SpotifyApi.PlaylistObjectFull | undefined>();
 
     async function fetchPlaylist() :Promise<void> { //If we don't want to return anything, use this
-        const response: Promise<AxiosResponse<unknown,any>> = axios.get(`http://localhost:8080/spotify/playlist/4HvTCpcRNE6h8vhC9RgKys`,{withCredentials: true});
-        const json = (await response).data as SpotifyApi.PlaylistObjectFull;
-        setPlaylist(json);
+        let uri: string[] | undefined = id?.split(":");
+        if (uri !== undefined) {
+            const response: Promise<AxiosResponse<unknown,any>> = axios.get(`http://localhost:8080/spotify/playlist/${uri[2]}`,{withCredentials: true});
+            const json = (await response).data as SpotifyApi.PlaylistObjectFull;
+            setPlaylist(json);
+        }
     }
 
     useEffect(() => {
