@@ -21,8 +21,11 @@ export const PlayerTable: React.FC<Props> = ({ content }: Props) => {
             <tbody>
             <PlayerTableHeader></PlayerTableHeader>
             {
-                content !== undefined ? content.map((value: SpotifyApi.PlaylistTrackObject) :JSX.Element => {
-                    return <PlayerTableRow execFunc={() => handlePlay(value.track.uri)} track={value.track} key={value.track.id}></PlayerTableRow>
+                content !== undefined ? content.map((value: SpotifyApi.PlaylistTrackObject) :JSX.Element | null => {
+                    if (value.track != null) {
+                        return <PlayerTableRow execFunc={() => handlePlay(value.track.uri)} track={value.track} key={value.track.id}></PlayerTableRow>
+                    }
+                    return null;
                 }) : <tr><td><h6>Error: Loading table failed!</h6></td></tr>
             }
             </tbody>

@@ -10,18 +10,14 @@ const PlaylistWindow: React.FC = () => {
     const { id } = useParams<{id: string | undefined}>(); //Can be used ONLY IF IT'S UNDER THE ROUTE COMPONENT!
     const [playlist, setPlaylist] = useState<SpotifyApi.PlaylistObjectFull | undefined>();
 
-    async function fetchPlaylist() :Promise<void> { //If we don't want to return anything, use this
+    useEffect(() => {
         let uri: string[] | undefined = id?.split(":");
         if (uri !== undefined) {
-            const response: Promise<AxiosResponse<unknown,any>> = axios.get(`http://localhost:8080/spotify/playlist/${uri[2]}`,{withCredentials: true});
-            const json = (await response).data as SpotifyApi.PlaylistObjectFull;
-            setPlaylist(json);
+            axios.get(`http://localhost:8080/spotify/playlist/${uri[2]}`).then((response: AxiosResponse<unknown, any>) => {
+            setPlaylist(response.data as SpotifyApi.PlaylistObjectFull);
+            });
         }
-    }
-
-    useEffect(() => {
-        fetchPlaylist();
-    }, [])
+    }, [id]) //For rendering on changing ID in url, it needs to be added into the dependency array
 
     return (
         <div id="playlist-window">

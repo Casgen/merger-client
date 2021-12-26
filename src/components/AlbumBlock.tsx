@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import { trimString } from '../utils/utils';
 
 interface Props {
@@ -13,11 +14,11 @@ export const AlbumBlock: React.FC<Props> = ({album}: Props) => {
         <div className="album-block">
             <img src={album.images[0].url} alt="Error loading!"></img>
             <div>
-                <a className='album-title' href={album.href}>{trimString(album.name,22)}</a>
+                <Link className='album-title' to={album.href}>{trimString(album.name,22)}</Link>
                 <div>
                     {album.artists.map((artist: SpotifyApi.ArtistObjectSimplified, index: number) => {
-                        if (index === 0) return <a className='artist-title' key={artist.id} href={artist.href}>{artist.name}</a>;
-                        return  <a className='artist-title' key={artist.id} href={artist.href}>, {artist.name}</a>;
+                        if (index === 0) return <Link className='artist-title' key={artist.id} to={artist.href}>{artist.name}</Link>;
+                        return  <Link className='artist-title' key={artist.id} to={artist.href}>, {artist.name}</Link>;
                     })}
                 </div>
             </div>

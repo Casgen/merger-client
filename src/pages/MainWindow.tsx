@@ -1,4 +1,6 @@
 import { BrowserHistory, createBrowserHistory } from 'history'
+import YouTube from 'react-youtube';
+import Merger from '../interfaces/Merger';
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -12,9 +14,20 @@ interface Props {
 }
 
 export const MainWindow: React.FC<Props> = (props: Props) => {
+    const opts: Merger.YoutubePlayerOpts = {
+        height: '480',
+        width: '640',
+        playerVars: {
+            autoplay: 0,
+            enablejsapi: 1,
+        }
+    };
+
     return (
         <div id="main-window">
             {props.children}
+            <YouTube id="youtube-player" opts={opts} videoId='EUwynJ-WHGo'>
+            </YouTube>
         </div>
     )
 }

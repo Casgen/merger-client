@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 interface Props {
     
@@ -6,11 +7,11 @@ interface Props {
 
 export const SearchButton = (props: Props) => {
     return (
-        <a id="search-button" href="/search">
+        <Link id="search-button" to="/search">
             <div>
                 <img src="/images/search.png" alt="Wasn't found!"></img>
             </div>
             <h3>Search</h3>
-        </a>
+        </Link>
     )
 }

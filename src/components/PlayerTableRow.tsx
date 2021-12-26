@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { convertToMins } from '../utils/utils';
 
 interface Props {
@@ -18,20 +19,20 @@ export const PlayerTableRow: React.FC<Props> = ({track,execFunc}: Props) => {
     return (
         <tr onClick={handleClick} className="track-row">
             <td>
-                <img src={track.album.images[0].url} alt="Err"></img>
+                <img src={track.album.images[2]?.url} alt="Err"></img>
                 <h5>{track.name}</h5>
             </td>
             <td>
                 {track.artists.map((artist: SpotifyApi.ArtistObjectSimplified, index: number) => {
-                    if (index === 0) return <a key={artist.id} href={artist.href}>{artist.name}</a>;
-                    return <a key={artist.id} href={artist.href}>, {artist.name}</a>;
+                    if (index === 0) return <Link key={artist.id} to={artist.href}>{artist.name}</Link>;
+                    return <Link key={artist.id} to={artist.href}>, {artist.name}</Link>;
                 })}
             </td>
             <td>
-                <a href={track.album.uri}>{track.album.name}</a>
+                <Link to={track.album.uri}>{track.album.name}</Link>
             </td>
             <td>
-                <a href="#">{convertToMins(track.duration_ms)}</a>
+                <Link to="#">{convertToMins(track.duration_ms)}</Link>
             </td>
         </tr>
     )

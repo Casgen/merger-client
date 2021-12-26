@@ -55,7 +55,7 @@ export const Player: React.FC = () => {
           console.error("Failed to validate Spotify account", message);
         });
 
-        spotifyPlayer.addListener('player_state_changed', (state: Spotify.PlaybackState) => {
+        spotifyPlayer.addListener('player_state_changed', (state) => {
           if (state !== null) {
             setCurrentState(state);
             state.paused ? setTogglePlaySvg("/images/PlayButton.svg") : setTogglePlaySvg("/images/PauseButton.svg");
@@ -81,7 +81,11 @@ export const Player: React.FC = () => {
   const togglePlayback = async () => {
     if (playerContext !== null && playerContext.player !== null) {
       if (currentState !== undefined) {
-        currentState.paused ? setTogglePlaySvg("/images/PauseButton.svg") : setTogglePlaySvg("/images/PlayButton.svg");
+        if (currentState.paused) {
+          setTogglePlaySvg("/images/PauseButton.svg")
+        } else {
+          setTogglePlaySvg("/images/PlayButton.svg");
+        } 
         playerContext.player.spotify.togglePlay();
         return;
       }

@@ -96,6 +96,7 @@ body {
   background: linear-gradient(180deg, rgb(13, 17, 48) 0%, rgb(0, 0, 0) 100%);
   overflow-x: hidden;
   overflow-y: auto;
+  position: relative;
 }
 
 #player {
@@ -122,4 +123,11 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+#youtube-player {
+  z-index: 1;
+  position: absolute;
+  top: 20%;
+  left: 30%;
 }
