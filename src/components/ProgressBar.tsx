@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { MergerSpotifyPlayerContext, MergerSpotifyPlayerContextType } from '../contexts/MergerSpotifyPlayerContext';
+import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext';
 import "../scss/progressBar.scss";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 const ProgressBar: React.FC<Props> = ({duration, progressVal} : Props) => {
 
-    const {player}: MergerSpotifyPlayerContextType = useContext(MergerSpotifyPlayerContext); 
+    const {spotifyPlayer}: MergerPlayerContextType = useContext(MergerPlayerContext); 
 
     let [value, setValue] = useState<number>(0);
     let [maxRange, setMaxRange] = useState<number | undefined>(duration);
@@ -21,10 +21,10 @@ const ProgressBar: React.FC<Props> = ({duration, progressVal} : Props) => {
     }
 
     const handleClick = async () => {
-        if (player !== null) {
+        if (spotifyPlayer !== null) {
             if (duration !== undefined) {
                 setIsChanging(false)
-                await player.spotify.seek(value)
+                await spotifyPlayer.spotify.seek(value)
                 return;
             }
             console.error("duration not defined");

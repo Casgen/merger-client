@@ -2,37 +2,39 @@ import axios, { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 import React, { useState } from 'react'
 import { AlbumBlock } from '../components/AlbumBlock';
-import { TextField } from '../components/TextField';
+import { SearchBar } from '../components/SearchBar';
 import { TrackRow } from '../components/TrackRow';
+import Merger from '../interfaces/Merger';
 import "../scss/spotifySearchWindow.scss";
-import { searchByQuery } from '../utils/spotifyUtils';
 
-interface Props {
-    
-}
-
-export const SpotifySearchWindow: React.FC = (props: Props) => {
+export const SpotifySearchWindow: React.FC = () => {
 
     const [results, setResults] = useState<SpotifyApi.SearchResponse | null>(null);
+    const [typingTimeout, setTypingTimeout] = useState<number>(0);
 
-    const search = async (value: string) => {
-        const result: Promise<AxiosResponse<SpotifyApi.SearchResponse, any>> = axios.get(`https://api.spotify.com/v1/search?q=${value}&type=album,track&&include_external=audio`, {
+    const handleSearch = (value: string): void => {
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+
+        setTypingTimeout(setTimeout((time: string) => search(value),500));
+    }
+
+    const search = (value: string) => {
+        axios.get(`https://api.spotify.com/v1/search?q=${value}&type=album,track&&include_external=audio`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${Cookies.get('access_token')}`
             }
+          }).then((res: AxiosResponse<unknown, any>) => {
+            setResults(res.data as SpotifyApi.SearchResponse);
           });
-          setResults((await result).data);
           console.log(results);
     }
 
     return (
-        <div id="search-window">
-            <div id="search-bar">
-                <form>
-                    <TextField id="textfield" onChange={(value: string) => search(value)} type="text"></TextField>
-                </form>
-            </div>
+        <div id="spotify-search-window">
+            <SearchBar type={Merger.PlayerType.Spotify} func={handleSearch}></SearchBar>
             {
 
                 results !== null && 

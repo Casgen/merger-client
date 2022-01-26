@@ -1,0 +1,55 @@
+@use "fonts";
+
+#youtube-search-window {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+
+  #search-result-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+
+    .youtube-video {
+      margin: 0px 0px 0px 0px;
+      padding: 10px 100px 10px 10px;
+      display: flex;
+      flex-direction: row;
+      transition: 0.2s ease-in-out;
+
+      .thumbnail-div {
+        img {
+          width: 240px;
+          height: auto;
+        }
+      }
+
+      .details {
+        margin-left: 50px;
+        display: flex;
+        flex-direction: column;
+
+        h2,
+        p {
+          color: white;
+          overflow: hidden;
+        }
+
+        h2 {
+          font-family: PTSansBold;
+          margin: 0px;
+        }
+
+        p {
+          font-family: PTSansRegular;
+        }
+      }
+    }
+
+    .youtube-video:hover {
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: 0.2s ease-in-out;
+    }
+  }
+}

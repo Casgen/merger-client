@@ -131,3 +131,22 @@ body {
   top: 20%;
   left: 30%;
 }
+
+#search-bar {
+  display: flex;
+  align-items: center;
+  a {
+    margin: auto auto auto 15px;
+    img {
+      width: 25px;
+      height: auto;
+    }
+  }
+
+  .text-field {
+    border-radius: 20px;
+    font-family: PTSansRegular;
+    font-size: 14px;
+    height: 25px;
+  }
+}

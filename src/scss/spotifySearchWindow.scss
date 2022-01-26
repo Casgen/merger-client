@@ -1,20 +1,9 @@
 @use "fonts";
 
-#search-window {
+#spotify-search-window {
   display: flex;
   flex-direction: column;
   padding: 5px 10px;
-
-  #search-bar {
-    display: flex;
-  }
-
-  .text-field {
-    border-radius: 20px;
-    font-family: PTSansRegular;
-    font-size: 14px;
-    height: 25px;
-  }
 
   #search-result-container {
     display: flex;

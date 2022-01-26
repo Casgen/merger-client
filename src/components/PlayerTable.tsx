@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { MergerSpotifyPlayerContext, MergerSpotifyPlayerContextType } from '../contexts/MergerSpotifyPlayerContext'
+import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext'
 import { play } from '../utils/spotifyUtils'
 import { PlayerTableHeader } from './PlayerTableHeader'
 import { PlayerTableRow } from './PlayerTableRow'
@@ -10,10 +10,10 @@ interface Props {
 
 export const PlayerTable: React.FC<Props> = ({ content }: Props) => {
 
-    const {player} : MergerSpotifyPlayerContextType = useContext<MergerSpotifyPlayerContextType>(MergerSpotifyPlayerContext);
+    const {spotifyPlayer} : MergerPlayerContextType = useContext<MergerPlayerContextType>(MergerPlayerContext);
 
     const handlePlay = (uri: string) => {
-        play(player,[uri])
+        play(spotifyPlayer,[uri])
     }
 
     return (

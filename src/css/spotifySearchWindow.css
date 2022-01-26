@@ -6,20 +6,126 @@
   font-family: PTSansRegular;
   src: url("../fonts/PTSans/PTSans-Regular.ttf");
 }
-#search-window {
+#spotify-search-window {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+}
+#spotify-search-window #search-result-container {
+  display: flex;
+  overflow-x: auto;
+  height: max-content;
+  padding: 20px 0px 20px 0px;
+  flex-direction: column;
+}
+#spotify-search-window #search-result-container #albums {
+  display: flex;
+  padding-bottom: 15px;
+  flex-direction: row;
+  overflow-y: hidden;
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+#spotify-search-window #search-result-container #albums .album-block {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  background-color: #343434;
+  width: 180px;
+  margin: 0px 10px 0px 10px;
+  border-radius: 8px;
+}
+#spotify-search-window #search-result-container #albums .album-block img {
+  border-radius: 8px 8px 0px 0px;
+  width: auto;
+  aspect-ratio: 1;
+}
+#spotify-search-window #search-result-container #albums .album-block > div {
+  padding: 10px;
   display: flex;
   flex-direction: column;
 }
-#search-window #search-bar {
-  display: flex;
-  padding: 10px;
-}
-#search-window .text-field {
-  border-radius: 20px;
-  padding: 0px 8px 0px 8px;
+#spotify-search-window #search-result-container #albums .album-block > div a {
   font-family: PTSansRegular;
-  font-size: 14px;
-  height: 25px;
+  text-decoration: none;
+  color: #c5c5c5;
+  font-size: 15px;
+  transition: 0.1s ease-in-out;
+}
+#spotify-search-window #search-result-container #albums .album-block > div > a {
+  white-space: nowrap;
+}
+#spotify-search-window #search-result-container #albums .album-block > div div a {
+  font-size: 12px;
+}
+#spotify-search-window #search-result-container #albums .album-block > div a:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+#spotify-search-window #search-result-container #albums .album-block:first-child {
+  margin: 0px 10px 0px 0px;
+}
+#spotify-search-window #search-result-container #tracks {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 200px;
+  overflow-y: scroll;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .image {
+  display: flex;
+  align-items: center;
+  width: 40px;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .image img {
+  width: 30px;
+  height: 30px;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search a {
+  font-family: PTSansRegular;
+  text-decoration: none;
+  color: #c5c5c5;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .titles {
+  display: flex;
+  flex-direction: column;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .titles > a {
+  transition: 0.1s ease-in-out;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .titles > a:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .titles .artists a {
+  font-size: 13px;
+  transition: 0.1s ease-in-out;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .titles .artists a:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .duration {
+  margin-left: auto;
+}
+#spotify-search-window #search-result-container #tracks .track-row-search .duration h2 {
+  color: #c5c5c5;
+  font-size: 13px;
+  font-weight: 100;
+  font-family: PTSansRegular;
+}
+#spotify-search-window #search-result-container > h1 {
+  font-family: PTSansRegular;
+  font-size: 30px;
+  color: #5e5e5e;
+  margin: auto;
 }
 
 /*# sourceMappingURL=spotifySearchWindow.css.map */

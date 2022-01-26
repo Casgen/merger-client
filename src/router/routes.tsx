@@ -1,6 +1,5 @@
 import { BrowserHistory, createBrowserHistory } from "history";
 import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
-import { Login } from "../components/Login";
 import { Player } from "../components/Player";
 import SideBar from "../components/SideBar";
 import "../scss/index.scss";
@@ -8,6 +7,7 @@ import { Home } from "../pages/Home";
 import { MainWindow } from "../pages/MainWindow";
 import PlaylistWindow from "../pages/PlaylistWindow";
 import { SpotifySearchWindow } from "../pages/SpotifySearchWindow";
+import { YoutubeSearchWindow } from "../pages/YoutubeSearchWindow";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -29,8 +29,11 @@ export const Routes: React.FC = () => (
                             <Route path="/playlist/:id">
                                 <PlaylistWindow></PlaylistWindow>
                             </Route>
-                            <Route path="/search">
+                            <Route path="/spotify/search">
                                 <SpotifySearchWindow/>
+                            </Route>
+                            <Route path="/youtube/search">
+                                <YoutubeSearchWindow/>
                             </Route>
                         </Switch>
                 </MainWindow>
