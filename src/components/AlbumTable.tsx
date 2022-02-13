@@ -1,15 +1,14 @@
 import React, { useContext } from 'react'
 import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext'
 import { mergerPlay } from '../utils/mergerUtils'
-import { play } from '../utils/spotifyUtils'
+import AlbumTableRow from './AlbumTableRow'
 import { PlayerTableHeader } from './PlayerTableHeader'
-import { PlayerTableRow } from './PlayerTableRow'
 
-interface Props {
-    content: SpotifyApi.PlaylistTrackObject[] | undefined
+type Props = {
+    content: SpotifyApi.TrackObjectSimplified[];
 }
 
-export const PlayerTable: React.FC<Props> = ({ content }: Props) => {
+export const AlbumTable: React.FC<Props> = ({content}: Props) => {
 
     const mergerPlayer : MergerPlayerContextType = useContext<MergerPlayerContextType>(MergerPlayerContext);
 
@@ -25,9 +24,9 @@ export const PlayerTable: React.FC<Props> = ({ content }: Props) => {
             <tbody>
             <PlayerTableHeader></PlayerTableHeader>
             {
-                content !== undefined ? content.map((value: SpotifyApi.PlaylistTrackObject) :JSX.Element | null => {
-                    if (value.track != null) {
-                        return <PlayerTableRow execFunc={() => handlePlay(value.track.uri)} track={value.track} key={value.track.id}></PlayerTableRow>
+                content !== undefined ? content.map((value: SpotifyApi.TrackObjectSimplified) :JSX.Element | null => {
+                    if (value != null) {
+                        return <AlbumTableRow execFunc={() => handlePlay(value.uri)} track={value} key={value.id}/>
                     }
                     return null;
                 }) : <tr><td><h6>Error: Loading table failed!</h6></td></tr>
@@ -36,3 +35,5 @@ export const PlayerTable: React.FC<Props> = ({ content }: Props) => {
         </table>
     )
 }
+
+export default AlbumTable

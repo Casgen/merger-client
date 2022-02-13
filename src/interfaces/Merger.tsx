@@ -28,17 +28,12 @@ namespace Merger {
         Spotify = 'S'
     }
 
-    export enum PlaybackState {
-        Playing = "Playing",
-        Stopped = "Stopped",
-        Paused = "Paused",
-
-    }
-
     export interface PlayerState {
-        currentPlayer: PlayerType.Spotify | PlayerType.Spotify | null,
-        currentState: PlaybackState | null
-        currentSong: Spotify.PlaybackTrackWindow;
+        currentPlayer: PlayerType.Spotify | PlayerType.Youtube | null,
+        paused: boolean | undefined,
+        currentSong: Spotify.PlaybackTrackWindow,
+        progressMs: number,
+        duration: number,
     }
 }
 

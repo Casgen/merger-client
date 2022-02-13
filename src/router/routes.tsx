@@ -8,6 +8,7 @@ import { MainWindow } from "../pages/MainWindow";
 import PlaylistWindow from "../pages/PlaylistWindow";
 import { SpotifySearchWindow } from "../pages/SpotifySearchWindow";
 import { YoutubeSearchWindow } from "../pages/YoutubeSearchWindow";
+import { SpotifyAlbumPage } from "../pages/SpotifyAlbumPage";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -28,6 +29,9 @@ export const Routes: React.FC = () => (
                             <Route exact path="/" component={Home}></Route>
                             <Route path="/playlist/:id">
                                 <PlaylistWindow></PlaylistWindow>
+                            </Route>
+                            <Route path="/spotify/album/:id">
+                                <SpotifyAlbumPage></SpotifyAlbumPage>
                             </Route>
                             <Route path="/spotify/search">
                                 <SpotifySearchWindow/>

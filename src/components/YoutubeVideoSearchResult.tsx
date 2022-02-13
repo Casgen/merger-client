@@ -1,5 +1,6 @@
 interface Props {
-    item: gapi.client.youtube.SearchResult;
+    item: gapi.client.youtube.SearchResult,
+    key: string | undefined
 }
 
 

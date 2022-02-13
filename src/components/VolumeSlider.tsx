@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext';
 import "../scss/volumeSlider.scss";
+import { mergerSetVolume } from '../utils/mergerUtils';
 
 interface Props {
     
@@ -8,19 +9,26 @@ interface Props {
 
 const VolumeSlider: React.FC = (props: Props) => {
 
-    let {spotifyPlayer}: MergerPlayerContextType = useContext(MergerPlayerContext);
+    let player: MergerPlayerContextType = useContext(MergerPlayerContext);
     let [value, setValue] = useState<number>(50);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.valueAsNumber);
-        if (spotifyPlayer !== undefined) {
+        if (player !== null) {
             if (value > 100) {
-                spotifyPlayer?.spotify.setVolume(1); return;
+                mergerSetVolume(100,player).catch((err: Error) => {console.trace(err)});
+                return;
             }
+
             if (value < 0) {
-                spotifyPlayer?.spotify.setVolume(0); return;
+                mergerSetVolume(0,player).catch((err: Error) => {console.trace(err)})
+                return;
             }
-            spotifyPlayer?.spotify.setVolume(value/100); return;
+
+            mergerSetVolume(value,player).catch((err: Error) => {
+                console.trace(err);
+            });
+            return;
         }
         console.trace("Player is undefined!");
     }

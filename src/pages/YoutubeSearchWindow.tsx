@@ -32,7 +32,7 @@ export const YoutubeSearchWindow: React.FC = () => {
                 <div id="search-result-container">
                     {
                         results.items?.map((video: gapi.client.youtube.SearchResult): JSX.Element => {
-                            return <YoutubeVideoSearchResult item={video}/>
+                            return <YoutubeVideoSearchResult key={video.id?.videoId} item={video}/>
                         })
                     }
                 </div>
