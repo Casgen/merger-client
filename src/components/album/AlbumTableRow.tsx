@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { convertToMins } from '../utils/utils';
+import { convertToMins } from '../../utils/utils';
 
 type Props = {
     track: SpotifyApi.TrackObjectSimplified;
@@ -19,10 +19,6 @@ export const AlbumTableRow = ({track, key, execFunc}: Props) => {
         <tr onClick={handleClick} className="track-row">
             <td>
                 <h5>{track.name}</h5>
-            </td>
-            <td>
-            </td>
-            <td>
             </td>
             <td>
                 <Link to="#">{convertToMins(track.duration_ms)}</Link>

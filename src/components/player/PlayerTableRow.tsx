@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { convertToMins } from '../utils/utils';
+import { convertToMins } from '../../utils/utils';
 
 interface Props {
     track: SpotifyApi.TrackObjectFull,

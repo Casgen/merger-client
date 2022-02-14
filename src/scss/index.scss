@@ -95,9 +95,23 @@ body {
   flex-grow: 1;
   height: 100%;
   background: linear-gradient(180deg, rgb(13, 17, 48) 0%, rgb(0, 0, 0) 100%);
+  width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  position: relative;
+  /*position: relative;*/
+  #minimize {
+    z-index: 3;
+    position: fixed;
+    top: 20px;
+    right: 25px;
+    visibility: visible;
+    width: 28px;
+    height: 28px;
+  }
+
+  #minimize:hover {
+    cursor: pointer;
+  }
 }
 
 #player {
@@ -126,18 +140,21 @@ body {
   justify-content: space-between;
 }
 
-#youtube-player {
+#youtube-player-window {
   z-index: 1;
-  position: absolute;
-  top: 20%;
-  left: 30%;
+  position: fixed;
+  transition: all 0.5s ease-in-out;
+  visibility: collapse;
+  width: 88%;
+  height: 87%;
 }
 
 #search-bar {
   display: flex;
-  align-items: center;
+  padding: 5px;
+  height: 50px;
   a {
-    margin: auto auto auto 15px;
+    margin: 3px auto auto 15px;
     img {
       width: 25px;
       height: auto;

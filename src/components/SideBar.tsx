@@ -1,9 +1,9 @@
 import axios, { Axios, AxiosResponse } from 'axios';
 import React, {useState, useEffect} from 'react'
-import AccountBar from './AccountBar';
+import AccountBar from './account/AccountBar';
 import { Login } from './Login';
-import { PlaylistList } from './PlaylistList';
-import { SearchButton } from './SearchButton';
+import { PlaylistList } from './playlist/PlaylistList';
+import { SearchButton } from './search/SearchButton';
 
 interface Props {
 

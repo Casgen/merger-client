@@ -1,6 +1,8 @@
 #playlist-window {
   display: flex;
   flex-direction: column;
+  margin: 30px 30px 30px 30px;
+  border-collapse: collapse;
 }
 
 #media-header {
@@ -100,9 +102,4 @@
   th {
     text-align: left;
   }
-}
-
-#playlist-table {
-  margin: 30px 30px 30px 30px;
-  border-collapse: collapse;
 }

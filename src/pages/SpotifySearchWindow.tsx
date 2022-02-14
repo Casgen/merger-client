@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 import React, { useState } from 'react'
-import { AlbumBlock } from '../components/AlbumBlock';
-import { SearchBar } from '../components/SearchBar';
+import { AlbumBlock } from '../components/album/AlbumBlock';
+import { SearchBar } from '../components/search/SearchBar';
 import { TrackRow } from '../components/TrackRow';
 import Merger from '../interfaces/Merger';
 import "../scss/spotifySearchWindow.scss";

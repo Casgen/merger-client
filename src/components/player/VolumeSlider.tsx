@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext';
-import "../scss/volumeSlider.scss";
-import { mergerSetVolume } from '../utils/mergerUtils';
+import { MergerPlayerContext, MergerPlayerContextType } from '../../contexts/MergerPlayerContext';
+import "../../scss/volumeSlider.scss";
+import { mergerSetVolume } from '../../utils/mergerUtils';
 
 interface Props {
     

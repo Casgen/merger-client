@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext';
-import "../scss/progressBar.scss";
-import { seek } from '../utils/spotifyUtils';
-import { convertToMins } from '../utils/utils';
+import { MergerPlayerContext, MergerPlayerContextType } from '../../contexts/MergerPlayerContext';
+import "../../scss/progressBar.scss";
+import { seek } from '../../utils/spotifyUtils';
+import { convertToMins } from '../../utils/utils';
 
 interface Props {
     duration: number | undefined,
@@ -28,7 +28,7 @@ const ProgressBar: React.FC<Props> = ({duration, progressVal, paused} : Props) =
 
     const handleIncrement = () => {
         setValue((prevValue: number) => {
-            return 1000+prevValue;
+            return 250+prevValue;
             }
         );
     }
@@ -55,7 +55,7 @@ const ProgressBar: React.FC<Props> = ({duration, progressVal, paused} : Props) =
                     clearInterval(progressInterval);
                     setProgressInterval(undefined);
                 } else if (progressInterval === undefined && paused === false) {
-                    setProgressInterval(setInterval(handleIncrement, 1000));
+                    setProgressInterval(setInterval(handleIncrement, 250));
                 }
             }
         };

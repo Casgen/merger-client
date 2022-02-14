@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { CSSProperties, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Merger from '../interfaces/Merger'
-import { TextField } from './TextField'
+import Merger from '../../interfaces/Merger'
+import { TextField } from '../TextField'
 
 /*
     Icons provided by:
@@ -14,14 +14,29 @@ interface Props {
     func: Function
 }
 
+enum Gradients {
+    Spotify = "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,255,94,0.5) 100%)",
+    Youtube = "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255,0,0,0.5) 100%)"
+}
+
 export const SearchBar: React.FC<Props> = ({type, func} : Props) => {
+    
+    const [gradient, setGradient] = useState<Gradients | null>();
+
+    const handleLoad = () => {
+        if (type === Merger.PlayerType.Spotify) {
+            setGradient(Gradients.Spotify);
+            return;
+        }
+        setGradient(Gradients.Youtube);
+    }
 
     const handleChange = (value: string): void => {
         func(value);
-    }    
+    }
 
     return (
-        <div id="search-bar">
+        <div id="search-bar" onLoad={handleLoad} style={{background: gradient as string}}>
             <form>
                 <TextField id="textfield" onChange={handleChange} type="text"></TextField>
             </form>

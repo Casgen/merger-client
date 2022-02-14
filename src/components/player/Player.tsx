@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import "../scss/playerButton.scss";
+import "../../scss/playerButton.scss";
 import PlayerButton from "./PlayerButton";
 import Cookies from 'js-cookie';
-import { MergerPlayerContext, MergerPlayerContextType } from "../contexts/MergerPlayerContext";
+import { MergerPlayerContext, MergerPlayerContextType } from "../../contexts/MergerPlayerContext";
 import InfoPlayerContainer from "./InfoPlayerContainer";
 import ProgressBar from "./ProgressBar";
 import VolumeSlider from "./VolumeSlider";
 import { Options } from "youtube-player/dist/types";
-import Merger from "../interfaces/Merger";
-import { mergerTogglePlayBack } from "../utils/mergerUtils";
+import Merger, { YoutubeOptions } from "../../interfaces/Merger";
+import { mergerTogglePlayBack } from "../../utils/mergerUtils";
+import YouTubePlayer from "youtube-player";
 
 export const Player: React.FC = () => {
   const opts: Options = {
@@ -96,18 +97,10 @@ export const Player: React.FC = () => {
       });
       
       spotifyPlayer.connect();
-      
-    }
     
-    //playerContext.setYoutubePlayer(YoutubePlayer("main-window",opts));
+    }
+  
   };
-
-  const increment = () => {
-    setValue((prevValue: number) => {
-      return ++prevValue;
-      }
-    )
-  }
 
   const togglePlayback = async () => {
     if (playerContext !== null && playerContext.spotifyPlayer !== null) {
@@ -126,7 +119,6 @@ export const Player: React.FC = () => {
 
   useEffect(() => {
     initPlayer();
-    setInterval(increment,1000);
     return playerContext.spotifyPlayer?.spotify.disconnect();
   },[]);
 

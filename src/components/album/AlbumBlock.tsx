@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { trimString } from '../utils/utils';
+import { trimString } from '../../utils/utils';
 
 interface Props {
     album: SpotifyApi.AlbumObjectSimplified;

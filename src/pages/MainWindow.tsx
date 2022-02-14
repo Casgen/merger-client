@@ -1,5 +1,6 @@
 import { BrowserHistory, createBrowserHistory } from 'history'
 import React from 'react';
+import ShrinkButton from '../components/ShrinkButton';
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -15,6 +16,9 @@ interface Props {
 export const MainWindow: React.FC<Props> = (props: Props) => {
     return (
         <div id="main-window">
+            <ShrinkButton/>
+            <div id="youtube-player-window">
+            </div>
             {props.children}
         </div>
     )

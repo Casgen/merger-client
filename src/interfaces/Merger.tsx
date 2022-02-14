@@ -1,4 +1,4 @@
-import { YouTubePlayer } from "youtube-player/dist/types";
+import { Options, YouTubePlayer } from "youtube-player/dist/types";
 
 namespace Merger {
     export interface SpotifyPlayer{
@@ -34,7 +34,18 @@ namespace Merger {
         currentSong: Spotify.PlaybackTrackWindow,
         progressMs: number,
         duration: number,
+    
     }
 }
+
+export const YoutubeOptions: Options = {
+    height: '480',
+    width: '640',
+    playerVars: {
+        autoplay: 1,
+        enablejsapi: 1,
+    }
+};
+
 
 export default Merger;

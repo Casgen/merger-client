@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
-import { PlayerHeader } from '../components/PlayerHeader';
-import { PlayerTable } from '../components/PlayerTable';
+import { PlayerHeader } from '../components/player/PlayerHeader';
+import { PlayerTable } from '../components/player/PlayerTable';
 import "../scss/playlistWindow.scss"
 
 const PlaylistWindow: React.FC = () => {

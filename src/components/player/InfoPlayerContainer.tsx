@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import "../scss/playerInfoContainer.scss";
+import "../../scss/playerInfoContainer.scss";
 
 interface Props {
     track: Spotify.Track | undefined

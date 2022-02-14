@@ -1,6 +1,6 @@
 import { BrowserHistory, createBrowserHistory } from "history";
 import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
-import { Player } from "../components/Player";
+import { Player } from "../components/player/Player";
 import SideBar from "../components/SideBar";
 import "../scss/index.scss";
 import { Home } from "../pages/Home";

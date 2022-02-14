@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import AlbumTable from '../components/AlbumTable';
-import { PlayerTable } from '../components/PlayerTable';
+import AlbumTable from '../components/album/AlbumTable';
+import '../scss/albumWindow.scss'
 
 
 export const SpotifyAlbumPage: React.FC = () => {
