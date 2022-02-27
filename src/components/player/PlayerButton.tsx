@@ -16,8 +16,8 @@ export const PlayerButton: React.FC<Props> = (props: Props) => {
   }
 
   return <button className="player-button" id={props.id} onClick={handleClick}>
-    <img src={props.src} alt="X"></img>
-  </button>;
+          <img src={props.src} alt="X"></img>
+        </button>;
 }
 
 export default PlayerButton;

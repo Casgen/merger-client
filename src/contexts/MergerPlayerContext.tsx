@@ -11,8 +11,8 @@ export interface MergerPlayerContextType {
     setState: React.Dispatch<React.SetStateAction<Merger.PlayerState | null>>,
     loop: boolean,
     setLoop: React.Dispatch<React.SetStateAction<boolean>>,
-    queue: string[] | null;
-    setQueue: React.Dispatch<React.SetStateAction<string[] | null>>,
+    queue: Array<string> | null;
+    setQueue: React.Dispatch<React.SetStateAction<Array<string> | null>>,
     shuffle: boolean,
     setShuffle: React.Dispatch<React.SetStateAction<boolean>>;
 }

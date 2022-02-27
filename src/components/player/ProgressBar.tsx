@@ -1,21 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { MergerPlayerContext, MergerPlayerContextType } from '../../contexts/MergerPlayerContext';
 import "../../scss/progressBar.scss";
-import { seek } from '../../utils/spotifyUtils';
+import { mergerSeek } from '../../utils/mergerUtils';
 import { convertToMins } from '../../utils/utils';
 
-interface Props {
-    duration: number | undefined,
-    progressVal: number | undefined,
-    paused: boolean | undefined;
-}
 
-const ProgressBar: React.FC<Props> = ({duration, progressVal, paused} : Props) => {
+const ProgressBar: React.FC = () => {
 
-    const {spotifyPlayer}: MergerPlayerContextType = useContext(MergerPlayerContext); 
+    const player: MergerPlayerContextType = useContext(MergerPlayerContext); 
 
     const [value, setValue] = useState<number>(0);
-    const [maxRange, setMaxRange] = useState<number | undefined>(duration);
+    const [maxRange, setMaxRange] = useState<number | undefined>(player.state?.duration);
     const [progressInterval, setProgressInterval] = useState<NodeJS.Timer>();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,41 +28,29 @@ const ProgressBar: React.FC<Props> = ({duration, progressVal, paused} : Props) =
         );
     }
 
-    const handleClick = async () => {
-        if (spotifyPlayer !== null) {
-            if (duration !== undefined) {
-                seek(spotifyPlayer,value as number);
-                return;
-            }
-            console.error("duration not defined");
-            return;
-        }
-        console.error("player is undefined")
-        return;
-    }
-
     useEffect(() => {
-        if (progressVal !== undefined && duration !== undefined) {
-            setMaxRange(Math.floor(duration));
-            setValue(progressVal);
-            if (paused !== undefined) {
-                if (progressInterval !== undefined && paused === true) {
+        if (player.state?.progressMs !== undefined && player.state?.duration !== undefined) {
+            setMaxRange(Math.floor(player.state?.duration));
+            setValue(player.state?.progressMs);
+            if (player.state?.paused !== undefined) {
+                if (progressInterval !== undefined && player.state?.paused === true) {
                     clearInterval(progressInterval);
                     setProgressInterval(undefined);
-                } else if (progressInterval === undefined && paused === false) {
+                } else if (progressInterval === undefined && player.state?.paused === false) {
                     setProgressInterval(setInterval(handleIncrement, 250));
                 }
             }
         };
+        console.log(player.state);
 
-    },[duration, progressVal, paused])
+    },[player.state?.duration, player.state?.progressMs, player.state?.paused, player.state])
 
     return (
         <div id="progress-bar-container">
             <span id="time">{convertToMins(value)}</span>
-            <input disabled={duration !== undefined ? false : true}
+            <input disabled={player.state?.duration !== undefined ? false : true}
             type="range"
-            onClick={handleClick}
+            onClick={() => mergerSeek(player,value)}
             onChange={(e) => handleChange(e)}
             value={value}
             min="0"

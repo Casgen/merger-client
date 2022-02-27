@@ -12,7 +12,7 @@ export const SpotifyAlbumPage: React.FC = () => {
 
     const loadAlbum = (): void => {
         if (id !== undefined) {
-            axios.get(`http://localhost:8080/spotify/album/${id}`).then((res) => {
+            axios.get(`${process.env.REACT_APP_API_LINK}/spotify/album/${id}`).then((res) => {
                 setAlbum(res.data as SpotifyApi.AlbumObjectFull);
             })
         }

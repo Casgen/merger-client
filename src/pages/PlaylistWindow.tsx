@@ -13,7 +13,7 @@ const PlaylistWindow: React.FC = () => {
     useEffect(() => {
         let uri: string[] | undefined = id?.split(":");
         if (uri !== undefined) {
-            axios.get(`http://localhost:8080/spotify/playlist/${uri[2]}`).then((response: AxiosResponse<unknown, any>) => {
+            axios.get(`${process.env.REACT_APP_API_LINK}/spotify/playlist/${uri[2]}`).then((response: AxiosResponse<unknown, any>) => {
             setPlaylist(response.data as SpotifyApi.PlaylistObjectFull);
             });
         }

@@ -14,7 +14,7 @@ export const SideBar: React.FC = (props: Props) => {
   const [userInfo, setUserInfo] = useState<SpotifyApi.UserObjectPublic | undefined>();
 
   async function fetchUserInfo() {
-    const response: Promise<AxiosResponse<unknown, any>> = axios.get('http://localhost:8080/spotify/me',{withCredentials: true}); 
+    const response: Promise<AxiosResponse<unknown, any>> = axios.get(`${process.env.REACT_APP_API_LINK}/spotify/me`,{withCredentials: true}); 
     setUserInfo((await response).data as SpotifyApi.UserObjectPrivate); //Cast response to UserObjectPublic
   }
 

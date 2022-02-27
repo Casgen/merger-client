@@ -6,25 +6,19 @@ import { MergerPlayerContext, MergerPlayerContextType } from "../../contexts/Mer
 import InfoPlayerContainer from "./InfoPlayerContainer";
 import ProgressBar from "./ProgressBar";
 import VolumeSlider from "./VolumeSlider";
-import { Options } from "youtube-player/dist/types";
-import Merger, { YoutubeOptions } from "../../interfaces/Merger";
-import { mergerTogglePlayBack } from "../../utils/mergerUtils";
-import YouTubePlayer from "youtube-player";
+import Merger from "../../interfaces/Merger";
+import { contextError, mergerTogglePlayBack } from "../../utils/mergerUtils";
+import { spotifyUpdateState } from "../../utils/spotifyUtils";
+
+let stateImg = {
+  pause: "/images/PauseButton.svg",
+  play: "/images/PlayButton.svg"
+}
 
 export const Player: React.FC = () => {
-  const opts: Options = {
-      height: '480',
-      width: '640',
-      playerVars: {
-          autoplay: 0,
-          enablejsapi: 1,
-      }
-  };
+  
   const playerContext: MergerPlayerContextType = useContext(MergerPlayerContext);
 
-  const [togglePlaySvg, setTogglePlaySvg] = useState<string>("/images/PlayButton.svg");
-  const [currentState, setCurrentState] = useState<Merger.PlayerState | undefined>();
-  const [value, setValue] = useState<number>(1);
 
   const initPlayer = () => {
     console.log("Initializing player");
@@ -70,19 +64,11 @@ export const Player: React.FC = () => {
       });
 
       spotifyPlayer.addListener('player_state_changed', (state) => {
-        if (state !== null) {
-          let ctxState: Merger.PlayerState = {
-            currentPlayer: Merger.PlayerType.Spotify,
-            paused: state.paused,
-            currentSong: state.track_window,
-            progressMs: state.position,
-            duration: state.duration
-          }
-          playerContext.setState(ctxState);
-          setCurrentState(ctxState);
-          state.paused ? setTogglePlaySvg("/images/PlayButton.svg") : setTogglePlaySvg("/images/PauseButton.svg");
-          console.log('Currently Playing', state);
+        if (playerContext !== null) {
+          spotifyUpdateState(playerContext,state);
+          return;
         }
+        throw new Error(contextError);
       });
       
       let id: string = "null";
@@ -104,12 +90,7 @@ export const Player: React.FC = () => {
 
   const togglePlayback = async () => {
     if (playerContext !== null && playerContext.spotifyPlayer !== null) {
-      if (currentState !== undefined) {
-        if (currentState.paused) {
-          setTogglePlaySvg("/images/PauseButton.svg");
-        } else {
-          setTogglePlaySvg("/images/PlayButton.svg");
-        }
+      if (playerContext.state !== null) {
         mergerTogglePlayBack(playerContext)
         return;
       }
@@ -124,20 +105,16 @@ export const Player: React.FC = () => {
 
   return (
     <div id="player">
-      <InfoPlayerContainer track={currentState?.currentSong.current_track}/>
+      <InfoPlayerContainer track={playerContext.state?.currentSong}/>
       <div>
         <div id="player-buttons-container">
           <PlayerButton id="prev-button" src="/images/PrevButton.svg" execFunc={togglePlayback} />
-          <PlayerButton src={togglePlaySvg} text="Toggle Play" id="play-button" execFunc={togglePlayback} />
+          <PlayerButton src={playerContext.state?.paused ? stateImg.pause : stateImg.play} text="Toggle Play" id="play-button" execFunc={togglePlayback} />
           <PlayerButton id="next-button" src="/images/NextButton.svg" execFunc={() => {}} />
         </div>
-        <ProgressBar
-        duration={currentState?.duration}
-        progressVal={currentState?.progressMs}
-        paused={currentState?.paused}>
-        </ProgressBar>
+        <ProgressBar/>
       </div>
-      <VolumeSlider></VolumeSlider>
+      <VolumeSlider/>
     </div>
   );
 }

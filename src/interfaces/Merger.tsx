@@ -1,4 +1,4 @@
-import { Options, YouTubePlayer } from "youtube-player/dist/types";
+import { Options } from "youtube-player/dist/types";
 
 namespace Merger {
     export interface SpotifyPlayer{
@@ -24,17 +24,24 @@ namespace Merger {
     }
 
     export enum PlayerType {
-        Youtube = 'Y',
-        Spotify = 'S'
+        Youtube,
+        Spotify
     }
 
+    /**
+     * @param ytState -1 = not started | 0 = ended | 1 = is playing | 2 = paused | 3 = loading | 5 = video cued
+     */
+
     export interface PlayerState {
-        currentPlayer: PlayerType.Spotify | PlayerType.Youtube | null,
-        paused: boolean | undefined,
-        currentSong: Spotify.PlaybackTrackWindow,
-        progressMs: number,
-        duration: number,
-    
+        currentPlayer?: PlayerType.Spotify | PlayerType.Youtube,
+        paused?: boolean,
+        previousSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.ResourceId,
+        currentSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.Video,
+        nextSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.ResourceId,
+        progressMs?: number,
+        duration?: number, 
+        resuming?: boolean,
+        ytState?: number
     }
 }
 
@@ -44,6 +51,7 @@ export const YoutubeOptions: Options = {
     playerVars: {
         autoplay: 1,
         enablejsapi: 1,
+        controls: 0
     }
 };
 

@@ -6,6 +6,7 @@ import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/Merger
 import Merger, { YoutubeOptions } from '../interfaces/Merger';
 import YouTubePlayer from "youtube-player";
 import "../scss/youtubeSearchWindow.scss";
+import { setupYoutubePlayer } from '../utils/mergerUtils';
 
 export const YoutubeSearchWindow: React.FC = () => {
 
@@ -13,16 +14,14 @@ export const YoutubeSearchWindow: React.FC = () => {
     const playerContext: MergerPlayerContextType = useContext<MergerPlayerContextType>(MergerPlayerContext);
     const [typingTimeout, setTypingTimeout] = useState<number>(0);
 
-    const playVideo = (uri: gapi.client.youtube.ResourceId): void => {
+    const playVideo = async (uri: gapi.client.youtube.ResourceId): Promise<void> => {
         if (uri.videoId !== undefined) {
-            if (playerContext.youtubePlayer == null) {
-                playerContext.setYoutubePlayer(YouTubePlayer('youtube-player-window',{...YoutubeOptions, videoId: uri.videoId}));
-                let element = document.getElementById("youtube-player-window");
-                if (element !== null ) element.style.visibility = "visible";
-                return;
+            setupYoutubePlayer(playerContext, uri);
+            
+            if (playerContext.youtubePlayer !== null) {
+                await playerContext.youtubePlayer.cueVideoById(uri.videoId);
+                playerContext.youtubePlayer.playVideo();
             }
-            playerContext.youtubePlayer.cueVideoById(uri.videoId);
-            playerContext.youtubePlayer.playVideo();
         }
     }
 
@@ -35,10 +34,10 @@ export const YoutubeSearchWindow: React.FC = () => {
     }
 
     const search = (value: string) => {
-        axios.get(`http://localhost:8080/youtube/search?query=${value}`).then((res: AxiosResponse<unknown, any>) => {
+        axios.get(`${process.env.REACT_APP_API_LINK}/youtube/search?query=${value}`).then((res: AxiosResponse<unknown, any>) => {
             setResults(res.data as gapi.client.youtube.SearchListResponse);
+            console.log(results);
           });
-          console.log(results);
     }
 
     return (

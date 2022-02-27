@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import Cookies from "js-cookie";
+import { MergerPlayerContextType } from "../contexts/MergerPlayerContext";
 import Merger from "../interfaces/Merger";
 
 export const pause = async (player: Merger.SpotifyPlayer | null): Promise<void> => {
@@ -37,7 +38,7 @@ export const play = async (player: Merger.SpotifyPlayer, spotify_uris?: string[]
     });
 };
 
-export const seek = async (player: Merger.SpotifyPlayer, position: number): Promise<void> => {
+export const spotifySeek = async (player: Merger.SpotifyPlayer, position: number): Promise<void> => {
   player.spotify._options.getOAuthToken((access_token: string) => {
     if (player.deviceId !== null) {
         return fetch(`https://api.spotify.com/v1/me/player/seek?device_id=${player.deviceId}&position_ms=${position}`, {
@@ -75,4 +76,18 @@ export const spotifySetVolume = async (player: Merger.SpotifyPlayer, value: numb
     }
     throw new Error("Couldn't pause, device ID is null!");
   });
+}
+
+export const spotifyUpdateState = async (ctx: MergerPlayerContextType, spotifyState: Spotify.PlaybackState): Promise<void> => {
+  if (spotifyState !== null) {
+    let ctxState: Merger.PlayerState = {
+      currentPlayer: Merger.PlayerType.Spotify,
+      paused: spotifyState.paused,
+      currentSong: spotifyState.track_window,
+      progressMs: spotifyState.position,
+      duration: spotifyState.duration,
+    }
+    ctx.setState(ctxState);
+    console.log('Currently Playing', ctxState);
+  }
 }
