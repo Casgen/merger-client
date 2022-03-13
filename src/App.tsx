@@ -10,12 +10,7 @@ export const history: BrowserHistory = createBrowserHistory();
 
 export const App: React.FC = () => {
 
-  const [spotifyPlayer, setSpotifyPlayer] = useState<Merger.SpotifyPlayer | null>(null);
-  const [youtubePlayer, setYoutubePlayer] = useState<YouTubePlayer | null>(null);
-  const [loop, setLoop] = useState<boolean>(false);
-  const [shuffle, setShuffle] = useState<boolean>(false);
-  const [queue, setQueue] = useState<string[] | null>(null);
-  const [state, setState] = useState<Merger.PlayerState | null>(null);
+  const store = createStore();
 
   return (
     <MergerPlayerContext.Provider

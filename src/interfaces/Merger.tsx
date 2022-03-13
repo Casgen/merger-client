@@ -1,6 +1,7 @@
-import { Options } from "youtube-player/dist/types";
+import { Options, YouTubePlayer } from "youtube-player/dist/types";
 
 namespace Merger {
+
     export interface SpotifyPlayer{
         spotify: Spotify.Player,
         deviceId: string
@@ -42,6 +43,15 @@ namespace Merger {
         duration?: number, 
         resuming?: boolean,
         ytState?: number
+    }
+
+    export interface State {
+        spotifyPlayer: Merger.SpotifyPlayer | null,
+        youtubePlayer: YouTubePlayer | null,
+        state: Merger.PlayerState,
+        loop: boolean,
+        queue: Array<string>;
+        shuffle: boolean,
     }
 }
 
