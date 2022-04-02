@@ -11,10 +11,11 @@ interface ActionSetYoutubePlayer {
 
 type Action = ActionSetYoutubePlayer
 
-const initState: boolean = false;
+type initState = YouTubePlayer | null;
 
-export const youtubePlayerReducer = (state: boolean = initState, action: Action): YouTubePlayer => {
+export const youtubePlayerReducer = (state: initState = null, action: Action): YouTubePlayer | null => {
     switch (action.type) {
         case ActionTypeYoutubePlayer.SET_YOUTUBE_PLAYER: return action.payload;
+        default: return state;
     }
 }

@@ -4,20 +4,21 @@ import { mergerPlay } from '../../utils/mergerUtils'
 import { AlbumTableHeader } from './AlbumTableHeader'
 import AlbumTableRow from './AlbumTableRow'
 import { PlayerTableHeader } from '../player/PlayerTableHeader'
+import {useAppSelector} from "../hooks";
+import {RootState} from "../../App";
 
 type Props = {
     content: SpotifyApi.TrackObjectSimplified[];
 }
 
+const rootState = (state: RootState) => state;
+
 export const AlbumTable: React.FC<Props> = ({content}: Props) => {
 
-    const mergerPlayer : MergerPlayerContextType = useContext<MergerPlayerContextType>(MergerPlayerContext);
+    const mergerState = useAppSelector(rootState);
 
     const handlePlay = (uri: string) => {
-        if (mergerPlayer.spotifyPlayer !== null) {
-            mergerPlay(mergerPlayer, uri);
-            return;
-        }
+            mergerPlay(uri);
     }
 
     return (

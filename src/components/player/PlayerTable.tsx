@@ -1,24 +1,21 @@
 import React, { useContext } from 'react'
-import { MergerPlayerContext, MergerPlayerContextType } from '../../contexts/MergerPlayerContext'
 import { addNextSpotifySongsToQueue, mergerPlay } from '../../utils/mergerUtils'
-import { play } from '../../utils/spotifyUtils'
 import { PlayerTableHeader } from './PlayerTableHeader'
 import { PlayerTableRow } from './PlayerTableRow'
+import {useSelector} from "react-redux";
+import {RootState} from "../../App";
 
 interface Props {
     content: SpotifyApi.PlaylistTrackObject[] | undefined
 }
 
+const merger = (state: RootState) => state;
+
 export const PlayerTable: React.FC<Props> = ({ content }: Props) => {
 
-    const mergerPlayer : MergerPlayerContextType = useContext<MergerPlayerContextType>(MergerPlayerContext);
-
     const handlePlay = (uri: string) => {
-        if (mergerPlayer.spotifyPlayer !== null) {
-            mergerPlay(mergerPlayer, uri);
-            if (content !== undefined) addNextSpotifySongsToQueue(mergerPlayer, uri, content);
-            return;
-        }
+        mergerPlay(uri);
+        if (content !== undefined) addNextSpotifySongsToQueue(uri, content);
     }
 
     return (

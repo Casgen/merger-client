@@ -31,15 +31,15 @@ export const stateReducer = (state: Merger.PlayerState = initState, action: Acti
         case ActionTypeState.STATE_CHANGE: {
             return {
                 ...state,
-                currentPlayer: action.payload.currentPlayer ? action.payload.currentPlayer : state.currentPlayer,
-                paused: action.payload.paused ? action.payload.paused : state.paused,
-                previousSong: action.payload.previousSong ? action.payload.previousSong : state.previousSong,
-                currentSong: action.payload.currentSong ? action.payload.currentSong : state.currentSong,
-                nextSong: action.payload.nextSong ? action.payload.nextSong : state.nextSong,
-                progressMs: action.payload.progressMs ? action.payload.progressMs : state.progressMs,
-                duration: action.payload.duration ? action.payload.duration : state.duration,
-                resuming: action.payload.resuming ? action.payload.resuming : state.resuming,
-                ytState: action.payload.ytState ? action.payload.ytState : state.ytState,
+                currentPlayer: action.payload.currentPlayer,
+                paused: action.payload.paused,
+                previousSong: action.payload.previousSong,
+                currentSong: action.payload.currentSong,
+                nextSong: action.payload.nextSong,
+                progressMs: action.payload.progressMs,
+                duration: action.payload.duration,
+                resuming: action.payload.resuming,
+                ytState: action.payload.ytState
             }
         }
 
@@ -58,5 +58,7 @@ export const stateReducer = (state: Merger.PlayerState = initState, action: Acti
                 resuming: true,
             }
         }
+
+        default: return state;
     }
 }

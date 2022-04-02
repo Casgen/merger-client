@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@types/gapi.client.youtube": "^3.0.2",
     "@types/history": "^4.7.9",
+    "@types/react-redux": "^7.1.23",
     "@types/react-router-dom": "^5.3.2",
     "@types/spotify-api": "0.0.11",
     "@types/youtube-player": "^5.5.5",
@@ -24,7 +25,9 @@
     "react-scripts": "4.0.3",
     "react-spotify-web-playback-sdk": "^2.0.0",
     "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
     "sass": "^1.44.0",
+    "use-spotify-web-playback-sdk": "^0.2.2",
     "web-vitals": "^1.1.2",
     "youtube-player": "^5.5.2"
   },
