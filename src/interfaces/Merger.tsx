@@ -1,9 +1,10 @@
 import { Options, YouTubePlayer } from "youtube-player/dist/types";
+import Cookies from "js-cookie";
 
 namespace Merger {
 
     export interface SpotifyPlayer{
-        spotify: Spotify.Player,
+        spotify?: Spotify.Player,
         deviceId: string
     }
 
@@ -15,14 +16,6 @@ namespace Merger {
         artistUrl: string | null
     }
 
-    export interface YoutubePlayerOpts {
-        height: string,
-        width: string,
-        playerVars: {
-            autoplay: 1 | 0,
-            enablejsapi: 1 | 0,
-        }
-    }
 
     export enum PlayerType {
         Youtube,
@@ -35,7 +28,7 @@ namespace Merger {
 
     export interface PlayerState {
         currentPlayer?: PlayerType.Spotify | PlayerType.Youtube,
-        paused?: boolean,
+        paused: boolean,
         previousSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.ResourceId,
         currentSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.Video,
         nextSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.ResourceId,
@@ -55,6 +48,12 @@ namespace Merger {
     }
 }
 
+declare global {
+    interface Window {
+        youtubePlayer: YouTubePlayer,
+    }
+}
+
 export const YoutubeOptions: Options = {
     height: '480',
     width: '640',
@@ -65,5 +64,17 @@ export const YoutubeOptions: Options = {
     }
 };
 
+export const SpotifyOptions: Spotify.PlayerInit = {
+    name: "Web Playback SDK Quick Start Player",
+    getOAuthToken: (cb: (token: string) => void) => {
+        let token: undefined | string = Cookies.get("access_token");
+        if (token !== undefined) {
+            cb(token);
+            return;
+        }
+        console.error("Couldn't create new player!, token is invalid!",token);
+    },
+    volume: 0.5,
+}
 
 export default Merger;

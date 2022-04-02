@@ -1,41 +1,31 @@
 import React, { useContext, useState } from 'react'
-import { MergerPlayerContext, MergerPlayerContextType } from '../../contexts/MergerPlayerContext';
 import "../../scss/volumeSlider.scss";
-import { mergerSetVolume } from '../../utils/mergerUtils';
 
 interface Props {
-    
+    func?: Function
 }
 
-const VolumeSlider: React.FC = (props: Props) => {
-
-    let player: MergerPlayerContextType = useContext(MergerPlayerContext);
+const VolumeSlider: React.FC<Props> = ({func} : Props) => {
     let [value, setValue] = useState<number>(50);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.valueAsNumber);
-        if (player !== null) {
-            if (value > 100) {
-                mergerSetVolume(100,player).catch((err: Error) => {console.trace(err)});
-                return;
-            }
+        if (func) {
+            if (value > 100) return func(100);
+            if (value < 0) return func(0);
 
-            if (value < 0) {
-                mergerSetVolume(0,player).catch((err: Error) => {console.trace(err)})
-                return;
-            }
-
-            mergerSetVolume(value,player).catch((err: Error) => {
-                console.trace(err);
-            });
-            return;
+            return func(value);
         }
-        console.trace("Player is undefined!");
     }
 
     return (
         <div id="volume-container">
-            <input id="volume-slider" type="range" min="-2" onChange={(e) => handleChange(e)} max="102" value={value}></input> 
+            <input id="volume-slider"
+                   type="range"
+                   min="-2"
+                   max="102"
+                   onChange={(e) => handleChange(e)}
+                   value={value}/>
         </div>
     )
 }

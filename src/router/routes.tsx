@@ -9,6 +9,7 @@ import PlaylistWindow from "../pages/PlaylistWindow";
 import { SpotifySearchWindow } from "../pages/SpotifySearchWindow";
 import { YoutubeSearchWindow } from "../pages/YoutubeSearchWindow";
 import { SpotifyAlbumPage } from "../pages/SpotifyAlbumPage";
+import React from "react";
 
 export const history: BrowserHistory = createBrowserHistory();
 

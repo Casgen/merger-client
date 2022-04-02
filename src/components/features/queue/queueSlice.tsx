@@ -20,6 +20,7 @@ const initState: string[] = [];
 export const queueReducer = (state: string[] = initState, action: Action): string[] => {
     switch (action.type) {
         case ActionTypeQueue.ADD_SONG: return [...state, action.payload];
-        case ActionTypeQueue.SET_QUEUE: return action.payload;
+        case ActionTypeQueue.SET_QUEUE: return {...state, };
+        default: return state;
     }
 }

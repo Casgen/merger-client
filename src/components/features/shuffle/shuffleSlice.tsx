@@ -17,7 +17,8 @@ const initState: boolean = false;
 
 export const shuffleReducer = (state: boolean = initState, action: Action): boolean => {
     switch (action.type) {
-        case ActionTypeShuffle.SET_SHUFFLE_TRUE: return true; break;
-        case ActionTypeShuffle.SET_SHUFFLE_FALSE: return false; break;
+        case ActionTypeShuffle.SET_SHUFFLE_TRUE: return true;
+        case ActionTypeShuffle.SET_SHUFFLE_FALSE: return false;
+        default: return state;
     }
 }

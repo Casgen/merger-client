@@ -3,10 +3,9 @@ import React, { useContext, useState } from 'react'
 import { SearchBar } from '../components/search/SearchBar'
 import { YoutubeVideoSearchResult } from '../components/search/YoutubeVideoSearchResult';
 import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext';
-import Merger, { YoutubeOptions } from '../interfaces/Merger';
-import YouTubePlayer from "youtube-player";
+import Merger from '../interfaces/Merger';
 import "../scss/youtubeSearchWindow.scss";
-import { setupYoutubePlayer } from '../utils/mergerUtils';
+import {setupYoutubePlayer} from "../utils/youtubeUtils";
 
 export const YoutubeSearchWindow: React.FC = () => {
 
@@ -16,11 +15,11 @@ export const YoutubeSearchWindow: React.FC = () => {
 
     const playVideo = async (uri: gapi.client.youtube.ResourceId): Promise<void> => {
         if (uri.videoId !== undefined) {
-            setupYoutubePlayer(playerContext, uri);
-            
-            if (playerContext.youtubePlayer !== null) {
-                await playerContext.youtubePlayer.cueVideoById(uri.videoId);
-                playerContext.youtubePlayer.playVideo();
+            setupYoutubePlayer(uri);
+
+            if (window.youtubePlayer !== undefined) {
+                await window.youtubePlayer.cueVideoById(uri.videoId);
+                window.youtubePlayer.playVideo();
             }
         }
     }

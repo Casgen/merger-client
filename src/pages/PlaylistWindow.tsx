@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { PlayerHeader } from '../components/player/PlayerHeader';
@@ -15,6 +15,8 @@ const PlaylistWindow: React.FC = () => {
         if (uri !== undefined) {
             axios.get(`${process.env.REACT_APP_API_LINK}/spotify/playlist/${uri[2]}`).then((response: AxiosResponse<unknown, any>) => {
             setPlaylist(response.data as SpotifyApi.PlaylistObjectFull);
+            }).catch(err => {
+              console.error(err)
             });
         }
     }, [id]) //For rendering on changing ID in url, it needs to be added into the dependency array

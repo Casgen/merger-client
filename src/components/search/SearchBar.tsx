@@ -1,7 +1,7 @@
-import React, { CSSProperties, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, {ChangeEvent, useState} from 'react'
+import {Link} from 'react-router-dom'
 import Merger from '../../interfaces/Merger'
-import { TextField } from '../TextField'
+import {TextField} from '../TextField'
 
 /*
     Icons provided by:
@@ -19,8 +19,8 @@ enum Gradients {
     Youtube = "linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255,0,0,0.5) 100%)"
 }
 
-export const SearchBar: React.FC<Props> = ({type, func} : Props) => {
-    
+export const SearchBar: React.FC<Props> = ({type, func}: Props) => {
+
     const [gradient, setGradient] = useState<Gradients | null>();
 
     const handleLoad = () => {
@@ -36,12 +36,13 @@ export const SearchBar: React.FC<Props> = ({type, func} : Props) => {
     }
 
     return (
-        <div id="search-bar" onLoad={handleLoad} style={{background: gradient as string}}>
+        <div id="search-bar" onLoad={handleLoad} onSubmit={(e: ChangeEvent<HTMLInputElement>) => e.preventDefault()} style={{background: gradient as string}}>
             <form>
                 <TextField id="textfield" onChange={handleChange} type="text"></TextField>
             </form>
-            { type === Merger.PlayerType.Spotify ? <Link to="/youtube/search"><img src="/images/youtube.png" alt="Error"></img></Link>
-            : <Link to="/spotify/search"><img src="/images/spotify.png" alt="Error"></img></Link>}
+            {type === Merger.PlayerType.Spotify ?
+                <Link to="/youtube/search"><img src="/images/youtube.png" alt="Error"></img></Link>
+                : <Link to="/spotify/search"><img src="/images/spotify.png" alt="Error"></img></Link>}
         </div>
     )
 }

@@ -1,16 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { MergerPlayerContext, MergerPlayerContextType } from '../../contexts/MergerPlayerContext';
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import "../../scss/progressBar.scss";
-import { mergerSeek } from '../../utils/mergerUtils';
-import { convertToMins } from '../../utils/utils';
+import {mergerSeek} from '../../utils/mergerUtils';
+import {convertToMins} from '../../utils/utils';
+import {useAppSelector} from "../hooks";
+import {rootState} from "../../App";
 
+interface Props {
+    func?: Function
+}
 
-const ProgressBar: React.FC = () => {
+const ProgressBar: React.FC<Props> = ({func} : Props) => {
 
-    const player: MergerPlayerContextType = useContext(MergerPlayerContext); 
+    const mergerState = useAppSelector(rootState);
 
     const [value, setValue] = useState<number>(0);
-    const [maxRange, setMaxRange] = useState<number | undefined>(player.state?.duration);
+    const [maxRange, setMaxRange] = useState<number | undefined>(mergerState.state?.duration);
     const [progressInterval, setProgressInterval] = useState<NodeJS.Timer>();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,39 +27,39 @@ const ProgressBar: React.FC = () => {
 
     const handleIncrement = () => {
         setValue((prevValue: number) => {
-            return 250+prevValue;
+                return 250 + prevValue;
             }
-        );
+        )
     }
 
     useEffect(() => {
-        if (player.state?.progressMs !== undefined && player.state?.duration !== undefined) {
-            setMaxRange(Math.floor(player.state?.duration));
-            setValue(player.state?.progressMs);
-            if (player.state?.paused !== undefined) {
-                if (progressInterval !== undefined && player.state?.paused === true) {
+        if (mergerState.state?.progressMs !== undefined && mergerState.state?.duration !== undefined) {
+            setMaxRange(Math.floor(mergerState.state?.duration));
+            setValue(mergerState.state?.progressMs);
+            if (mergerState.state?.paused !== undefined) {
+                if (progressInterval !== undefined && mergerState.state?.paused === true) {
                     clearInterval(progressInterval);
                     setProgressInterval(undefined);
-                } else if (progressInterval === undefined && player.state?.paused === false) {
+                } else if (progressInterval === undefined && mergerState.state?.paused === false) {
                     setProgressInterval(setInterval(handleIncrement, 250));
                 }
             }
-        };
-        console.log(player.state);
+        }
+        console.log(mergerState.state);
 
-    },[player.state?.duration, player.state?.progressMs, player.state?.paused, player.state])
+    }, [mergerState.state?.duration, mergerState.state?.progressMs, mergerState.state?.paused, mergerState.state])
 
     return (
         <div id="progress-bar-container">
             <span id="time">{convertToMins(value)}</span>
-            <input disabled={player.state?.duration !== undefined ? false : true}
-            type="range"
-            onClick={() => mergerSeek(player,value)}
-            onChange={(e) => handleChange(e)}
-            value={value}
-            min="0"
-            max={maxRange}
-            id="progress-slider"></input>
+            <input disabled={mergerState.state?.duration === undefined}
+                   type="range"
+                   onClick={() => {if (func) func(value)}}
+                   onChange={(e) => handleChange(e)}
+                   value={value}
+                   min="0"
+                   max={maxRange}
+                   id="progress-slider"/>
         </div>
     )
 }
