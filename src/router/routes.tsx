@@ -10,6 +10,8 @@ import { SpotifySearchWindow } from "../pages/SpotifySearchWindow";
 import { YoutubeSearchWindow } from "../pages/YoutubeSearchWindow";
 import { SpotifyAlbumPage } from "../pages/SpotifyAlbumPage";
 import React from "react";
+import {SpotifyArtistPage} from "../pages/SpotifyArtistPage";
+import {QueuePage} from "../pages/QueuePage";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -39,6 +41,12 @@ export const Routes: React.FC = () => (
                             </Route>
                             <Route path="/youtube/search">
                                 <YoutubeSearchWindow/>
+                            </Route>
+                            <Route path="/spotify/artist/:id">
+                                <SpotifyArtistPage/>
+                            </Route>
+                            <Route path="/queue">
+                                <QueuePage/>
                             </Route>
                         </Switch>
                 </MainWindow>

@@ -1,19 +1,20 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "../../scss/playerButton.scss";
 import PlayerButton from "./PlayerButton";
 import InfoPlayerContainer from "./InfoPlayerContainer";
 import ProgressBar from "./ProgressBar";
 import VolumeSlider from "./VolumeSlider";
-import {initializationError, mergerTogglePlayBack} from "../../utils/mergerUtils";
+import {initializationError, mergerNextSong, mergerPrevSong, mergerTogglePlayBack} from "../../utils/mergerUtils";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {rootState, store} from "../../App";
-import Merger, {SpotifyOptions} from "../../interfaces/Merger";
+import Merger from "../../interfaces/Merger";
 import {ActionTypeDeviceID} from "../features/deviceId/deviceIdSlice";
 import {
-    spotifyUpdateState,
+    spotifySeek, updatePlaybackState,
     waitForSpotifyWebPlaybackSDKToLoad
 } from "../../utils/spotifyUtils";
 import Cookies from "js-cookie";
+import {Link} from "react-router-dom";
 
 let stateImg = {
     pause: "/images/PauseButton.svg",
@@ -22,7 +23,7 @@ let stateImg = {
 
 export const Player: React.FC = () => {
 
-    const mergerState = useAppSelector(rootState);
+    const mergerState = useAppSelector(rootState); // this is used as a reference!
     const dispatcher = useAppDispatch();
     const [SDK, setSDK] = useState<Spotify.Player | undefined>();
 
@@ -63,7 +64,7 @@ export const Player: React.FC = () => {
             console.error("Failed to validate Spotify account", message);
         });
         spotifyPlayer.addListener('player_state_changed', (state) => {
-            spotifyUpdateState(state);
+            //spotifyUpdateState(state);
         });
         spotifyPlayer.addListener("ready", ({device_id}) => {
             dispatcher({type: ActionTypeDeviceID.SET_DEVICE_ID, payload: device_id});
@@ -72,17 +73,13 @@ export const Player: React.FC = () => {
         spotifyPlayer.connect().then((res) => res ? console.log("Spotify Connected.") : console.error("Spotify couldn't connect!"));
         setSDK(spotifyPlayer);
     };
-    const togglePlayback = async () => {
-        return mergerTogglePlayBack()
-    };
-    const setProgress = (value: number) => {
-        let state: Merger.PlayerState = store.getState().state;
-        if (state.currentPlayer !== undefined) {
-            if (state.currentPlayer === Merger.PlayerType.Spotify) {
+
+    const setProgress = async (value: number) => {
+        if (mergerState.state.currentPlayer !== undefined) {
+            if (mergerState.state.currentPlayer === Merger.PlayerType.Spotify) {
                 if (SDK) {
-                    SDK.seek(value).then(res => {
-                        console.log(res)
-                    }).catch(err => console.error(err));
+                    await spotifySeek(value);
+                    updatePlaybackState();
                     return;
                 }
                 throw new Error(initializationError)
@@ -125,18 +122,25 @@ export const Player: React.FC = () => {
 
     return (
         <div id="player">
-            <InfoPlayerContainer track={mergerState.state?.currentSong}/>
+            <InfoPlayerContainer/>
             <div>
                 <div id="player-buttons-container">
-                    <PlayerButton id="prev-button" src="/images/PrevButton.svg" execFunc={togglePlayback}/>
-                    <PlayerButton src={mergerState.state?.paused ? stateImg.pause : stateImg.play} text="Toggle Play"
-                                  id="play-button" execFunc={togglePlayback}/>
-                    <PlayerButton id="next-button" src="/images/NextButton.svg" execFunc={() => {
-                    }}/>
+                    <PlayerButton disabled={mergerState.state.previousSong === undefined} id="prev-button"
+                                  src="/images/PrevButton.svg" execFunc={() => mergerPrevSong()}/>
+                    <PlayerButton disabled={false} src={mergerState.state.paused ? stateImg.play : stateImg.pause}
+                                  text="Toggle Play"
+                                  id="play-button" execFunc={mergerTogglePlayBack}/>
+                    <PlayerButton disabled={mergerState.state.nextSong === undefined} id="next-button"
+                                  src="/images/NextButton.svg" execFunc={mergerNextSong}/>
                 </div>
-                <ProgressBar func={(value: number) => setProgress(value)}/>
+                <ProgressBar func={setProgress}/>
             </div>
-            <VolumeSlider func={(value: number) => setVolume(value)}/>
+            <div>
+                <Link to={"/queue"}>
+                    <img src="/images/queueIcon.png" alt="error"/>
+                </Link>
+            </div>
+            <VolumeSlider isDisabled={!store.getState().state.currentPlayer} func={(value: number) => setVolume(value)}/>
         </div>
     );
 }

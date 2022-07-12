@@ -1,7 +1,7 @@
 @use "fonts";
 
 body {
-  margin: 0px;
+  margin: 0;
 }
 
 ::-webkit-scrollbar {
@@ -42,20 +42,20 @@ body {
       #search-button {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        width: auto;
-        height: 40px;
-        background-color: #1d1d1d;
+        justify-content: center;
+        width: 80%;
+        margin: 5px auto;
+        height: 30px;
+        border-radius: 15px;
+        background-color: #303e72;
         text-decoration: none;
 
         div {
-          margin-right: auto;
-          padding: 5px;
-
+          height: 15px;
+          margin: auto;
           img {
-            width: 30px;
-            height: 30px;
-            margin-right: auto;
+            width: 15px;
+            height: 15px;
             filter: invert(100%);
           }
         }
@@ -64,7 +64,7 @@ body {
           font-family: PTSansRegular;
           margin-right: auto;
           font-weight: 100;
-          font-size: 15px;
+          font-size: 18px;
           color: rgb(216, 216, 216);
         }
       }
@@ -83,7 +83,7 @@ body {
         }
 
         a:hover {
-          background-color: #343434;
+          background-color: #303e72;
           transition: 0.1s ease-in-out;
         }
       }
@@ -124,10 +124,28 @@ body {
 
   div:nth-child(2) {
     display: flex;
-    width: 60%;
+    width: 50%;
     height: 100%;
     flex-direction: column;
     margin: auto;
+
+    #progress-bar-container {
+      width: 100%;
+    }
+  }
+
+  div:nth-child(3) {
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 12.5%;
+    a {
+      margin: auto 0px auto auto;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 }
 

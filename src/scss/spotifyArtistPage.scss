@@ -1,0 +1,101 @@
+#spotify-artist-page {
+  #header {
+    height: 300px;
+    width: 100%;
+    background-size: 100%;
+    background-position-y: 50%;
+    position: relative;
+
+    h1 {
+      font-family: PTSansRegular;
+      font-size: 4em;
+      font-weight: bolder;
+      position: absolute;
+      bottom: 0px;
+      color:white;
+      margin-left: 30px;
+    }
+  }
+
+  #content {
+    margin: 20px 50px;
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      display: flex;
+      flex-direction: row;
+
+      #top-tracks {
+        width: 50%;
+        display:flex;
+        flex-direction: column;
+
+        > h2 {
+          font-family: PTSansRegular;
+          font-weight: bold;
+          font-size: 2em;
+          color: white;
+        }
+
+      }
+
+      #related-artists {
+        width: 50%;
+        flex-wrap: wrap;
+        margin-left: 50px;
+        display: flex;
+        flex-direction: column;
+        > div {
+          background-color: rgba(168, 168, 168, 0.25);
+          border-radius: 15px 0px 0px 15px;
+          margin: auto;
+          flex-direction: row;
+          padding: 30px;
+          display:flex;
+          flex-wrap: wrap;
+          height: 410px;
+          justify-content: center;
+          overflow-y: scroll;
+          * {
+            margin-bottom: 10px;
+          }
+        }
+
+        > h2 {
+          font-family: PTSansRegular;
+          font-weight: bold;
+          font-size: 2em;
+          color: white;
+        }
+      }
+    }
+
+    #discography {
+      display: flex;
+      flex-direction: column;
+
+      > h2 {
+        font-family: PTSansRegular;
+        font-weight: bold;
+        font-size: 2em;
+        color: white;
+      }
+
+      > div {
+        display: flex;
+        flex-direction: row;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        .album-block:first-child {
+          margin: 0px 10px 0px 0px;
+        }
+
+        .album-block:last-child {
+          margin: 0px 0px 0px 10px;
+        }
+        padding-bottom: 10px;
+      }
+    }
+  }
+}

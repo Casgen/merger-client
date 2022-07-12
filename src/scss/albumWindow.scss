@@ -7,7 +7,24 @@
     border-collapse: collapse;
     #header-row {
       border-bottom: 1px solid rgb(51, 51, 51);
-      line-height: 0px;
+      height: 60px;
+      line-height: 0;
+      #duration {
+        width: 5%;
+        h5 {
+          text-align: center;
+        }
+      }
+
+      #name {
+        width: 90%;
+        text-align: left;
+      }
+
+      #num {
+        text-align: left;
+      }
+
       h5 {
         font-family: PTSansBold;
         color: white;
@@ -15,18 +32,32 @@
       }
     }
 
-    .track-row {
+    .album-row {
       line-height: 0px;
       transition: background-color 100ms ease-in;
 
       td:first-child {
-        display: flex;
         align-items: center;
-        width: 92%;
+        width: 5%;
+        h4 {
+          color:white;
+          font-family: PTSansRegular;
+          font-weight: lighter;
+        }
+      }
+
+      td:nth-child(2) {
+        width: 90%;
       }
 
       td:last-child {
-        width: 8%;
+        width: 5%;
+        h4 {
+          color:white;
+          font-family: PTSansRegular;
+          font-weight: lighter;
+          text-align: center;
+        }
       }
 
       a {
@@ -41,7 +72,7 @@
       }
     }
 
-    .track-row:hover {
+    .album-row:hover {
       background-color: #3030308f;
       cursor: pointer;
     }
@@ -51,7 +82,7 @@
 #album-header {
   width: 100%;
   display: flex;
-  margin: 30px 30px 0px 30px;
+  margin: 30px 30px 0px 5px;
   justify-content: flex-start;
   align-items: center;
 
@@ -61,6 +92,16 @@
     color: white;
     font-family: PTSansBold;
     margin: 10px auto 10px 20px;
+    a {
+      text-decoration: none;
+      color: white;
+      font-family: PTSansRegular;
+      transition: 0.1s ease-in;
+    }
+
+    a:hover {
+      color: #c2c2c2;
+    }
   }
 
   div:nth-child(2) {

@@ -3,25 +3,29 @@ import { Link } from 'react-router-dom';
 import { convertToMins } from '../../utils/utils';
 
 type Props = {
+    count: number,
     track: SpotifyApi.TrackObjectSimplified;
     key: string
-    execFunc: VoidFunction
+    execFunc: Function
 }
 
-export const AlbumTableRow = ({track, key, execFunc}: Props) => {
+export const AlbumTableRow = ({track, key, execFunc, count}: Props) => {
 
 
     const handleClick = () => {
-        execFunc();
+        execFunc(track);
     }
 
     return (
-        <tr onClick={handleClick} className="track-row">
+        <tr onClick={handleClick} key={key} className="album-row">
+            <td>
+                <h4>{count}</h4>
+            </td>
             <td>
                 <h5>{track.name}</h5>
             </td>
             <td>
-                <Link to="#">{convertToMins(track.duration_ms)}</Link>
+                <h4>{convertToMins(track.duration_ms)}</h4>
             </td>
         </tr>
     )

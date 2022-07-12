@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import "../../scss/volumeSlider.scss";
 
 interface Props {
-    func?: Function
+    func?: Function,
+    isDisabled: boolean
 }
 
-const VolumeSlider: React.FC<Props> = ({func} : Props) => {
+const VolumeSlider: React.FC<Props> = ({func, isDisabled} : Props) => {
     let [value, setValue] = useState<number>(50);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +22,7 @@ const VolumeSlider: React.FC<Props> = ({func} : Props) => {
     return (
         <div id="volume-container">
             <input id="volume-slider"
+                   disabled={isDisabled}
                    type="range"
                    min="-2"
                    max="102"

@@ -5,6 +5,8 @@ import moment from "moment";
 import {store} from "../App";
 import {ActionTypeState} from "../components/features/state/stateSlice";
 
+export const youtubeIsUndefinedError: string = "Youtube Player is undefined!";
+
 export const setupYoutubePlayer = (uri?: gapi.client.youtube.ResourceId) => {
     if (window.youtubePlayer == null) {
         let youtubePlayer = YouTubePlayer('youtube-player-window', {...YoutubeOptions, videoId: uri?.videoId});
@@ -97,17 +99,35 @@ export const setupYoutubePlayer = (uri?: gapi.client.youtube.ResourceId) => {
 
     window.youtubePlayer.playVideo();
 }
-export const youtubePlay = async (uri?: gapi.client.youtube.ResourceId) => {
-    if (uri?.videoId !== undefined) {
-        const res: Promise<AxiosResponse<unknown, any>> = axios.get(`${process.env.API_LINK}/video/${uri.videoId}`)
-        const video = (await res).data;
-        if (window.youtubePlayer !== undefined) {
-            window.youtubePlayer.cueVideoById(uri?.videoId);
+
+const requestPlay = async (id: string) => {
+    const res: Promise<AxiosResponse<unknown, any>> = axios.get(`${process.env.API_LINK}/video/${id}`)
+    const video = (await res).data;
+    if (window.youtubePlayer !== undefined) {
+            window.youtubePlayer.cueVideoById(id);
             window.youtubePlayer.playVideo();
             return;
+    }
+    throw new Error(youtubeIsUndefinedError);
+}
+
+const isResourceId = (obj: any): obj is gapi.client.youtube.ResourceId => {
+    return (obj as gapi.client.youtube.ResourceId).videoId !== undefined;
+}
+
+export const youtubePlay = async (uri?: gapi.client.youtube.ResourceId | string) => {
+    if (uri !== undefined) {
+        if (isResourceId(uri)) {
+            let resourceId: gapi.client.youtube.ResourceId = uri as gapi.client.youtube.ResourceId;
+            if (resourceId.videoId)
+                requestPlay(resourceId.videoId);
+            return;
         }
-        throw new Error(youtubeIsUndefinedError);
+
+        let uriString: string = uri as string;
+        if (uriString)
+            requestPlay(uriString);
+        return;
     }
 }
 
-export const youtubeIsUndefinedError: string = "Youtube Player is undefined!";

@@ -1,19 +1,10 @@
 import { Options, YouTubePlayer } from "youtube-player/dist/types";
-import Cookies from "js-cookie";
 
 namespace Merger {
 
-    export interface SpotifyPlayer{
+    export interface SpotifyPlayer {
         spotify?: Spotify.Player,
         deviceId: string
-    }
-
-    export interface PlayerCurrentSongInfo {
-        img: string | null,
-        artist: string | null,
-        songTitle: string | null,
-        imgUrl: string | null,
-        artistUrl: string | null
     }
 
 
@@ -29,22 +20,18 @@ namespace Merger {
     export interface PlayerState {
         currentPlayer?: PlayerType.Spotify | PlayerType.Youtube,
         paused: boolean,
-        previousSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.ResourceId,
-        currentSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.Video,
-        nextSong?: Spotify.PlaybackTrackWindow | gapi.client.youtube.ResourceId,
+        previousSong?: gapi.client.youtube.Video | SpotifyApi.TrackObjectFull,
+        currentSong?: gapi.client.youtube.Video | SpotifyApi.TrackObjectFull,
+        nextSong?:  gapi.client.youtube.Video | SpotifyApi.TrackObjectFull,
         progressMs?: number,
         duration?: number, 
-        resuming?: boolean,
+        pausedByUser?: boolean,
         ytState?: number
     }
 
-    export interface State {
-        spotifyPlayer: Merger.SpotifyPlayer | null,
-        youtubePlayer: YouTubePlayer | null,
-        state: Merger.PlayerState,
-        loop: boolean,
-        queue: Array<string>;
-        shuffle: boolean,
+    export interface Queue {
+        queue: Array<SpotifyApi.TrackObjectFull>,
+        counter: number
     }
 }
 
@@ -63,18 +50,5 @@ export const YoutubeOptions: Options = {
         controls: 0
     }
 };
-
-export const SpotifyOptions: Spotify.PlayerInit = {
-    name: "Web Playback SDK Quick Start Player",
-    getOAuthToken: (cb: (token: string) => void) => {
-        let token: undefined | string = Cookies.get("access_token");
-        if (token !== undefined) {
-            cb(token);
-            return;
-        }
-        console.error("Couldn't create new player!, token is invalid!",token);
-    },
-    volume: 0.5,
-}
 
 export default Merger;
