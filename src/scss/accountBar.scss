@@ -3,30 +3,29 @@
 #account-bar {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  width: auto;
-  height: 40px;
-  background-color: #1d1d1d;
-}
+  margin: 10px auto;
+  width: 80%;
+  height: 30px;
+  background-color: #303e72;
+  border-radius: 15px;
 
-#account-bar {
   img {
-    filter: invert(100%);
+    border-radius: 100%;
+    margin-right: auto;
     width: 100%;
     height: 100%;
   }
 
   h3 {
-    margin-right: auto;
     font-size: 16px;
+    margin: auto;
     font-family: PTSansRegular;
+    font-weight: lighter;
     color: rgb(216, 216, 216);
   }
 
   > div {
     aspect-ratio: 1;
-    margin-right: auto;
     height: 100%;
-    background-color: black;
   }
 }

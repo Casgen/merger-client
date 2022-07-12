@@ -7,6 +7,7 @@ interface Props {
   width?: number,
   height?: number;
   id: string;
+  disabled: boolean;
 }
 
 export const PlayerButton: React.FC<Props> = (props: Props) => {
@@ -15,7 +16,7 @@ export const PlayerButton: React.FC<Props> = (props: Props) => {
     props.execFunc();
   }
 
-  return <button className="player-button" id={props.id} onClick={handleClick}>
+  return <button disabled={props.disabled} className="player-button" id={props.id} onClick={handleClick}>
           <img src={props.src} alt="X"></img>
         </button>;
 }

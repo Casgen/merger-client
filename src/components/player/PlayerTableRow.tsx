@@ -5,15 +5,13 @@ import { convertToMins } from '../../utils/utils';
 interface Props {
     track: SpotifyApi.TrackObjectFull,
     key: string
-    execFunc: VoidFunction
+    execFunc: Function
 }
-
-// TODO: Seperate the names of the artists, when there are multiple of them (by comma or whitespac)
 
 export const PlayerTableRow: React.FC<Props> = ({track,execFunc}: Props) => {
 
     const handleClick = () => {
-        execFunc();
+        execFunc(track);
     }
 
     return (

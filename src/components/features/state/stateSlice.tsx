@@ -3,7 +3,11 @@ import Merger from "../../../interfaces/Merger";
 export enum ActionTypeState {
     STATE_CHANGE = "STATE_CHANGE",
     PAUSE = "PAUSE",
-    RESUME = "RESUME"
+    RESUME = "RESUME",
+    SET_PREV_AND_NEXT_SONG = "SET_PREV_AND_NEXT_SONG",
+    PAUSE_BY_USER = "PAUSE_BY_USER",
+    PLAY_BY_USER = "PLAY_BY_USER",
+    SEEK_CHANGE = "SEEK_CHANGE"
 }
 
 interface ActionChange {
@@ -11,20 +15,33 @@ interface ActionChange {
     payload: Merger.PlayerState
 }
 
-interface ActionPause {
-    type: ActionTypeState.PAUSE
+interface ActionPauseByUser {
+    type: ActionTypeState.PAUSE_BY_USER;
 }
 
-interface ActionResume {
-    type: ActionTypeState.RESUME
+interface ActionPlayByUser {
+    type: ActionTypeState.PLAY_BY_USER,
+}
+
+interface ActionSetPrevAndNextSong {
+    type: ActionTypeState.SET_PREV_AND_NEXT_SONG,
+    payload: {
+        previous: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video,
+        next: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video
+    }
+}
+
+interface ActionSetSeek {
+    type: ActionTypeState.SEEK_CHANGE,
+    payload: number
 }
 
 const initState: Merger.PlayerState = {
-  resuming: false,
-  paused: false,
+    pausedByUser: false,
+    paused: false,
 };
 
-type Action = ActionChange | ActionPause | ActionResume;
+type Action = ActionChange | ActionPauseByUser | ActionPlayByUser | ActionSetPrevAndNextSong | ActionSetSeek;
 
 export const stateReducer = (state: Merger.PlayerState = initState, action: Action): Merger.PlayerState => {
     switch (action.type) {
@@ -38,27 +55,43 @@ export const stateReducer = (state: Merger.PlayerState = initState, action: Acti
                 nextSong: action.payload.nextSong,
                 progressMs: action.payload.progressMs,
                 duration: action.payload.duration,
-                resuming: action.payload.resuming,
+                pausedByUser: action.payload.pausedByUser,
                 ytState: action.payload.ytState
             }
         }
 
-        case ActionTypeState.PAUSE: {
-            return {
-                ...state,
-                paused: false,
-                resuming: false,
-            }
-        }
-
-        case ActionTypeState.RESUME: {
+        case ActionTypeState.PAUSE_BY_USER: {
             return {
                 ...state,
                 paused: true,
-                resuming: true,
+                pausedByUser: true,
             }
         }
 
-        default: return state;
+        case ActionTypeState.PLAY_BY_USER: {
+            return {
+                ...state,
+                paused: false,
+                pausedByUser: false,
+            }
+        }
+
+        case ActionTypeState.SET_PREV_AND_NEXT_SONG: {
+            return {
+                ...state,
+                nextSong: action.payload.next,
+                previousSong: action.payload.previous
+            }
+        }
+
+        case ActionTypeState.SEEK_CHANGE: {
+            return {
+                ...state,
+                progressMs: action.payload
+            }
+        }
+
+        default:
+            return state;
     }
 }

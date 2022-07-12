@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { trimString } from '../../utils/utils';
+import { trimString, listArtists } from '../../utils/utils';
+import "../../scss/artists/artistBlock.scss";
+import "../../scss/albums/albumBlock.scss";
 
 interface Props {
     album: SpotifyApi.AlbumObjectSimplified;
@@ -8,18 +10,13 @@ interface Props {
 
 export const AlbumBlock: React.FC<Props> = ({album}: Props) => {
 
-    const [artists, setArtists] = useState<string[] | undefined>(undefined);
-
     return (
         <div className="album-block">
             <img src={album.images[0].url} alt="Error loading!"></img>
             <div>
                 <Link className='album-title' to={`/spotify/album/${album.id}`}>{trimString(album.name,22)}</Link>
                 <div>
-                    {album.artists.map((artist: SpotifyApi.ArtistObjectSimplified, index: number) => {
-                        if (index === 0) return <Link className='artist-title' key={artist.id} to={artist.href}>{artist.name}</Link>;
-                        return  <Link className='artist-title' key={artist.id} to={artist.href}>, {artist.name}</Link>;
-                    })}
+                    {listArtists(album.artists)}
                 </div>
             </div>
         </div>

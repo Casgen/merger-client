@@ -1,6 +1,6 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import "../../scss/progressBar.scss";
-import {mergerSeek} from '../../utils/mergerUtils';
+import {mergerNextSong, mergerSeek} from '../../utils/mergerUtils';
 import {convertToMins} from '../../utils/utils';
 import {useAppSelector} from "../hooks";
 import {rootState} from "../../App";
@@ -9,7 +9,7 @@ interface Props {
     func?: Function
 }
 
-const ProgressBar: React.FC<Props> = ({func} : Props) => {
+const ProgressBar: React.FC<Props> = ({func}: Props) => {
 
     const mergerState = useAppSelector(rootState);
 
@@ -19,6 +19,7 @@ const ProgressBar: React.FC<Props> = ({func} : Props) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value as unknown as number);
+        console.log(value);
         if (progressInterval !== undefined) {
             clearInterval(progressInterval);
             setProgressInterval(undefined);
@@ -27,15 +28,19 @@ const ProgressBar: React.FC<Props> = ({func} : Props) => {
 
     const handleIncrement = () => {
         setValue((prevValue: number) => {
-                return 250 + prevValue;
+            if (mergerState.state.duration &&
+                !mergerState.state.pausedByUser &&
+                value >= mergerState.state.duration) {
+                mergerNextSong()
             }
-        )
+            return prevValue + 250;
+        })
+
     }
 
     useEffect(() => {
         if (mergerState.state?.progressMs !== undefined && mergerState.state?.duration !== undefined) {
-            setMaxRange(Math.floor(mergerState.state?.duration));
-            setValue(mergerState.state?.progressMs);
+            setMaxRange(mergerState.state?.duration);
             if (mergerState.state?.paused !== undefined) {
                 if (progressInterval !== undefined && mergerState.state?.paused === true) {
                     clearInterval(progressInterval);
@@ -44,18 +49,19 @@ const ProgressBar: React.FC<Props> = ({func} : Props) => {
                     setProgressInterval(setInterval(handleIncrement, 250));
                 }
             }
+            setValue(mergerState.state?.progressMs);
         }
-        console.log(mergerState.state);
-
-    }, [mergerState.state?.duration, mergerState.state?.progressMs, mergerState.state?.paused, mergerState.state])
+    }, [mergerState.state?.duration, mergerState.state?.progressMs, mergerState.state?.paused])
 
     return (
         <div id="progress-bar-container">
             <span id="time">{convertToMins(value)}</span>
             <input disabled={mergerState.state?.duration === undefined}
                    type="range"
-                   onClick={() => {if (func) func(value)}}
-                   onChange={(e) => handleChange(e)}
+                   onClick={() => {
+                       if (func) func(value)
+                   }}
+                   onChange={handleChange}
                    value={value}
                    min="0"
                    max={maxRange}

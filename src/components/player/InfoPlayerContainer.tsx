@@ -1,40 +1,36 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import React, {useEffect} from 'react'
+import {Link} from 'react-router-dom';
 import "../../scss/playerInfoContainer.scss";
+import {useAppSelector} from "../hooks";
+import {rootState} from "../../App";
+import {isSpotifyTrackObjectFull, splitSpotifyUri} from "../../utils/spotifyUtils";
 
 
-interface Props {
-    track: Spotify.PlaybackTrackWindow | gapi.client.youtube.Video | undefined
-}
+const InfoPlayerContainer: React.FC = () => {
 
-const InfoPlayerContainer: React.FC<Props> = ({track}: Props) => {
-
-    const isSpotify = (obj: any): obj is Spotify.PlaybackTrackWindow => {
-        return (obj as Spotify.PlaybackTrackWindow).current_track !== undefined;
-    }
+    const currentSong = useAppSelector(rootState).state.currentSong;
 
     const handleInfo = (): JSX.Element => {
-        if (track !== undefined) {
-            if (isSpotify(track)) {
+        if (currentSong !== undefined) {
+            if (isSpotifyTrackObjectFull(currentSong)) {
                 return <>
-                    <img src={track.current_track.album.images[0].url} alt="Error"></img>
+                    <img src={currentSong.album.images[0].url} alt="Error"></img>
                     <div id="headers-container">
-                        {track.current_track.artists.map((value: Spotify.Artist,index: number): JSX.Element => {
-                            if (index === 0) return <Link to={value.uri} id="artist">{value.name}</Link>;
-                            return <Link to={value.uri} id="artist">, {value.name}</Link>
+                        {currentSong.artists.map((value: Spotify.Artist, index: number): JSX.Element => {
+                            if (index === 0) return <Link to={`/spotify/artist/${splitSpotifyUri(value.uri)}`} id="artist"
+                                                          key={value.uri}>{value.name}</Link>;
+                            return <Link to={splitSpotifyUri(value.uri)} id="artist" key={value.uri}>, {value.name}</Link>
                         })}
-                        <h3 id="song-name">{track.current_track.name}</h3>
+                        <h3 id="song-name">{currentSong.name}</h3>
                     </div>
                 </>
             }
-            return <></>    
+            return <></>
         }
         return <></>
     }
 
-    useEffect(() => {
-
-    },[track])
+    useEffect(() => {}, [currentSong])
 
     return (
         <div id="player-info-container">

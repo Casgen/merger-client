@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, {useState, useEffect} from 'react'
 import AccountBar from './account/AccountBar';
 import { Login } from './Login';

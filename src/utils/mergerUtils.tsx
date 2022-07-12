@@ -1,34 +1,16 @@
 import Merger from "../interfaces/Merger";
-import {spotifyPause, spotifyPlay, spotifySeek, spotifySetVolume} from "./spotifyUtils";
+import {
+    isSpotifyTrackObject,
+    isSpotifyTrackObjectFull,
+    spotifyPause,
+    spotifyPlay,
+    spotifySeek,
+    spotifySetVolume
+} from "./spotifyUtils";
 import {store} from "../App";
 import {ActionTypeQueue} from "../components/features/queue/queueSlice";
-
-export const mergerPlay = (uri: string) => {
-    let state: Merger.PlayerState = store.getState().state;
-    let spotifyRegExp = new RegExp(/spotify/g);
-
-    if (spotifyRegExp.test(uri) && window.Spotify !== undefined) {
-        if (state.currentPlayer === Merger.PlayerType.Youtube) {
-            window.youtubePlayer.stopVideo();
-            return;
-        }
-        spotifyPlay([uri]);
-        return;
-    }
-    throw new Error(initializationError);
-}
-
-export const mergerPause = () => {
-    let state: Merger.PlayerState = store.getState().state;
-
-    if (state !== undefined) {
-        if (state.currentPlayer === Merger.PlayerType.Spotify) {
-            return spotifyPause();
-        }
-        return window.youtubePlayer.pauseVideo();
-    }
-    throw new Error(initializationError);
-}
+import {ActionTypeState} from "../components/features/state/stateSlice";
+import {youtubePlay} from "./youtubeUtils";
 
 export const mergerTogglePlayBack = () => {
     let state: Merger.PlayerState = store.getState().state;
@@ -42,6 +24,72 @@ export const mergerTogglePlayBack = () => {
     }
     throw new Error(initializationError);
 }
+
+export const mergerLoadAndPlay = (track: SpotifyApi.TrackObjectSimplified) => {
+
+        let state: Merger.PlayerState = store.getState().state;
+        store.dispatch({type: ActionTypeState.RESUME})
+
+        if (isSpotifyTrackObject(track) && window.Spotify !== undefined) {
+            if (state.currentPlayer === Merger.PlayerType.Youtube) {
+                window.youtubePlayer.stopVideo();
+                return;
+            }
+            spotifyPlay([track.uri]);
+            return;
+        }
+        throw new Error(initializationError);
+}
+
+
+export const mergerPrevSong = () => {
+    let state: Merger.PlayerState = store.getState().state;
+    if (state.previousSong !== undefined) {
+        if (isSpotifyTrackObjectFull(state.previousSong)) {
+            spotifyPlay([state.previousSong.uri]);
+        } else {
+            youtubePlay(state.previousSong);
+        }
+
+        /*This needs to be done in order to prevent unexpected behaviour, if I really depend on getting the value straight
+        from the state, the value can't be guaranteed to be updated right away*/
+        let oldIndex: number = store.getState().queue.counter-1;
+        store.dispatch({type: ActionTypeQueue.DEC_QUEUE_COUNTER});
+
+        let queue: Array<SpotifyApi.TrackObjectFull> = store.getState().queue.queue;
+
+        store.dispatch({
+            type: ActionTypeState.SET_PREV_AND_NEXT_SONG, payload: {
+                previous: queue[oldIndex-1],
+                next: queue[1+oldIndex]
+            }
+        })
+    }
+};
+
+export const mergerNextSong = () => {
+    let state: Merger.PlayerState = store.getState().state;
+    if (state.nextSong !== undefined) {
+        if (isSpotifyTrackObjectFull(state.nextSong)) {
+            spotifyPlay([state.nextSong.uri]);
+        } else {
+            youtubePlay(state.nextSong);
+        }
+
+        let oldIndex: number = 1 + store.getState().queue.counter;
+        store.dispatch({type: ActionTypeQueue.INC_QUEUE_COUNTER});
+
+        let queue: Array<SpotifyApi.TrackObjectFull> = store.getState().queue.queue;
+
+        store.dispatch({
+            type: ActionTypeState.SET_PREV_AND_NEXT_SONG, payload: {
+                previous: queue[oldIndex-1],
+                next: queue[1+oldIndex]
+            }
+        })
+    }
+};
+
 
 export const mergerSetVolume = (value: number) => {
     if (store.getState().state.currentPlayer !== undefined) {
@@ -65,19 +113,39 @@ export const mergerSeek = async (value: number): Promise<void> => {
     throw new Error(initializationError);
 }
 
-export const addNextSpotifySongsToQueue = (uri: string, tracks: SpotifyApi.PlaylistTrackObject[]) => {
-    let index: number = tracks.findIndex((element) => element.track.uri === uri);
+export const addOtherSpotifySongsToQueuePlaylist = (uri: string, tracks: SpotifyApi.TrackObjectFull[]) => {
+    let index: number = tracks.findIndex((element) => element.uri === uri);
+
+
+    store.dispatch({type: ActionTypeQueue.SET_QUEUE, payload: {queue: tracks, counter: index}});
+
+    store.dispatch({
+        type: ActionTypeState.SET_PREV_AND_NEXT_SONG,
+        payload: {next: tracks[1 + index], previous: tracks[index - 1]}
+    });
+}
+
+export const addOtherSpotifySongsToQueueAlbum = (uri: string, tracks: SpotifyApi.TrackObjectSimplified[]) => {
+
+    let index: number = tracks.findIndex((element) => element.uri === uri);
 
     let array: Array<string> = new Array<string>();
 
-    for (let i = index; i < tracks.length; i++) {
-        array.push(tracks[i].track.uri);
+    for (let i = 0; i < tracks.length; i++) {
+        array.push(tracks[i].uri);
     }
 
-    store.dispatch({type: ActionTypeQueue.SET_QUEUE, payload: array})
+    store.dispatch({type: ActionTypeQueue.SET_QUEUE, payload: {queue: array, counter: index}});
+
+    store.dispatch({
+        type: ActionTypeState.SET_PREV_AND_NEXT_SONG,
+        payload: {next: array[1 + index], previous: array[index - 1]}
+    });
 }
 
+
+
 export const initializationError: string = "State hasn't been initialized!";
-export const fetchError: string = "Fetch failed!";
-export const deviceIdIsNullError: string = "Couldn't execute. Device ID is null!";
-export const currentPlayerIsNull: string = "current Player is null!";
+//export const fetchError: string = "Fetch failed!";
+//export const deviceIdIsNullError: string = "Couldn't execute. Device ID is null!";
+//export const currentPlayerIsNull: string = "current Player is null!";

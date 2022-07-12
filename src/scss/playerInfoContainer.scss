@@ -1,40 +1,40 @@
 @use "fonts";
 
-#player-info-container #headers-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0px 20px 0px 20px;
-}
-
 #player-info-container {
-  width: 20%;
+  width: 25%;
   height: 100%;
   display: flex;
   flex-direction: row;
-}
 
-#player-info-container #headers-container {
-  #artist,
-  #song-name {
-    color: white;
-    text-decoration: none;
+  #headers-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 20px 0px 20px;
   }
-}
 
-#player-info-container #headers-container #artist {
-  font-family: PTSansRegular;
-  font-size: 12px;
-}
+  #headers-container {
+    #artist,
+    #song-name {
+      color: white;
+      text-decoration: none;
+    }
 
-#player-info-container #headers-container #song-name {
-  font-family: PTSansBold;
-  font-size: 15px;
-  margin: 5px 0px 5px 0px;
-}
+    #artist {
+      font-family: PTSansRegular;
+      font-size: 12px;
+    }
 
-#player-info-container img {
-  width: auto;
-  height: auto;
-  aspect-ratio: 1;
+    #song-name {
+      font-family: PTSansBold;
+      font-size: 15px;
+      margin: 5px 0px 5px 0px;
+    }
+  }
+
+  img {
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
+  }
 }
