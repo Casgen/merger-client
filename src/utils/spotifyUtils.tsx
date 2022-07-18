@@ -115,4 +115,9 @@ export const splitSpotifyUri = (uri: string): string => {
     return uri.split(":")[2];
 }
 
+export const getSpotifyAccessToken = async (): Promise<string> => {
+    let res: Promise<AxiosResponse<string>> = axios.get<string>(`${process.env.REACT_APP_API_LINK}/spotify/auth/token`);
+    return (await res).data;
+}
+
 export const spotifyIsUndefinedError: string = "Spotify Player is Undefined!";

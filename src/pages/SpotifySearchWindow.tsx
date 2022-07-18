@@ -22,13 +22,13 @@ export const SpotifySearchWindow: React.FC = () => {
     }
 
     const search = (value: string) => {
-        axios.get(`https://api.spotify.com/v1/search?q=${value}&type=album,track,artist&include_external=audio`, {
+        axios.get<SpotifyApi.SearchResponse>(`${process.env.REACT_APP_API_LINK}/spotify/search?q=${value}`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${Cookies.get('access_token')}`
             }
-          }).then((res: AxiosResponse<unknown, any>) => {
-            setResults(res.data as SpotifyApi.SearchResponse);
+          }).then((res: AxiosResponse<SpotifyApi.SearchResponse>) => {
+            setResults(res.data);
           });
           console.log(results);
     }
