@@ -10,6 +10,7 @@ import {rootState, store} from "../../App";
 import Merger from "../../interfaces/Merger";
 import {ActionTypeDeviceID} from "../features/deviceId/deviceIdSlice";
 import {
+    getSpotifyAccessToken,
     spotifySeek, updatePlaybackState,
     waitForSpotifyWebPlaybackSDKToLoad
 } from "../../utils/spotifyUtils";
@@ -39,12 +40,11 @@ export const Player: React.FC = () => {
         let spotifyPlayer = new Spotify.Player({
             name: "Merger",
             getOAuthToken: (cb: (token: string) => void) => {
-                let token: undefined | string = Cookies.get("access_token");
-                if (token !== undefined) {
+                getSpotifyAccessToken().then((token: string) => {
                     cb(token);
-                    return;
-                }
-                console.error("Couldn't create new player!, token is invalid!", token);
+                }).catch((err) => {
+                    console.error("failed to obtain the access token! SDK can not be initialized!", err);
+                })
             },
             volume: 0.5,
         });

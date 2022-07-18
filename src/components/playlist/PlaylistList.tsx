@@ -9,13 +9,11 @@ export const PlaylistList: React.FC = () => {
 
     //TODO maybe catch the errors?
     const fetchPlaylists = async () => {
-        const response: Promise<AxiosResponse<SpotifyApi.ListOfUsersPlaylistsResponse>> = axios.get("https://api.spotify.com/v1/me/playlists",{
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${Cookies.get('access_token')}`
-            }
+        axios.get<SpotifyApi.ListOfUsersPlaylistsResponse>(`${process.env.REACT_APP_API_LINK}/spotify/me/playlists`).then((res: AxiosResponse<SpotifyApi.ListOfUsersPlaylistsResponse>) => {
+            setPlaylists(res.data);
+        }).catch((err) => {
+            console.error("Failed to fetch user's playlists",err);
         });
-        setPlaylists((await response).data);
     }
 
     useEffect(() => {
