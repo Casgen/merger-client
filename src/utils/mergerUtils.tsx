@@ -10,7 +10,11 @@ import {
 import {store} from "../App";
 import {ActionTypeQueue} from "../components/features/queue/queueSlice";
 import {ActionTypeState} from "../components/features/state/stateSlice";
-import {youtubePlay} from "./youtubeUtils";
+import {isResourceId, setupYoutubePlayer, youtubePlay} from "./youtubeUtils";
+import axios from "axios";
+import {Maybe} from "typescript-monads";
+
+var typescriptMonads = require("typescript-monads");
 
 export const mergerTogglePlayBack = () => {
     let state: Merger.PlayerState = store.getState().state;
@@ -25,20 +29,34 @@ export const mergerTogglePlayBack = () => {
     throw new Error(initializationError);
 }
 
-export const mergerLoadAndPlay = (track: SpotifyApi.TrackObjectSimplified) => {
+export const mergerLoadAndPlay = (track: SpotifyApi.TrackObjectSimplified | gapi.client.youtube.Video | gapi.client.youtube.ResourceId) => {
 
-        let state: Merger.PlayerState = store.getState().state;
-        store.dispatch({type: ActionTypeState.RESUME})
+    let state: Merger.PlayerState = store.getState().state;
 
-        if (isSpotifyTrackObject(track) && window.Spotify !== undefined) {
-            if (state.currentPlayer === Merger.PlayerType.Youtube) {
-                window.youtubePlayer.stopVideo();
-                return;
-            }
-            spotifyPlay([track.uri]);
+    store.dispatch({type: ActionTypeState.RESUME})
+
+    if (isSpotifyTrackObject(track)) {
+
+        if (state.currentPlayer === Merger.PlayerType.Youtube)
+            window.youtubePlayer.stopVideo();
+
+        if (!window.Spotify) throw new Error(initializationError);
+
+        spotifyPlay([track.uri]);
+
+        return;
+    }
+    if (state.currentPlayer === Merger.PlayerType.Spotify)
+        axios.put(`${process.env.REACT_APP_API_LINK}/spotify/player/pause?device_id=${store.getState().deviceId}`);
+
+    if (window.youtubePlayer === undefined)  {
+            setupYoutubePlayer(track);
             return;
-        }
-        throw new Error(initializationError);
+    }
+
+    youtubePlay(track);
+
+    return;
 }
 
 
@@ -53,15 +71,15 @@ export const mergerPrevSong = () => {
 
         /*This needs to be done in order to prevent unexpected behaviour, if I really depend on getting the value straight
         from the state, the value can't be guaranteed to be updated right away*/
-        let oldIndex: number = store.getState().queue.counter-1;
+        let oldIndex: number = store.getState().queue.counter - 1;
         store.dispatch({type: ActionTypeQueue.DEC_QUEUE_COUNTER});
 
-        let queue: Array<SpotifyApi.TrackObjectFull> = store.getState().queue.queue;
+        let queue: Array<SpotifyApi.TrackObjectFull | gapi.client.youtube.Video> = store.getState().queue.queue;
 
         store.dispatch({
             type: ActionTypeState.SET_PREV_AND_NEXT_SONG, payload: {
-                previous: queue[oldIndex-1],
-                next: queue[1+oldIndex]
+                previous: queue[oldIndex - 1],
+                next: queue[1 + oldIndex]
             }
         })
     }
@@ -79,12 +97,12 @@ export const mergerNextSong = () => {
         let oldIndex: number = 1 + store.getState().queue.counter;
         store.dispatch({type: ActionTypeQueue.INC_QUEUE_COUNTER});
 
-        let queue: Array<SpotifyApi.TrackObjectFull> = store.getState().queue.queue;
+        let queue: Array<SpotifyApi.TrackObjectFull | gapi.client.youtube.Video> = store.getState().queue.queue;
 
         store.dispatch({
             type: ActionTypeState.SET_PREV_AND_NEXT_SONG, payload: {
-                previous: queue[oldIndex-1],
-                next: queue[1+oldIndex]
+                previous: queue[oldIndex - 1],
+                next: queue[1 + oldIndex]
             }
         })
     }
@@ -113,8 +131,12 @@ export const mergerSeek = async (value: number): Promise<void> => {
     throw new Error(initializationError);
 }
 
-export const addOtherSpotifySongsToQueuePlaylist = (uri: string, tracks: SpotifyApi.TrackObjectFull[]) => {
-    let index: number = tracks.findIndex((element) => element.uri === uri);
+export const addOtherSongsToQueuePlaylist = (uri: string, tracks: SpotifyApi.TrackObjectFull[] | gapi.client.youtube.Video[]) => {
+    let index: number = tracks.findIndex((element) => {
+        if (isSpotifyTrackObject(element))
+            return element.uri === uri;
+        return element.id === uri;
+    });
 
 
     store.dispatch({type: ActionTypeQueue.SET_QUEUE, payload: {queue: tracks, counter: index}});
@@ -124,6 +146,7 @@ export const addOtherSpotifySongsToQueuePlaylist = (uri: string, tracks: Spotify
         payload: {next: tracks[1 + index], previous: tracks[index - 1]}
     });
 }
+
 
 export const addOtherSpotifySongsToQueueAlbum = (uri: string, tracks: SpotifyApi.TrackObjectSimplified[]) => {
 
@@ -142,7 +165,6 @@ export const addOtherSpotifySongsToQueueAlbum = (uri: string, tracks: SpotifyApi
         payload: {next: array[1 + index], previous: array[index - 1]}
     });
 }
-
 
 
 export const initializationError: string = "State hasn't been initialized!";

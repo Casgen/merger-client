@@ -1,0 +1,58 @@
+.track-row {
+  display:flex;
+  width: 100%;
+  flex-direction: row;
+
+  .name {
+    flex-grow: 1;
+    display:flex;
+    align-items: center;
+  }
+
+  line-height: 14px;
+  transition: background-color 100ms ease-in;
+
+  a {
+    text-decoration: none;
+  }
+
+  h5,
+  a,
+  h6 {
+    color: white;
+    font-family: PTSansRegular;
+  }
+
+  .artist {
+    width: 25%;
+    margin: auto;
+  }
+
+  .album {
+    width: 23%;
+    margin:auto;
+  }
+
+  .duration {
+    width: 7%;
+    margin: auto;
+    text-align: center;
+    font-family: PTSansRegular;
+    font-weight: lighter;
+    font-size: 13px;
+    color: white;
+  }
+
+
+  div:first-child img {
+    width: 42px;
+    height: 42px;
+    border-radius: 3px;
+    margin-right: 10px;
+  }
+}
+
+.track-row:hover {
+  background-color: #3030308f;
+  cursor: pointer;
+}

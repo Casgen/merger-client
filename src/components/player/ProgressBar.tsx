@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import "../../scss/progressBar.scss";
 import {mergerNextSong, mergerSeek} from '../../utils/mergerUtils';
-import {convertToMins} from '../../utils/utils';
+import {convertNumberToDuration} from '../../utils/utils';
 import {useAppSelector} from "../hooks";
 import {rootState} from "../../App";
 
@@ -55,7 +55,7 @@ const ProgressBar: React.FC<Props> = ({func}: Props) => {
 
     return (
         <div id="progress-bar-container">
-            <span id="time">{convertToMins(value)}</span>
+            <span id="time">{convertNumberToDuration(value)}</span>
             <input disabled={mergerState.state?.duration === undefined}
                    type="range"
                    onClick={() => {

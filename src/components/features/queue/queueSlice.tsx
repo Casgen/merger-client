@@ -30,7 +30,7 @@ interface ActionDecQueueCounter {
 
 interface ActionAddSong {
     type: ActionTypeQueue.ADD_SONG,
-    payload: SpotifyApi.TrackObjectFull;
+    payload: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video;
 }
 
 type Action = ActionSetQueue | ActionAddSong | ActionSetQueueCounter | ActionIncQueueCounter | ActionDecQueueCounter

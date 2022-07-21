@@ -30,7 +30,7 @@ namespace Merger {
     }
 
     export interface Queue {
-        queue: Array<SpotifyApi.TrackObjectFull>,
+        queue: Array<SpotifyApi.TrackObjectFull | gapi.client.youtube.Video>,
         counter: number
     }
 }

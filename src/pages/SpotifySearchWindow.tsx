@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import React, { useState } from 'react'
 import { AlbumBlock } from '../components/album/AlbumBlock';
 import { SearchBar } from '../components/search/SearchBar';
-import { TrackRow } from '../components/TrackRow';
+import { TrackRowMinimal } from '../components/TrackRowMinimal';
 import Merger from '../interfaces/Merger';
 import "../scss/spotifySearchWindow.scss";
 import {ArtistBlock} from "../components/artist/ArtistBlock";
@@ -54,7 +54,7 @@ export const SpotifySearchWindow: React.FC = () => {
                     {results.tracks !== undefined && results.tracks?.items.length > 0 &&
                         <div id="tracks">
                             {results?.tracks.items.map((value: SpotifyApi.TrackObjectFull): JSX.Element => {
-                                    return <TrackRow showArtist={true} key={value.id} track={value}/>
+                                    return <TrackRowMinimal showArtist={true} key={value.id} track={value}/>
                                 })}
                         </div>}
                     <h1>Artists</h1>
