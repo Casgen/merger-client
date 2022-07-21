@@ -1,0 +1,58 @@
+.youtube-track-row {
+  display:flex;
+  flex-direction: row;
+  transition: 0.2s ease-in-out;
+
+  .title, .channel, .album, .duration {
+    color:white;
+  }
+
+  .title {
+    font-family: PTSansRegular;
+    text-decoration: none;
+    display:flex;
+    align-items: center;
+    margin: auto auto auto 0px;
+    color: #c5c5c5;
+    transition: 0.1s ease-in-out;
+    width: 45%;
+
+    h5 {
+      overflow-y: hidden;
+      font-weight: bold;
+      font-size: 0.8em;
+    }
+
+    img {
+      width: 42px;
+      height: auto;
+      border-radius: 3px;
+      margin-right: 10px;
+    }
+  }
+
+
+  .blank-album, .channel {
+    width: 25%;
+  }
+
+  .channel {
+    font-family: PTSansRegular;
+    margin:auto;
+  }
+
+  .duration {
+    width: 7%;
+    font-family: PTSansRegular;
+    font-weight: lighter;
+    font-size: 13px;
+    text-align: center;
+    margin: auto;
+  }
+}
+
+.youtube-track-row:hover {
+  background-color: #3030308f;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}

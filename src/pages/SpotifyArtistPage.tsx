@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios, {AxiosResponse} from "axios";
-import {TrackRow} from "../components/TrackRow";
+import {TrackRowMinimal} from "../components/TrackRowMinimal";
 import {ArtistBlock} from "../components/artist/ArtistBlock";
 import {AlbumBlock} from "../components/album/AlbumBlock";
 import "../scss/spotifyArtistPage.scss";
@@ -61,7 +61,7 @@ export const SpotifyArtistPage: React.FC = () => {
                         <h2>Top Tracks</h2>
                         <div>
                             {topTracks?.tracks.map((value: SpotifyApi.TrackObjectFull, index: number): JSX.Element => {
-                                return <TrackRow track={value} showArtist={false} key={value.id}/>
+                                return <TrackRowMinimal track={value} showArtist={false} key={value.id}/>
 
                             })}
                         </div>

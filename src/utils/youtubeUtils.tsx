@@ -7,12 +7,15 @@ import {ActionTypeState} from "../components/features/state/stateSlice";
 
 export const youtubeIsUndefinedError: string = "Youtube Player is undefined!";
 
-export const setupYoutubePlayer = (uri?: gapi.client.youtube.ResourceId) => {
+export const setupYoutubePlayer = (uri: gapi.client.youtube.ResourceId | string) => {
+
+    let videoId: string = isResourceId(uri) && uri.videoId !== undefined ? uri.videoId : uri as string;
+
     if (window.youtubePlayer == null) {
-        let youtubePlayer = YouTubePlayer('youtube-player-window', {...YoutubeOptions, videoId: uri?.videoId});
+        let youtubePlayer = YouTubePlayer('youtube-player-window', {...YoutubeOptions, videoId: videoId});
 
         let video: gapi.client.youtube.Video;
-        axios.get<gapi.client.youtube.VideoListResponse>(`${process.env.REACT_APP_API_LINK}/youtube/video/${uri?.videoId}`).then((res) => {
+        getYoutubeVideo(videoId).then((res) => {
             if (res.data.items !== undefined) {
                 video = res.data.items[0];
             }
@@ -101,33 +104,46 @@ export const setupYoutubePlayer = (uri?: gapi.client.youtube.ResourceId) => {
 }
 
 const requestPlay = async (id: string) => {
-    const res: Promise<AxiosResponse<unknown, any>> = axios.get(`${process.env.API_LINK}/video/${id}`)
-    const video = (await res).data;
-    if (window.youtubePlayer !== undefined) {
-            window.youtubePlayer.cueVideoById(id);
-            window.youtubePlayer.playVideo();
-            return;
-    }
+    getYoutubeVideo(id).then((res) => {
+        if (window.youtubePlayer !== undefined) {
+            if (res.data.items && res.data.items[0].id) {
+                window.youtubePlayer.cueVideoById(res.data.items[0].id)
+                    .then((res) => {
+                        window.youtubePlayer.playVideo()
+                    })
+                    .catch((err) => console.error("failed to cue video!", err));
+                return;
+            }
+            throw new Error("Video or its ID is undefined!");
+        }
+    })
     throw new Error(youtubeIsUndefinedError);
 }
 
-const isResourceId = (obj: any): obj is gapi.client.youtube.ResourceId => {
+export const isResourceId = (obj: any): obj is gapi.client.youtube.ResourceId => {
     return (obj as gapi.client.youtube.ResourceId).videoId !== undefined;
 }
 
 export const youtubePlay = async (uri?: gapi.client.youtube.ResourceId | string) => {
     if (uri !== undefined) {
         if (isResourceId(uri)) {
-            let resourceId: gapi.client.youtube.ResourceId = uri as gapi.client.youtube.ResourceId;
-            if (resourceId.videoId)
-                requestPlay(resourceId.videoId);
+            if (uri.videoId) requestPlay(uri.videoId);
             return;
         }
 
-        let uriString: string = uri as string;
-        if (uriString)
-            requestPlay(uriString);
+        if (uri) requestPlay(uri);
         return;
     }
+    console.error("URI is undefined!");
 }
 
+export const getYoutubeVideo = (uri: string): Promise<AxiosResponse<gapi.client.youtube.VideoListResponse>> => {
+    return axios.get<gapi.client.youtube.VideoListResponse>(`${process.env.REACT_APP_API_LINK}/youtube/video/${uri}`);
+}
+
+export const getPlaylistItems = (playlistId: string, maxResults?: number): Promise<AxiosResponse<gapi.client.youtube.PlaylistItemListResponse>> => {
+    let url: string = `${process.env.REACT_APP_API_LINK}/youtube/playlistItems/${playlistId}`;
+    if (maxResults) url.concat(`?max_results=${maxResults}`);
+
+    return axios.get<gapi.client.youtube.PlaylistItemListResponse>(url);
+}

@@ -1,27 +1,19 @@
-import axios, { AxiosResponse } from 'axios'
-import React, { useContext, useState } from 'react'
-import { SearchBar } from '../components/search/SearchBar'
-import { YoutubeVideoSearchResult } from '../components/search/YoutubeVideoSearchResult';
-import { MergerPlayerContext, MergerPlayerContextType } from '../contexts/MergerPlayerContext';
+import axios, {AxiosResponse} from 'axios'
+import React, {useState} from 'react'
+import {SearchBar} from '../components/search/SearchBar'
+import {YoutubeVideoSearchResult} from '../components/search/YoutubeVideoSearchResult';
 import Merger from '../interfaces/Merger';
 import "../scss/youtubeSearchWindow.scss";
-import {setupYoutubePlayer} from "../utils/youtubeUtils";
+import {mergerLoadAndPlay} from "../utils/mergerUtils";
+import {YoutubePlaylistSearchResult} from "../components/search/YoutubePlaylistSearchResult";
 
 export const YoutubeSearchWindow: React.FC = () => {
 
     const [results, setResults] = useState<gapi.client.youtube.SearchListResponse | null>(null);
-    const playerContext: MergerPlayerContextType = useContext<MergerPlayerContextType>(MergerPlayerContext);
     const [typingTimeout, setTypingTimeout] = useState<number>(0);
 
     const playVideo = async (uri: gapi.client.youtube.ResourceId): Promise<void> => {
-        if (uri.videoId !== undefined) {
-            setupYoutubePlayer(uri);
-
-            if (window.youtubePlayer !== undefined) {
-                await window.youtubePlayer.cueVideoById(uri.videoId);
-                window.youtubePlayer.playVideo();
-            }
-        }
+        mergerLoadAndPlay(uri);
     }
 
     const handleSearch = (value: string): void => {
@@ -29,14 +21,22 @@ export const YoutubeSearchWindow: React.FC = () => {
             clearTimeout(typingTimeout);
         }
 
-        setTypingTimeout(setTimeout((time: number) => search(value),500));
+        setTypingTimeout(setTimeout((time: number) => search(value), 500));
     }
 
     const search = (value: string) => {
-        axios.get(`${process.env.REACT_APP_API_LINK}/youtube/search?query=${value}`).then((res: AxiosResponse<unknown, any>) => {
-            setResults(res.data as gapi.client.youtube.SearchListResponse);
-            console.log(results);
-          });
+        axios.get<gapi.client.youtube.SearchListResponse>(`${process.env.REACT_APP_API_LINK}/youtube/search?query=${value}`)
+            .then((res: AxiosResponse<gapi.client.youtube.SearchListResponse>) => {
+                setResults(res.data);
+            });
+    }
+
+    const generateResults = (result: gapi.client.youtube.SearchResult): JSX.Element | null => {
+        if (result.id?.videoId) return <YoutubeVideoSearchResult playVideo={playVideo} key={result.id?.videoId}
+                                                                 item={result}/>
+        if (result.id?.playlistId) return <YoutubePlaylistSearchResult key={result.id?.playlistId} result={result}/>
+
+        return null;
     }
 
     return (
@@ -44,11 +44,7 @@ export const YoutubeSearchWindow: React.FC = () => {
             <SearchBar type={Merger.PlayerType.Youtube} func={(value: string) => handleSearch(value)}></SearchBar>
             {results !== null &&
                 <div id="search-result-container">
-                    {
-                        results.items?.map((video: gapi.client.youtube.SearchResult): JSX.Element => {
-                            return <YoutubeVideoSearchResult playVideo={(uri: gapi.client.youtube.ResourceId) => playVideo(uri)} key={video.id?.videoId} item={video}/>
-                        })
-                    }
+                    {results.items?.map(generateResults)}
                 </div>
             }
         </div>

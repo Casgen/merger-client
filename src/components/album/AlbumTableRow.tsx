@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { convertToMins } from '../../utils/utils';
+import { convertNumberToDuration } from '../../utils/utils';
 
 type Props = {
     count: number,
@@ -25,7 +25,7 @@ export const AlbumTableRow = ({track, key, execFunc, count}: Props) => {
                 <h5>{track.name}</h5>
             </td>
             <td>
-                <h4>{convertToMins(track.duration_ms)}</h4>
+                <h4>{convertNumberToDuration(track.duration_ms)}</h4>
             </td>
         </tr>
     )

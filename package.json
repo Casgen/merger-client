@@ -14,11 +14,13 @@
     "@types/spotify-api": "0.0.11",
     "@types/youtube-player": "^5.5.5",
     "axios": "^0.23.0",
+    "escape-goat": "^4.0.0",
     "history": "^5.0.1",
     "js-cookie": "^3.0.1",
     "moment": "^2.29.1",
     "rc-slider": "^9.7.5",
     "react": "^17.0.2",
+    "react-contextmenu": "^2.14.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.3.0",
@@ -27,9 +29,11 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "sass": "^1.44.0",
+    "typescript-monads": "^7.2.0",
     "use-spotify-web-playback-sdk": "^0.2.2",
     "web-vitals": "^1.1.2",
-    "youtube-player": "^5.5.2"
+    "youtube-player": "^5.5.2",
+    "react-error-overlay": "6.0.9"
   },
   "scripts": {
     "start": "react-scripts start",
