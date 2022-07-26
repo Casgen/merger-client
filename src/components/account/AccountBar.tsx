@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../scss/accountBar.scss"
+import "../../scss/account/accountBar.scss"
 
 interface Props {
     src: string,

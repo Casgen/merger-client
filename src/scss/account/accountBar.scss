@@ -1,25 +1,22 @@
-@use "fonts";
+@use "src/scss/fonts";
 
 #account-bar {
   display: flex;
-  align-items: center;
   margin: 10px auto;
-  width: 80%;
-  height: 30px;
-  background-color: #303e72;
-  border-radius: 15px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #232323;
+  width: 90%;
 
   img {
-    border-radius: 100%;
-    margin-right: auto;
-    width: 100%;
+    border-radius: 5px;
     height: 100%;
   }
 
   h3 {
     font-size: 16px;
     margin: auto;
-    font-family: PTSansRegular;
+    font-family: RobotoLight;
     font-weight: lighter;
     color: rgb(216, 216, 216);
   }
@@ -27,5 +24,6 @@
   > div {
     aspect-ratio: 1;
     height: 100%;
+    margin: auto auto auto 0px;
   }
 }

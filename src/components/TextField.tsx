@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import React, { useState } from 'react'
 
 interface Props {
     placeholder?: string;
@@ -9,7 +9,7 @@ interface Props {
     onChange: Function;
 }
 
-export const TextField: FC<Props> = (props: Props) => {
+export const TextField: React.FC<Props> = (props: Props) => {
 
     const [value, setValue] = useState<string | undefined>(props.value);
 

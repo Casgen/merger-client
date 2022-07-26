@@ -1,0 +1,92 @@
+#spotify-artist-page {
+  width: 100%;
+}
+#spotify-artist-page #header {
+  height: 300px;
+  width: 100%;
+  background-size: 100%;
+  background-position-y: 50%;
+  position: relative;
+}
+#spotify-artist-page #header h1 {
+  font-family: PTSansRegular;
+  font-size: 4em;
+  font-weight: bolder;
+  position: absolute;
+  bottom: 0px;
+  color: white;
+  margin-left: 30px;
+}
+#spotify-artist-page #content {
+  margin: 20px 50px;
+  display: flex;
+  flex-direction: column;
+}
+#spotify-artist-page #content > div {
+  display: flex;
+  flex-direction: row;
+}
+#spotify-artist-page #content > div #top-tracks {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+#spotify-artist-page #content > div #top-tracks > h2 {
+  font-family: PTSansRegular;
+  font-weight: bold;
+  font-size: 2em;
+  color: white;
+}
+#spotify-artist-page #content > div #related-artists {
+  width: 50%;
+  flex-wrap: wrap;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+#spotify-artist-page #content > div #related-artists > div {
+  background-color: rgba(168, 168, 168, 0.25);
+  border-radius: 15px 0px 0px 15px;
+  margin: auto;
+  flex-direction: row;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  height: 410px;
+  justify-content: center;
+  overflow-y: scroll;
+}
+#spotify-artist-page #content > div #related-artists > div * {
+  margin-bottom: 10px;
+}
+#spotify-artist-page #content > div #related-artists > h2 {
+  font-family: PTSansRegular;
+  font-weight: bold;
+  font-size: 2em;
+  color: white;
+}
+#spotify-artist-page #content #discography {
+  display: flex;
+  flex-direction: column;
+}
+#spotify-artist-page #content #discography > h2 {
+  font-family: PTSansRegular;
+  font-weight: bold;
+  font-size: 2em;
+  color: white;
+}
+#spotify-artist-page #content #discography > div {
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding-bottom: 10px;
+}
+#spotify-artist-page #content #discography > div .album-block:first-child {
+  margin: 0px 10px 0px 0px;
+}
+#spotify-artist-page #content #discography > div .album-block:last-child {
+  margin: 0px 0px 0px 10px;
+}
+
+/*# sourceMappingURL=spotifyArtistPage.css.map */

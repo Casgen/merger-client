@@ -1,0 +1,50 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoRegular;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoLight;
+  src: url("../fonts/Roboto/Roboto-Light.ttf");
+}
+@font-face {
+  font-family: RobotoBold;
+  src: url("../fonts/Roboto/Roboto-Bold.ttf");
+}
+#progress-slider {
+  appearance: none;
+  border-radius: 20px;
+  width: 100%;
+  height: 5px;
+  margin: 0px;
+  background: #474747;
+}
+
+#progress-slider::-webkit-slider-thumb {
+  appearance: none;
+  background: white;
+  width: 5px;
+  border-radius: 5px;
+  height: 15px;
+}
+
+#progress-bar-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+#progress-bar-container #time {
+  font-family: PTSansRegular;
+  margin-bottom: 10px;
+  color: white;
+  font-size: 11px;
+}
+
+/*# sourceMappingURL=progressBar.css.map */

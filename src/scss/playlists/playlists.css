@@ -1,0 +1,62 @@
+#playlists {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+#playlists #tabs {
+  display: flex;
+  flex-direction: row;
+}
+#playlists #tabs div {
+  width: 50%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  transition: 0.2s ease-in-out;
+}
+#playlists #tabs div img {
+  width: 20px;
+  margin: auto;
+  text-align: center;
+}
+#playlists #tabs div:hover {
+  background-color: #1e1e1e;
+  transition: 0.2s ease-in-out;
+}
+
+#spotify-playlists, #merger-playlists {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1e1e1e;
+  overflow-y: auto;
+}
+#spotify-playlists a, #merger-playlists a {
+  width: 100%;
+  padding: 10px 0px 10px 5px;
+  color: white;
+  text-decoration: none;
+  height: 13px;
+  font-family: RobotoRegular;
+  font-size: 13px;
+  transition: 0.1s ease-in-out;
+}
+#spotify-playlists a:hover, #merger-playlists a:hover {
+  background-color: #232323;
+  transition: 0.1s ease-in-out;
+}
+#spotify-playlists p, #merger-playlists p {
+  font-size: 14px;
+  font-family: RobotoLight;
+  color: white;
+  text-align: center;
+}
+#spotify-playlists p a, #merger-playlists p a {
+  font-size: 14px;
+  font-family: RobotoRegular;
+  text-decoration: 10px;
+  color: white;
+}
+
+/*# sourceMappingURL=playlists.css.map */

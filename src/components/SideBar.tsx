@@ -2,8 +2,9 @@ import axios, { AxiosResponse } from 'axios';
 import React, {useState, useEffect} from 'react'
 import AccountBar from './account/AccountBar';
 import { Login } from './Login';
-import { PlaylistList } from './playlist/PlaylistList';
+import { SpotifyPlaylists } from './playlist/SpotifyPlaylists';
 import { SearchButton } from './search/SearchButton';
+import {Playlists} from "./playlist/Playlists";
 
 const useForceUpdate = () => {
   const [value, setValue] = useState<number>(0);
@@ -38,7 +39,7 @@ export const SideBar: React.FC = () => {
     <div id="side-bar">
       {accountComp()}
       <SearchButton/>
-      <PlaylistList/>
+      <Playlists/>
     </div>
   )
 }

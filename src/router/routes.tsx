@@ -10,8 +10,12 @@ import { SpotifySearchWindow } from "../pages/SpotifySearchWindow";
 import { YoutubeSearchWindow } from "../pages/YoutubeSearchWindow";
 import { SpotifyAlbumPage } from "../pages/SpotifyAlbumPage";
 import React from "react";
-import {SpotifyArtistPage} from "../pages/SpotifyArtistPage";
-import {QueuePage} from "../pages/QueuePage";
+import { SpotifyArtistPage } from "../pages/SpotifyArtistPage";
+import { QueuePage } from "../pages/QueuePage";
+import { RegisterPage } from "../pages/RegisterPage";
+import { LoginPage } from "../pages/LoginPage";
+import { CreatePlaylistPage } from "../pages/CreatePlaylistPage";
+import { MergerPlaylistPage } from "../pages/MergerPlaylistPage";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -22,36 +26,42 @@ export const history: BrowserHistory = createBrowserHistory();
  */
 
 export const Routes: React.FC = () => (
-    <BrowserRouter>
-        <div id="main-container">
-            <div id="horizontal-container">
-                <SideBar>
-                </SideBar>
-                <MainWindow> 
-                        <Switch>
-                            <Route exact path="/" component={Home}></Route>
-                            <Route path="/playlist/:id">
-                                <PlaylistWindow></PlaylistWindow>
-                            </Route>
-                            <Route path="/spotify/album/:id">
-                                <SpotifyAlbumPage></SpotifyAlbumPage>
-                            </Route>
-                            <Route path="/spotify/search">
-                                <SpotifySearchWindow/>
-                            </Route>
-                            <Route path="/youtube/search">
-                                <YoutubeSearchWindow/>
-                            </Route>
-                            <Route path="/spotify/artist/:id">
-                                <SpotifyArtistPage/>
-                            </Route>
-                            <Route path="/queue">
-                                <QueuePage/>
-                            </Route>
-                        </Switch>
-                </MainWindow>
-                </div>
-                <Player></Player>
-        </div>
-    </BrowserRouter>
+	<BrowserRouter>
+		<div id="main-container">
+			<div id="horizontal-container">
+				<SideBar>
+				</SideBar>
+				<MainWindow>
+					<Switch>
+						<Route exact path="/createPlaylist" component={CreatePlaylistPage}></Route>
+						<Route exact path="/register" component={RegisterPage}></Route>
+						<Route exact path="/login" component={LoginPage}></Route>
+						<Route exact path="/" component={Home}></Route>
+						<Route exact path="/merger/playlist/:id">
+							<MergerPlaylistPage/>
+						</Route>
+						<Route path="/playlist/:id">
+							<PlaylistWindow></PlaylistWindow>
+						</Route>
+						<Route path="/spotify/album/:id">
+							<SpotifyAlbumPage></SpotifyAlbumPage>
+						</Route>
+						<Route path="/spotify/search">
+							<SpotifySearchWindow />
+						</Route>
+						<Route path="/youtube/search">
+							<YoutubeSearchWindow />
+						</Route>
+						<Route path="/spotify/artist/:id">
+							<SpotifyArtistPage />
+						</Route>
+						<Route path="/queue">
+							<QueuePage />
+						</Route>
+					</Switch>
+				</MainWindow>
+			</div>
+			<Player></Player>
+		</div>
+	</BrowserRouter>
 )

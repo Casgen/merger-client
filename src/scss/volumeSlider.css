@@ -1,0 +1,26 @@
+#volume-container {
+  width: 5%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+#volume-container #volume-slider {
+  appearance: none;
+  border-radius: 20px;
+  height: 10px;
+  background: #474747;
+  transform: rotate(-90deg);
+  width: 80px;
+  margin: 0px;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  background: white;
+  width: 5px;
+  border-radius: 5px;
+  height: 10px;
+}
+
+/*# sourceMappingURL=volumeSlider.css.map */

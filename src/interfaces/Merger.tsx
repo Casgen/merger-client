@@ -9,10 +9,40 @@ namespace Merger {
 
 
     export enum PlayerType {
-        Youtube,
-        Spotify
+        Youtube = 'Y',
+        Spotify = 'S'
     }
 
+    //BACKEND RELATED INTERFACES
+    export interface Playlist {
+        id?: number,
+        name: string,
+        creator: Merger.User,
+        desc: string,
+	tracks: Array<Merger.Song>
+    }
+
+    export interface User {
+        id: number,
+        username: string,
+        email: string,
+        password: string
+        img?: string,
+    }
+
+    export interface Song {
+        id: number,
+        type: PlayerType,
+        object: SpotifyApi.TrackObjectSimplified | gapi.client.youtube.Video
+    }
+
+    export interface Error {
+        status?: number,
+        message: string,
+        stacktrace?: string,
+    }
+
+    //--------------------------------------------------------
     /**
      * @param ytState -1 = not started | 0 = ended | 1 = is playing | 2 = paused | 3 = loading | 5 = video cued
      */

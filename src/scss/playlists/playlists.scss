@@ -1,0 +1,71 @@
+#playlists {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  #tabs {
+    display:flex;
+    flex-direction: row;
+    div {
+      width:50%;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      transition: 0.2s ease-in-out;
+      img {
+        width: 20px;
+        margin: auto;
+        text-align: center;
+      }
+    }
+
+    div:hover {
+      background-color: #1e1e1e;
+      transition: 0.2s ease-in-out;
+    }
+  }
+}
+
+#spotify-playlists, #merger-playlists {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1e1e1e;
+  overflow-y: auto;
+
+  #create-playlist-link {
+	text-align: center;
+	background-color: #3a3a3a
+  }
+
+  a {
+    width: 100%;
+    padding: 10px 0px 10px 5px;
+    color: white;
+    text-decoration: none;
+    height: 13px;
+    font-family: RobotoRegular;
+    font-size: 13px;
+    transition: 0.1s ease-in-out;
+  }
+
+  a:hover {
+    background-color: #232323;
+    transition: 0.1s ease-in-out;
+  }
+  p {
+    font-size: 14px;
+    font-family: RobotoLight;
+    color: white;
+    text-align: center;
+    a {
+      font-size: 14px;
+      font-family: RobotoRegular;
+      text-decoration: 10px;
+      color: white;
+    }
+  }
+}
+
+#merger-playlists {
+}
