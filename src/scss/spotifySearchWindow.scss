@@ -3,9 +3,9 @@
 #spotify-search-window {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   #search-result-container {
-    display: flex;
     overflow-x: auto;
     height: max-content;
     padding: 0px 30px;

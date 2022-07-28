@@ -1,0 +1,46 @@
+.album-block {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  background-color: #343434;
+  width: 180px;
+  margin: 0px 10px 0px 10px;
+  border-radius: 8px;
+}
+.album-block img {
+  border-radius: 8px 8px 0px 0px;
+  width: auto;
+  aspect-ratio: 1;
+}
+.album-block > div {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.album-block > div a {
+  font-family: PTSansRegular;
+  text-decoration: none;
+  color: #c5c5c5;
+  overflow: hidden;
+  font-size: 15px;
+  transition: 0.1s ease-in-out;
+}
+.album-block > div span {
+  color: white;
+  text-decoration: none;
+  color: #c5c5c5;
+  font-size: 15px;
+  transition: 0.1s ease-in-out;
+}
+.album-block > div > a {
+  white-space: nowrap;
+}
+.album-block > div div a {
+  font-size: 12px;
+}
+.album-block > div a:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+
+/*# sourceMappingURL=albumBlock.css.map */

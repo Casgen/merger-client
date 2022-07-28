@@ -108,10 +108,7 @@ const requestPlay = async (id: string) => {
         if (window.youtubePlayer !== undefined) {
             if (res.data.items && res.data.items[0].id) {
                 window.youtubePlayer.cueVideoById(res.data.items[0].id)
-                    .then((res) => {
-                        window.youtubePlayer.playVideo()
-                    })
-                    .catch((err) => console.error("failed to cue video!", err));
+                window.youtubePlayer.playVideo()
                 return;
             }
             throw new Error("Video or its ID is undefined!");

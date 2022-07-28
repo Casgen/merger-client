@@ -131,7 +131,7 @@ export const mergerSeek = async (value: number): Promise<void> => {
     throw new Error(initializationError);
 }
 
-export const addOtherSongsToQueuePlaylist = (uri: string, tracks: SpotifyApi.TrackObjectFull[] | gapi.client.youtube.Video[]) => {
+export const addOtherSongsToQueuePlaylist = (uri: string, tracks: SpotifyApi.TrackObjectSimplified[] | gapi.client.youtube.Video[]) => {
     let index: number = tracks.findIndex((element) => {
         if (isSpotifyTrackObject(element))
             return element.uri === uri;
@@ -146,7 +146,6 @@ export const addOtherSongsToQueuePlaylist = (uri: string, tracks: SpotifyApi.Tra
         payload: {next: tracks[1 + index], previous: tracks[index - 1]}
     });
 }
-
 
 export const addOtherSpotifySongsToQueueAlbum = (uri: string, tracks: SpotifyApi.TrackObjectSimplified[]) => {
 

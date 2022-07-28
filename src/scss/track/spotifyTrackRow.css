@@ -1,0 +1,51 @@
+.track-row {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  line-height: 14px;
+  transition: background-color 100ms ease-in;
+}
+.track-row .name {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+.track-row a {
+  text-decoration: none;
+}
+.track-row h5,
+.track-row a,
+.track-row h6 {
+  color: white;
+  font-family: PTSansRegular;
+}
+.track-row .artist {
+  width: 25%;
+  margin: auto;
+}
+.track-row .album {
+  width: 23%;
+  margin: auto;
+}
+.track-row .duration {
+  width: 7%;
+  margin: auto;
+  text-align: center;
+  font-family: PTSansRegular;
+  font-weight: lighter;
+  font-size: 13px;
+  color: white;
+}
+.track-row div:first-child img {
+  width: 42px;
+  height: 42px;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
+.track-row:hover {
+  background-color: rgba(48, 48, 48, 0.5607843137);
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=spotifyTrackRow.css.map */

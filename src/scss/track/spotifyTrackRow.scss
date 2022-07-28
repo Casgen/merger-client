@@ -29,8 +29,19 @@
   }
 
   .album {
-    width: 23%;
+    width: 20%;
     margin:auto;
+  }
+
+  .like {
+	  display:flex;
+	  width: 3%;
+	  img {
+		  width: 25px;
+		  margin:auto;
+		  display:none;
+	  }
+
   }
 
   .duration {
@@ -55,4 +66,10 @@
 .track-row:hover {
   background-color: #3030308f;
   cursor: pointer;
+
+  .like {
+	  img {
+		  display:flex;
+	  }
+  }
 }

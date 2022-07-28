@@ -1,0 +1,29 @@
+.artist-block {
+  text-decoration: none;
+  width: 180px;
+  display: inline-flex;
+  flex-direction: column;
+}
+.artist-block div {
+  transition: 0.2s ease-in-out;
+  margin: 0px auto 0px auto;
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  background-size: 100%;
+  background-position: center;
+}
+.artist-block h3 {
+  text-align: center;
+  font-family: PTSansRegular;
+  color: white;
+  margin: 5px auto 0px auto;
+  font-weight: bold;
+}
+
+a:hover div {
+  transition: 0.2s ease-in-out;
+  background-size: 105%;
+}
+
+/*# sourceMappingURL=artistBlock.css.map */

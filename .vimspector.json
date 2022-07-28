@@ -1,0 +1,21 @@
+{
+  "configurations": {
+    "run": {
+      "adapter": "chrome",
+      "configuration": {
+        "request": "launch",
+        "protocol": "auto",
+        "stopOnEntry": true,
+	"url": "http://localhost:3000",
+        "console": "integratedTerminal",
+	"runtimeExecutable": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+				"runtimeArgs": [
+					"--new-window",
+					"--remote-debugging-port=9222"
+				],
+        "program": "${workspaceRoot}/src/index.tsx",
+        "cwd": "${workspaceRoot}"
+      }
+    }
+  }
+}

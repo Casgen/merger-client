@@ -1,0 +1,53 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoRegular;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoLight;
+  src: url("../fonts/Roboto/Roboto-Light.ttf");
+}
+@font-face {
+  font-family: RobotoBold;
+  src: url("../fonts/Roboto/Roboto-Bold.ttf");
+}
+#player-info-container {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+#player-info-container #headers-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 20px 0px 20px;
+}
+#player-info-container #headers-container #artist,
+#player-info-container #headers-container #song-name {
+  color: white;
+  text-decoration: none;
+}
+#player-info-container #headers-container #artist {
+  font-family: PTSansRegular;
+  font-size: 12px;
+}
+#player-info-container #headers-container #song-name {
+  font-family: PTSansBold;
+  font-size: 15px;
+  margin: 5px 0px 5px 0px;
+}
+#player-info-container img {
+  width: auto;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+/*# sourceMappingURL=playerInfoContainer.css.map */

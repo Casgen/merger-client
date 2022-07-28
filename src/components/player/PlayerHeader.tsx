@@ -3,7 +3,7 @@ import React from 'react'
 interface Props {
     src: string | undefined,
     title: string | undefined,
-    creator: SpotifyApi.UserObjectPublic | undefined
+    creator: string | undefined
 }
 
 export const PlayerHeader: React.FC<Props> = (props: Props) => {
@@ -14,7 +14,7 @@ export const PlayerHeader: React.FC<Props> = (props: Props) => {
             </div>
             <div>
                 <h1>{props.title}</h1>
-                <h6>{props.creator?.display_name}</h6>
+                <h6>{props.creator}</h6>
             </div>
         </div>
     )

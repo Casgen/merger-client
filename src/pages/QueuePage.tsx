@@ -17,7 +17,7 @@ export const QueuePage: React.FC = () => {
 
     const mergerQueue: Merger.Queue = useAppSelector(rootState).queue;
 
-    const handlePlay = (track: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video) => {
+    const handlePlay = (track: SpotifyApi.TrackObjectSimplified | gapi.client.youtube.Video) => {
         if (isSpotifyTrackObject(track)) {
             addOtherSongsToQueuePlaylist(track.uri, mergerQueue.queue);
             mergerLoadAndPlay(track);

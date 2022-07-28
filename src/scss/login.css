@@ -1,0 +1,37 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoRegular;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoLight;
+  src: url("../fonts/Roboto/Roboto-Light.ttf");
+}
+@font-face {
+  font-family: RobotoBold;
+  src: url("../fonts/Roboto/Roboto-Bold.ttf");
+}
+#login-button {
+  text-decoration: none;
+  color: white;
+  font-family: RobotoLight;
+  font-size: 18px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #232323;
+  display: flex; /* has to be set to display width*/
+  margin: 10px auto;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  text-align: center;
+}
+
+/*# sourceMappingURL=login.css.map */

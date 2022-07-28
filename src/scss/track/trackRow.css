@@ -1,0 +1,66 @@
+.track-row-search {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  transition: 0.2s ease-in-out;
+}
+.track-row-search .image {
+  display: flex;
+  align-items: center;
+  width: 40px;
+}
+.track-row-search .image img {
+  width: 30px;
+  height: 30px;
+}
+.track-row-search .titles {
+  display: flex;
+  flex-direction: column;
+}
+.track-row-search .titles > h2 {
+  font-family: PTSansRegular;
+  text-decoration: none;
+  font-size: 0.8em;
+  margin: auto auto auto 0px;
+  font-weight: lighter;
+  color: #c5c5c5;
+  transition: 0.1s ease-in-out;
+}
+.track-row-search .titles > a:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+.track-row-search .titles .artists {
+  margin: auto auto auto 0px;
+}
+.track-row-search .titles .artists a {
+  font-size: 13px;
+  font-family: PTSansRegular;
+  text-decoration: none;
+  font-weight: lighter;
+  color: #c5c5c5;
+  transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
+}
+.track-row-search .titles .artists a:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+.track-row-search .duration {
+  margin-left: auto;
+}
+.track-row-search .duration h2 {
+  color: #c5c5c5;
+  font-size: 13px;
+  font-weight: 100;
+  font-family: PTSansRegular;
+}
+
+.track-row-search:hover {
+  transition: 0.2s ease-in-out;
+  background-color: rgba(42, 42, 42, 0.54);
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=trackRow.css.map */

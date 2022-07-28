@@ -1,0 +1,41 @@
+.youtube-video {
+  margin: 0;
+  padding: 10px 100px 10px 10px;
+  display: flex;
+  flex-direction: row;
+  transition: 0.2s ease-in-out;
+}
+.youtube-video .thumbnail-div img {
+  width: 200px;
+  height: auto;
+}
+.youtube-video .details {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.youtube-video .details h2,
+.youtube-video .details p {
+  overflow: hidden;
+}
+.youtube-video .details h2 {
+  font-family: PTSansRegular;
+  color: white;
+  margin: 0px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.youtube-video .details p {
+  font-family: PTSansRegular;
+  font-weight: lighter;
+  color: #9f9f9f;
+  font-size: 13px;
+}
+
+.youtube-video:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.2s ease-in-out;
+}
+
+/*# sourceMappingURL=youtubeVideoSearchResult.css.map */

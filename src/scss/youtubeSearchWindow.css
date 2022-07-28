@@ -1,0 +1,32 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoRegular;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoLight;
+  src: url("../fonts/Roboto/Roboto-Light.ttf");
+}
+@font-face {
+  font-family: RobotoBold;
+  src: url("../fonts/Roboto/Roboto-Bold.ttf");
+}
+#youtube-search-window {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#youtube-search-window #search-result-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+/*# sourceMappingURL=youtubeSearchWindow.css.map */
