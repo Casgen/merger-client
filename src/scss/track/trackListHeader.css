@@ -1,0 +1,24 @@
+#header-row {
+  border-bottom: 1px solid rgb(51, 51, 51);
+  display: flex;
+}
+#header-row h6 {
+  font-family: PTSansBold;
+  color: white;
+  font-size: 12px;
+}
+#header-row #name {
+  width: 45%;
+}
+#header-row #artist {
+  width: 25%;
+}
+#header-row #album {
+  width: 23%;
+}
+#header-row #duration {
+  width: 7%;
+  text-align: center;
+}
+
+/*# sourceMappingURL=trackListHeader.css.map */

@@ -14,7 +14,7 @@ export const MergerPlaylist: React.FC<Props> = (props: Props) => {
 	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
 	const fetchPlaylists = () => {
-		axios.get<Merger.Playlist[]>(`${process.env.REACT_APP_API_LINK}/merger/getPlaylistByUser`, { withCredentials: true }).then((res: AxiosResponse<Merger.Playlist[]>) => {
+		axios.get<Merger.Playlist[]>(`${process.env.REACT_APP_API_LINK}/merger/getPlaylistsByUser`, { withCredentials: true }).then((res: AxiosResponse<Merger.Playlist[]>) => {
 			setIsLoggedIn(true);
 			if (res.data[0]) setPlaylists(res.data);
 		}).catch((err: Merger.Error) => {

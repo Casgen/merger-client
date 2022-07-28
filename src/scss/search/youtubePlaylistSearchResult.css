@@ -1,0 +1,53 @@
+.youtube-playlist {
+  margin: 0;
+  padding: 10px 100px 10px 10px;
+  display: flex;
+  flex-direction: row;
+  transition: 0.2s ease-in-out;
+  text-decoration: none;
+}
+.youtube-playlist .thumbnail-div {
+  position: relative;
+}
+.youtube-playlist .thumbnail-div img {
+  width: 200px;
+  height: auto;
+}
+.youtube-playlist .thumbnail-div h6 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-family: PTSansBold;
+  font-size: 15px;
+  color: white;
+  margin: auto;
+  background-color: rgba(94, 94, 94, 0.5882352941);
+  padding: 5px 10px;
+}
+.youtube-playlist .details {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.youtube-playlist .details h2 {
+  font-family: PTSansRegular;
+  color: white;
+  margin: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.youtube-playlist .details .items h6 {
+  color: white;
+  overflow-x: hidden;
+  font-size: 13px;
+  font-family: PTSansRegular;
+}
+
+.youtube-playlist:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.2s ease-in-out;
+}
+
+/*# sourceMappingURL=youtubePlaylistSearchResult.css.map */

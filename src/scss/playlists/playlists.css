@@ -32,6 +32,10 @@
   background-color: #1e1e1e;
   overflow-y: auto;
 }
+#spotify-playlists #create-playlist-link, #merger-playlists #create-playlist-link {
+  text-align: center;
+  background-color: #3a3a3a;
+}
 #spotify-playlists a, #merger-playlists a {
   width: 100%;
   padding: 10px 0px 10px 5px;

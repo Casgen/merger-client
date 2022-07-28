@@ -1,0 +1,52 @@
+.youtube-track-row {
+  display: flex;
+  flex-direction: row;
+  transition: 0.2s ease-in-out;
+}
+.youtube-track-row .title, .youtube-track-row .channel, .youtube-track-row .album, .youtube-track-row .duration {
+  color: white;
+}
+.youtube-track-row .title {
+  font-family: PTSansRegular;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin: auto auto auto 0px;
+  color: #c5c5c5;
+  transition: 0.1s ease-in-out;
+  width: 45%;
+}
+.youtube-track-row .title h5 {
+  overflow-y: hidden;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+.youtube-track-row .title img {
+  width: 42px;
+  height: auto;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+.youtube-track-row .blank-album, .youtube-track-row .channel {
+  width: 25%;
+}
+.youtube-track-row .channel {
+  font-family: PTSansRegular;
+  margin: auto;
+}
+.youtube-track-row .duration {
+  width: 7%;
+  font-family: PTSansRegular;
+  font-weight: lighter;
+  font-size: 13px;
+  text-align: center;
+  margin: auto;
+}
+
+.youtube-track-row:hover {
+  background-color: rgba(48, 48, 48, 0.5607843137);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+/*# sourceMappingURL=youtubeTrackRow.css.map */

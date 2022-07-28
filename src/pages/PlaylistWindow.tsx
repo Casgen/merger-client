@@ -1,10 +1,11 @@
 import axios, {AxiosResponse} from 'axios';
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router';
-import {PlayerHeader} from '../components/player/PlayerHeader';
-import {PlayerTable} from '../components/player/PlayerTable';
 import "../scss/playlistWindow.scss"
-import {Simulate} from "react-dom/test-utils";
+import {addOtherSongsToQueuePlaylist, mergerLoadAndPlay} from "../utils/mergerUtils";
+import {TrackListHeader} from "../components/player/TrackListHeader";
+import {SpotifyTrackRow} from "../components/player/SpotifyTrackRow";
+import { PlayerHeader } from '../components/player/PlayerHeader';
 
 const PlaylistWindow: React.FC = () => {
 
@@ -46,10 +47,15 @@ const PlaylistWindow: React.FC = () => {
 
     return (
         <div id="playlist-window">
-            <PlayerHeader src={playlist && playlist.images[0].url} title={playlist && playlist.name}
-                          creator={playlist && playlist.owner.display_name}/>
-            <PlayerTable content={tracks}/>
-        </div>
+            <div id="playlist-table">
+		<PlayerHeader src={playlist?.images[0].url} creator={playlist?.owner.display_name} title={playlist?.name}  />
+                <TrackListHeader/>
+                {
+                    playlist?.tracks && playlist?.tracks.items.map((value: SpotifyApi.PlaylistTrackObject): JSX.Element | null => {
+                        return <SpotifyTrackRow showLike={true} handleOnClick={handlePlay} showAlbum={true} track={value.track} key={value.track.id}/>
+                    })
+                }
+            </div>        </div>
     )
 }
 

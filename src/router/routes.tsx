@@ -16,6 +16,7 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { LoginPage } from "../pages/LoginPage";
 import { CreatePlaylistPage } from "../pages/CreatePlaylistPage";
 import { MergerPlaylistPage } from "../pages/MergerPlaylistPage";
+import { LikedSongsPage } from "../pages/LikedSongsPage";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -33,10 +34,11 @@ export const Routes: React.FC = () => (
 				</SideBar>
 				<MainWindow>
 					<Switch>
-						<Route exact path="/createPlaylist" component={CreatePlaylistPage}></Route>
-						<Route exact path="/register" component={RegisterPage}></Route>
-						<Route exact path="/login" component={LoginPage}></Route>
-						<Route exact path="/" component={Home}></Route>
+						<Route exact path="/createPlaylist" component={CreatePlaylistPage}/>
+						<Route exact path="/register" component={RegisterPage}/>
+						<Route exact path="/login" component={LoginPage}/>
+						<Route exact path="/" component={Home}/>
+						<Route exact path="/likedSongs" component={LikedSongsPage}/>
 						<Route exact path="/merger/playlist/:id">
 							<MergerPlaylistPage/>
 						</Route>
