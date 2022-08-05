@@ -31,69 +31,70 @@ body {
 
     #side-bar {
       background-color: rgb(14, 14, 14);
-      width: 180px;
-      height: 100%;
+      width: 190px;
+      flex-direction: column;
       border-right: 1px solid rgb(37, 37, 37);
 
-      #search-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90%;
-        margin: 5px auto;
-        height: 35px;
-        border-radius: 5px;
-        background-color: #232323;
-        text-decoration: none;
 
-        div {
-          height: 15px;
-          margin: auto auto auto 12px;
-          img {
-            width: 15px;
-            height: 15px;
-            filter: invert(100%);
-          }
-        }
+	      #search-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 90%;
+		margin: 5px auto;
+		height: 35px;
+		border-radius: 5px;
+		background-color: #232323;
+		text-decoration: none;
 
-        h3 {
-          font-family: RobotoLight;
-          margin-right: auto;
-          font-weight: 100;
-          font-size: 18px;
-          color: rgb(216, 216, 216);
-        }
-      }
+		div {
+		  height: 15px;
+		  margin: auto auto auto 12px;
+		  img {
+		    width: 15px;
+		    height: 15px;
+		    filter: invert(100%);
+		  }
+		}
 
-      #liked-songs-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 90%;
-        margin: 10px auto;
-        height: 35px;
-        border-radius: 5px;
-        background-color: #232323;
-        text-decoration: none;
+		h3 {
+		  font-family: RobotoLight;
+		  margin-right: auto;
+		  font-weight: 100;
+		  font-size: 18px;
+		  color: rgb(216, 216, 216);
+		}
+	      }
 
-        div {
-          height: 20px;
-          margin: auto;
-          img {
-            width: 20px;
-            height: 20px;
-            filter: invert(100%);
-          }
-        }
+	      #liked-songs-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 90%;
+		margin: 10px auto;
+		height: 35px;
+		border-radius: 5px;
+		background-color: #232323;
+		text-decoration: none;
 
-        h3 {
-          font-family: RobotoLight;
-          margin-right: auto;
-          font-weight: 100;
-          font-size: 17px;
-          color: rgb(216, 216, 216);
-        }
-      }
+		div {
+		  height: 20px;
+		  margin: auto;
+		  img {
+		    width: 20px;
+		    height: 20px;
+		    filter: invert(100%);
+		  }
+		}
+
+		h3 {
+		  font-family: RobotoLight;
+		  margin-right: auto;
+		  font-weight: 100;
+		  font-size: 17px;
+		  color: rgb(216, 216, 216);
+		}
+	      }
 
     }
   }

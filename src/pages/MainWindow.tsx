@@ -10,16 +10,16 @@ export const history: BrowserHistory = createBrowserHistory();
  */
 
 interface Props {
-    children: JSX.Element
+	children: JSX.Element
 }
 
 export const MainWindow: React.FC<Props> = (props: Props) => {
-    return (
-        <div id="main-window">
-            <ShrinkButton/>
-            <div id="youtube-player-window">
-            </div>
-            {props.children}
-        </div>
-    )
+	return (
+		<div id="main-window">
+			<ShrinkButton />
+			<div id="youtube-player-window">
+			</div>
+			{props.children}
+		</div>
+	)
 }

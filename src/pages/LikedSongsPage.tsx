@@ -1,10 +1,9 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SpotifyTrackRow } from "../components/player/SpotifyTrackRow";
 import { TrackListHeader } from "../components/player/TrackListHeader";
 import { YoutubeTrackRow } from "../components/player/YoutubeTrackRow";
-import Merger from "../interfaces/Merger";
 import { addOtherSongsToQueuePlaylist, mergerLoadAndPlay } from "../utils/mergerUtils";
 import { isSpotifyTrackObject } from "../utils/spotifyUtils";
 import "../scss/likedSongsPage.scss";
@@ -17,25 +16,18 @@ export const LikedSongsPage: React.FC = () => {
 	const handlePlay = (track: SpotifyApi.TrackObjectSimplified | gapi.client.youtube.Video) => {
 		if (isSpotifyTrackObject(track)) {
 			addOtherSongsToQueuePlaylist(track.uri, tracks);
-			mergerLoadAndPlay(track);
-			return;
+		} else if (track.id){
+			addOtherSongsToQueuePlaylist(track.id, tracks);
 		}
 
-		if (track.id) {
-			addOtherSongsToQueuePlaylist(track.id, tracks);
-			mergerLoadAndPlay(track);
-			return;
-		}
+		mergerLoadAndPlay(track);
 	}
 
 	const fetchLikedSongs = () => {
-		axios.get<Merger.Song[]>(`${process.env.REACT_APP_API_LINK}/merger/getLikedSongsByUser`,{withCredentials: true})
-			.then((res: AxiosResponse<Merger.Song[]>) => {
-				setTracks(res.data.map((value: Merger.Song) => {
-					if (isSpotifyTrackObject(value.object))
-						return value.object;
-					return value.object as gapi.client.youtube.Video;
-				}));
+		axios.get<Array<SpotifyApi.TrackObjectFull | gapi.client.youtube.Video>>
+			(`${process.env.REACT_APP_API_LINK}/merger/getLikedSongsByUser`, { withCredentials: true })
+			.then((res) => {
+				setTracks(res.data)
 			}).catch((err) => {
 				console.error("failed to fetch liked songs", err);
 			})
@@ -43,7 +35,7 @@ export const LikedSongsPage: React.FC = () => {
 
 	const generateRows = (value: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video): JSX.Element => {
 		if (isSpotifyTrackObject(value))
-			return <SpotifyTrackRow showAlbum={true} handleOnClick={handlePlay} track={value} key={value.uri}/>
+			return <SpotifyTrackRow showAlbum={true} handleOnClick={handlePlay} track={value} key={value.uri} />
 
 		return <YoutubeTrackRow key={value.id} video={value} handleOnClick={handlePlay} />
 	}

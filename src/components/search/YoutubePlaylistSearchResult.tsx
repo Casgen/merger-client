@@ -1,61 +1,77 @@
-import {htmlUnescape} from "escape-goat";
-import {Link} from "react-router-dom";
+import { htmlUnescape } from "escape-goat";
+import { Link, useHistory } from "react-router-dom";
 import "../../scss/search/youtubePlaylistSearchResult.scss";
-import {getPlaylistItems} from "../../utils/youtubeUtils";
-import {useState} from "react";
+import { getPlaylistItems } from "../../utils/youtubeUtils";
+import { useEffect, useState } from "react";
+import { ContextMenu, ContextMenuTrigger, MenuItem, SubMenu } from "react-contextmenu";
+import axios from "axios";
 
 interface Props {
-    result: gapi.client.youtube.SearchResult,
+	playlistId: string | undefined,
+	title: string | undefined,
+	img: string | undefined
 }
 
 
-export const YoutubePlaylistSearchResult: React.FC<Props> = ({result}: Props) => {
+export const YoutubePlaylistSearchResult: React.FC<Props> = ({ playlistId, title, img}: Props) => {
 
-    const loadItems = (): string[] => {
+	const history = useHistory()
 
-        if (!result.id?.playlistId) return [];
+	const [items, setItems] = useState<Array<gapi.client.youtube.PlaylistItem>>([]);
 
-        getPlaylistItems(result.id?.playlistId).then((res) => {
-            if (!res.data.items) return [];
+	const loadItems = async () => {
 
-            let elements: string[] = [];
+		if (!playlistId)
+			return console.error("playlistId is undefined!");
 
-            for (let i = 0; i < items.length && i < 2; i++) {
-                if (!res.data.items[i].snippet?.title)
-                    elements.push(htmlUnescape(res.data.items[i].snippet?.title as string));
-            }
+		try {
+			let resItems: Array<gapi.client.youtube.PlaylistItem> = (await getPlaylistItems(playlistId, 2)).data;
 
-            setItems(elements);
-        });
-        return [];
-    }
+			return setItems(resItems.slice(0, 2));
 
-    const [items, setItems] = useState<string[]>([]);
+		} catch (e: unknown) {
+			return console.error(e);
+		}
+	}
 
 
-    return (
-        result.id?.playlistId ?
-            <Link to={`/youtube/playlist/${result.id.playlistId}`} className="youtube-playlist">
-                <div className="thumbnail-div">
-                    <img src={result.snippet?.thumbnails?.default?.url} alt="Error!"></img>
-                    <h6>P</h6>
-                </div>
-                <div className="details">
-                    <div className="title">
-                        <h2>{htmlUnescape(result.snippet?.title as string)}</h2>
-                    </div>
-                    <div className="items">
-                        {loadItems()}
-                        {
-                            items.map((value) => {
-                                return <h6>{value}</h6>
-                                
-                            })
-                        }
-                    </div>
-                </div>
-            </Link> :
-            <h2>Error! couldn't load a search result!</h2>
+	const mergeWithPlaylist = () =>	history.push(`/merger/mergeWithSpotify/${playlistId}`)
 
-    )
+	useEffect(() => {
+		loadItems()
+	}, [])
+
+
+
+	return (
+		playlistId ?
+			<>
+				<ContextMenuTrigger id={`context-playlist-${playlistId}`}>
+					<Link to={`/youtube/playlist/${playlistId}`} className="youtube-playlist">
+						<div className="thumbnail-div">
+							<img src={img} alt="Error!"></img>
+							<h6>P</h6>
+						</div>
+						<div className="details">
+							<div className="title">
+								<h2>{title && htmlUnescape(title)}</h2>
+							</div>
+							<div className="items">
+								{items.map((item): JSX.Element => {
+									return <h6>{item.snippet?.title}</h6>
+								})}
+							</div>
+						</div>
+					</Link>
+				</ContextMenuTrigger>
+				<ContextMenu id={`context-playlist-${playlistId}`}>
+					<MenuItem onClick={mergeWithPlaylist}>
+						Combine with ...
+					</MenuItem>
+				</ContextMenu>
+			</> :
+
+			<h2>Error! couldn't load a search result!</h2>
+
+	)
 }

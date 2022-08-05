@@ -1,9 +1,4 @@
-#playlists {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  #tabs {
+#tabs {
     display:flex;
     flex-direction: row;
     div {
@@ -24,14 +19,13 @@
       transition: 0.2s ease-in-out;
     }
   }
-}
 
 #spotify-playlists, #merger-playlists {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: #1e1e1e;
-  overflow-y: auto;
+	flex-direction: column;
+  	background-color: #1e1e1e;
+	height: 79.2%;
+	overflow-y: auto;
+	overflow-x: hidden;
 
   #create-playlist-link {
 	text-align: center;
@@ -39,11 +33,9 @@
   }
 
   a {
-    width: 100%;
     padding: 10px 0px 10px 5px;
     color: white;
     text-decoration: none;
-    height: 13px;
     font-family: RobotoRegular;
     font-size: 13px;
     transition: 0.1s ease-in-out;

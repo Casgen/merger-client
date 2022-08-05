@@ -1,0 +1,14 @@
+#liked-songs-page {
+  width: 100%;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+}
+#liked-songs-page h1 {
+  font-family: PTSansRegular;
+  font-weight: bolder;
+  font-size: 40px;
+  color: white;
+}
+
+/*# sourceMappingURL=likedSongsPage.css.map */

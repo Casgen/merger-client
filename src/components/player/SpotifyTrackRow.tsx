@@ -1,10 +1,13 @@
 import React, { MouseEventHandler, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { convertNumberToDuration } from '../../utils/utils';
+import { convertNumberToDuration, trimString } from '../../utils/utils';
 import { ContextMenuTrigger } from "react-contextmenu";
 import { TrackContextMenu } from "../contextmenu/TrackContextMenu";
 import "../../scss/track/spotifyTrackRow.scss";
 import axios from 'axios';
+import { store } from '../../App';
+import { ActionTypeQueue } from '../features/queue/queueSlice';
+import Merger from '../../interfaces/Merger';
 
 interface Props {
 	track: SpotifyApi.TrackObjectFull,
@@ -14,7 +17,7 @@ interface Props {
 	showLike?: boolean,
 }
 
-export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlbum, showLike}: Props) => {
+export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlbum, showLike }: Props) => {
 
 	const [isLikeHovered, setIsLikeHovered] = useState<boolean>(false);
 
@@ -32,15 +35,31 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 		e.stopPropagation(); // this function prevents the event from bubbling up the element's parents
 
 		try {
-			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`,track, {withCredentials: true});
+			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`, {uri: track.uri}, { withCredentials: true });
 		} catch (e: unknown) {
 			console.error(e)
 		}
 	}
 
+	const handleAddToQueue = (e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
+		store.dispatch({ type: ActionTypeQueue.ADD_SONG, payload: track })
+	}
+
+	const handleAddToPlaylist = async (playlist: Merger.PlaylistFull) => {
+		try {
+			console.log(playlist.id)
+			axios.put(`${process.env.REACT_APP_API_LINK}/merger/addToPlaylist`, {
+				playlistId: playlist.id,
+				track: track
+			}, { withCredentials: true })
+		} catch (e: unknown) {
+			console.error("Failed to add a track to playlist", e);
+		}
+	}
+
 	return (
 		<>
-			<ContextMenuTrigger id={`track-context-${track.id}`}>
+			<ContextMenuTrigger id={`track-context-${track.id}`} holdToDisplay={1000}>
 				<div onClick={handleClick} className="track-row">
 					<div className="name">
 						<img src={track.album.images[2]?.url} alt="Err"></img>
@@ -54,7 +73,7 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 					</div>
 					{showAlbum &&
 						<div className="album">
-							<Link to={track.album.uri}>{track.album.name}</Link>
+							<Link to={track.album.uri}>{trimString(track.album.name,30)}</Link>
 						</div>
 					}
 					<div className="duration">
@@ -62,7 +81,8 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 					</div>
 					<div className="like">
 						{showLike &&
-							<img onClick={(e) => likeTrack(e)}
+							<img className="like"
+								onClick={(e) => likeTrack(e)}
 								src={isLikeHovered ? "/images/heartFilledSpotify.png" : "/images/heartSpotify.png"}
 								onMouseOver={fill}
 								onMouseOut={drain}
@@ -71,7 +91,7 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 					</div>
 				</div>
 			</ContextMenuTrigger>
-			<TrackContextMenu id={`track-context-${track.id}`} track={track} />
+			<TrackContextMenu onAddToPlaylist={handleAddToPlaylist} onAddToQueue={handleAddToQueue} id={`track-context-${track.id}`} />
 		</>
 	)
 }

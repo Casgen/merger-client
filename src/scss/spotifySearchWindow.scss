@@ -58,4 +58,24 @@
       margin: 0px 0px 0px 10px;
     }
   }
+
+  #playlists {
+      display: flex;
+      padding-bottom: 15px;
+      flex-direction: row;
+      overflow-y: hidden;
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 10px;
+
+    .playlist-block {
+      margin: 0px 10px 0px 10px;
+    }
+    .playlist-block:first-child {
+      margin: 0px 10px 0px 0px;
+    }
+    .playlist-block:last-child {
+      margin: 0px 0px 0px 10px;
+    }
+  }
 }

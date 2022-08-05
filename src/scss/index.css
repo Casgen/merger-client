@@ -49,8 +49,8 @@ body {
 }
 #main-container #horizontal-container #side-bar {
   background-color: rgb(14, 14, 14);
-  width: 180px;
-  height: 100%;
+  width: 190px;
+  flex-direction: column;
   border-right: 1px solid rgb(37, 37, 37);
 }
 #main-container #horizontal-container #side-bar #search-button {
@@ -66,7 +66,7 @@ body {
 }
 #main-container #horizontal-container #side-bar #search-button div {
   height: 15px;
-  margin: auto;
+  margin: auto auto auto 12px;
 }
 #main-container #horizontal-container #side-bar #search-button div img {
   width: 15px;
@@ -78,6 +78,33 @@ body {
   margin-right: auto;
   font-weight: 100;
   font-size: 18px;
+  color: rgb(216, 216, 216);
+}
+#main-container #horizontal-container #side-bar #liked-songs-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: 10px auto;
+  height: 35px;
+  border-radius: 5px;
+  background-color: #232323;
+  text-decoration: none;
+}
+#main-container #horizontal-container #side-bar #liked-songs-button div {
+  height: 20px;
+  margin: auto;
+}
+#main-container #horizontal-container #side-bar #liked-songs-button div img {
+  width: 20px;
+  height: 20px;
+  filter: invert(100%);
+}
+#main-container #horizontal-container #side-bar #liked-songs-button h3 {
+  font-family: RobotoLight;
+  margin-right: auto;
+  font-weight: 100;
+  font-size: 17px;
   color: rgb(216, 216, 216);
 }
 

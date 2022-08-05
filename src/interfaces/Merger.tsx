@@ -16,17 +16,16 @@ namespace Merger {
 	//BACKEND RELATED INTERFACES
 	export interface Playlist {
 		id?: number,
-		name: string,
-		creator: Merger.User,
+		title: string,
+		creator: number,
 		desc: string,
-		tracks: Array<Merger.Song>
 	}
 
 	export interface User {
 		id: number,
 		username: string,
-		email: string,
-		password: string
+		email?: string,
+		password?: string
 		img?: string,
 	}
 
@@ -45,12 +44,19 @@ namespace Merger {
 	export interface PlaylistFull {
 		id?: number,
 		creator: User,
-		songs: Array<Song>
+		tracks?: Array<SpotifyApi.TrackObjectFull | gapi.client.youtube.Video>
 		title: string,
 		desc: string
 	}
 
 	//--------------------------------------------------------
+	
+	export enum Order {
+		Random,
+		SpotifyFirst,
+		YoutubeFirst
+	}
+	
 	/**
 	 * @param ytState -1 = not started | 0 = ended | 1 = is playing | 2 = paused | 3 = loading | 5 = video cued
 	 */

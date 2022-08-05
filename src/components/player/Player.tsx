@@ -125,12 +125,12 @@ export const Player: React.FC = () => {
 			<InfoPlayerContainer />
 			<div>
 				<div id="player-buttons-container">
-					<PlayerButton disabled={mergerState.state.previousSong === undefined} id="prev-button"
-						src="/images/PrevButton.svg" execFunc={() => mergerPrevSong()} />
+					<PlayerButton disabled={!mergerState.state.previousSong} id="prev-button"
+						src="/images/PrevButton.svg" execFunc={mergerPrevSong} />
 					<PlayerButton disabled={false} src={mergerState.state.paused ? stateImg.play : stateImg.pause}
 						text="Toggle Play"
 						id="play-button" execFunc={mergerTogglePlayBack} />
-					<PlayerButton disabled={mergerState.state.nextSong === undefined} id="next-button"
+					<PlayerButton disabled={!mergerState.state.nextSong} id="next-button"
 						src="/images/NextButton.svg" execFunc={mergerNextSong} />
 				</div>
 				<ProgressBar func={setProgress} />

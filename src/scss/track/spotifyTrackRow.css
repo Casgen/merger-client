@@ -1,7 +1,8 @@
 .track-row {
   display: flex;
-  width: 100%;
   flex-direction: row;
+  padding: 0px 10px;
+  transition: 0.2s ease-in-out;
   line-height: 14px;
   transition: background-color 100ms ease-in;
 }
@@ -24,8 +25,18 @@
   margin: auto;
 }
 .track-row .album {
-  width: 23%;
+  width: 20%;
   margin: auto;
+}
+.track-row .like {
+  display: flex;
+  width: 3%;
+}
+.track-row .like img {
+  width: 25px;
+  margin: auto;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
 }
 .track-row .duration {
   width: 7%;
@@ -45,7 +56,13 @@
 
 .track-row:hover {
   background-color: rgba(48, 48, 48, 0.5607843137);
+  transition: 0.2s ease-in-out;
   cursor: pointer;
+}
+.track-row:hover .like img {
+  transition: 0.2s ease-in-out;
+  opacity: 1;
+  display: flex;
 }
 
 /*# sourceMappingURL=spotifyTrackRow.css.map */

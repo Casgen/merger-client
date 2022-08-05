@@ -1,0 +1,41 @@
+.spotify-playlist-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+}
+.spotify-playlist-row img {
+  width: 75px;
+  height: 75px;
+}
+.spotify-playlist-row .details {
+  display: flex;
+  margin-left: 20px;
+  flex-direction: column;
+}
+.spotify-playlist-row .details h1, .spotify-playlist-row .details h2 {
+  color: white;
+  font-family: RobotoRegular;
+}
+.spotify-playlist-row .details h1 {
+  font-size: 16px;
+}
+.spotify-playlist-row .details h2 {
+  font-size: 11px;
+  color: #b1b1b1;
+}
+.spotify-playlist-row .confirm {
+  display: none;
+  margin: auto 0px auto auto;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  background-color: #00d95f;
+}
+
+.spotify-playlist-row:hover {
+  background-color: #232323;
+  transition: 0.2s ease-in-out;
+}
+
+/*# sourceMappingURL=SpotifyPlaylistRow.css.map */

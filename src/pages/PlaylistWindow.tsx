@@ -6,6 +6,7 @@ import {addOtherSongsToQueuePlaylist, mergerLoadAndPlay} from "../utils/mergerUt
 import {TrackListHeader} from "../components/player/TrackListHeader";
 import {SpotifyTrackRow} from "../components/player/SpotifyTrackRow";
 import { PlayerHeader } from '../components/player/PlayerHeader';
+import { getPlaylist } from '../utils/spotifyUtils';
 
 const PlaylistWindow: React.FC = () => {
 
@@ -19,11 +20,10 @@ const PlaylistWindow: React.FC = () => {
     }
 
     const loadPlaylist = async () => {
-        let uri: string[] | undefined = id?.split(":");
 
-        if (uri !== undefined) {
+        if (id !== undefined) {
 
-            let res: Promise<AxiosResponse<SpotifyApi.PlaylistObjectFull>> = axios.get(`${process.env.REACT_APP_API_LINK}/spotify/playlist/${uri[2]}`);
+            let res: Promise<AxiosResponse<SpotifyApi.PlaylistObjectFull>> = getPlaylist(id);
 
             let playlist: SpotifyApi.PlaylistObjectFull = (await res).data;
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Link } from "react-router-dom";
 import Merger from "../../interfaces/Merger";
-import Cookies from "js-cookie";
 
 interface Props {
 	display: string
@@ -33,7 +32,7 @@ export const MergerPlaylist: React.FC<Props> = (props: Props) => {
 			{console.log(playlists)}
 			{ isLoggedIn ?
 				playlists !== null && playlists.map((playlist: Merger.Playlist): JSX.Element => {
-					return <Link to={`/merger/playlist/${playlist.id}`} key={playlist.id}> {playlist.name}</Link>
+					return <Link to={`/merger/playlist/${playlist.id}`} key={playlist.id}>{playlist.title}</Link>
 				}) :
 				<p><Link to="/login">Login</Link> or<Link to={"/register"}>Sign up</Link> to create and view your merger playlists!</p>
 			}

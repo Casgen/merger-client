@@ -25,7 +25,7 @@ export const YoutubeSearchWindow: React.FC = () => {
     }
 
     const search = (value: string) => {
-        axios.get<gapi.client.youtube.SearchListResponse>(`${process.env.REACT_APP_API_LINK}/youtube/search?query=${value}`)
+        axios.post<gapi.client.youtube.SearchListResponse>(`${process.env.REACT_APP_API_LINK}/youtube/search?query=${value}`)
             .then((res: AxiosResponse<gapi.client.youtube.SearchListResponse>) => {
                 setResults(res.data);
             });
@@ -34,7 +34,11 @@ export const YoutubeSearchWindow: React.FC = () => {
     const generateResults = (result: gapi.client.youtube.SearchResult): JSX.Element | null => {
         if (result.id?.videoId) return <YoutubeVideoSearchResult playVideo={playVideo} key={result.id?.videoId}
                                                                  item={result}/>
-        if (result.id?.playlistId) return <YoutubePlaylistSearchResult key={result.id?.playlistId} result={result}/>
+        if (result.id?.playlistId) return (<YoutubePlaylistSearchResult
+			playlistId={result.id.playlistId}
+			key={result.id?.playlistId}
+			img={result.snippet?.thumbnails?.default?.url} 
+			title={result.snippet?.title}/>)
 
         return null;
     }

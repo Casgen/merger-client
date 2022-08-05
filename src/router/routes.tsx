@@ -17,6 +17,9 @@ import { LoginPage } from "../pages/LoginPage";
 import { CreatePlaylistPage } from "../pages/CreatePlaylistPage";
 import { MergerPlaylistPage } from "../pages/MergerPlaylistPage";
 import { LikedSongsPage } from "../pages/LikedSongsPage";
+import { YoutubePlaylistPage } from "../pages/YoutubePlaylistPage";
+import { MergeWithSpotify } from "../pages/MergeWithSpotifyPage";
+import { MergeWithYoutube } from "../pages/MergeWithYoutube";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -39,10 +42,19 @@ export const Routes: React.FC = () => (
 						<Route exact path="/login" component={LoginPage}/>
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/likedSongs" component={LikedSongsPage}/>
+						<Route exact path="/youtube/playlist/:id">
+							<YoutubePlaylistPage/>
+						</Route>
+						<Route exact path="/merger/mergeWithSpotify/:playlistId">
+							<MergeWithSpotify/>
+						</Route>
+						<Route exact path="/merger/mergeWithYoutube/:playlistId">
+							<MergeWithYoutube/>
+						</Route>
 						<Route exact path="/merger/playlist/:id">
 							<MergerPlaylistPage/>
 						</Route>
-						<Route path="/playlist/:id">
+						<Route path="/spotify/playlist/:id">
 							<PlaylistWindow></PlaylistWindow>
 						</Route>
 						<Route path="/spotify/album/:id">

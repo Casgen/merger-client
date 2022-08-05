@@ -1,6 +1,8 @@
 #header-row {
   border-bottom: 1px solid rgb(51, 51, 51);
   display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 #header-row h6 {
   font-family: PTSansBold;
@@ -14,7 +16,10 @@
   width: 25%;
 }
 #header-row #album {
-  width: 23%;
+  width: 20%;
+}
+#header-row #like {
+  width: 3%;
 }
 #header-row #duration {
   width: 7%;
