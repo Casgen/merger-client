@@ -10,7 +10,7 @@ export const Playlists: React.FC = () => {
     const backgroundColor: CSSProperties = {backgroundColor: '#1e1e1e'};
 
     return (
-        <div id="playlists">
+	<>
             <div id="tabs">
                 <div style={index === 0 ? backgroundColor : {}} onClick={() => setIndex(0)}>
                     <img src="/images/spotify.png" alt="couldn't load"/>
@@ -22,6 +22,6 @@ export const Playlists: React.FC = () => {
             <SpotifyPlaylists display={index === 0 ? 'flex' : 'none'}/>
             <MergerPlaylist display={index === 1 ? 'flex' : 'none'} />
 
-        </div>
+        </>
     )
 }

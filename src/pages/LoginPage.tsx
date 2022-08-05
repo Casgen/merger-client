@@ -13,7 +13,7 @@ export const LoginPage: React.FC = () => {
     const [errorMsg, setErrorMsg] = useState<string>("");
 
     const tryLoggingIn = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        event.preventDefault();
         if (email.length === 0 || password.length === 0) return setErrorMsg("some required fields are empty! please fill all the given fields.");
 
         /*It has to be set with credentials, otherwise the cookie (which was generated from the backend) wont be sent to the

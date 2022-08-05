@@ -1,0 +1,39 @@
+#youtube-playlist-window {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#youtube-playlist-window #header {
+  display: flex;
+  background-color: #1e1e1e;
+  width: 100%;
+  padding: 20px;
+  border-bottom: 2px solid red;
+}
+#youtube-playlist-window #header #thumbnail {
+  border: 2px solid #1e1e1e;
+  margin-right: 20px;
+}
+#youtube-playlist-window #details {
+  display: flex;
+  flex-direction: column;
+}
+#youtube-playlist-window #details #title {
+  margin: 0px;
+  color: white;
+  font-family: PTSansRegular;
+}
+#youtube-playlist-window #details #channel-title {
+  margin: 0px;
+  color: white;
+  font-size: 12px;
+  font-family: RobotoLight;
+}
+#youtube-playlist-window #details #desc {
+  margin: 0px;
+  color: white;
+  font-size: 12px;
+  font-family: RobotoLight;
+}
+
+/*# sourceMappingURL=youtubePlaylistPage.css.map */

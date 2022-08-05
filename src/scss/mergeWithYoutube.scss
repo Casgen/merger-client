@@ -1,0 +1,125 @@
+
+#merge-with-youtube {
+	display:flex;
+	flex-direction: column;
+	padding: 50px;
+	height: -webkit-fill-available;
+	width:100%;
+
+	#lists {
+		margin:auto;
+		display:flex;
+		width: 100%;
+		height: 64vh;
+		#search-window {
+
+			background-color: #1e1e1e;
+			display:flex;
+			width: 50%;
+			flex-direction: column;
+			#playlist-results {
+				margin: 20px 0px;
+				display:flex;
+				flex-direction: column;
+				overflow-y: scroll;
+				
+				.youtube-playlist {
+					padding: 10px 20px;
+					.thumbnail-div {
+						img {
+							width: 100px;
+						}
+						h6 {
+							display:none;
+						}
+					}
+
+					.details .items h6 {
+						display: none;
+					}
+				}
+
+			}
+
+		    	.text-field {
+				margin: 0px auto;
+		      		width: 50%;
+				padding: 10px 0px;
+		      		text-align: center;
+		      		font-size: 16px;
+		      		font-family: PTSansRegular;
+		      		border-top: none;
+		      		border-right: none;
+		      		border-left: none;
+		      		border-bottom: #2c2c2c solid 2px;
+		      		box-sizing: border-box;
+		      		background: transparent;
+		      		transition: 0.2s ease-in-out;
+		      		color: white;
+		      		outline: none; //has to be set to remove the default border
+		    	}
+
+		    	.text-field:focus {
+		      		border-bottom: #3d3d3d solid 2px !important;
+		      		transition: 0.2s ease-in-out !important;
+		    	}
+		}
+
+		#spotify-playlist {
+			margin:auto;
+			.spotify-playlist-row {
+				padding: 20px;
+			}
+		}
+	}
+
+	form {
+		display:flex;
+		flex-direction: column;
+		width: 25%;
+		margin:20px auto auto auto;
+
+		select {
+			appearance: none;
+			background-color: #343434;
+			color:white;
+			border: none;
+			text-decoration: white;
+			padding: 10px;
+			height: 40px;
+			border-radius: 5px;
+			margin: 0;
+			border-radius: 0px;
+			outline: none;
+			width: 100%;
+			font-family: inherit;
+			font-size: inherit;
+			cursor: inherit;
+			line-height: inherit;
+			font-family: RobotoRegular;
+
+			option {
+				padding: 10px;
+				margin: 10px;
+				height: 40px;
+				border-radius: 0px;
+				font-family: RobotoRegular;
+			}
+		}
+
+		input {
+			background-color: #343434;
+			border-sizing: border-box;
+			outline: none;
+			width: 50%;
+			height: 40px;
+			margin: 20px auto auto auto;
+			border-radius: 5px;
+			padding: 5px;
+			font-family: PTSansRegular;
+			font-weight: bolder;
+			color: white;
+			font-size: 17px;
+		}
+	}
+}

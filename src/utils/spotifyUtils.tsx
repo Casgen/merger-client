@@ -87,6 +87,10 @@ export const getTrackUniqueId = (uri: string): string => {
     return uri.split(":")[2];
 }
 
+export const getPlaylist = (id: string) => {
+	return axios.get<SpotifyApi.PlaylistObjectFull>(`${process.env.REACT_APP_API_LINK}/spotify/playlist/${id}`);
+}
+
 export const getPlaybackState = async (): Promise<SpotifyApi.CurrentlyPlayingObject> => {
     let res: Promise<AxiosResponse<SpotifyApi.CurrentlyPlayingObject>> = axios.get<SpotifyApi.CurrentPlaybackResponse>(`${process.env.REACT_APP_API_LINK}/spotify/player/playbackState`)
     return (await res).data;
@@ -118,6 +122,10 @@ export const splitSpotifyUri = (uri: string): string => {
 export const getSpotifyAccessToken = async (): Promise<string> => {
     let res: Promise<AxiosResponse<string>> = axios.get<string>(`${process.env.REACT_APP_API_LINK}/spotify/auth/token`);
     return (await res).data;
+}
+
+export const getUsersPlaylists = async () => {
+	return await axios.get<Array<SpotifyApi.PlaylistObjectSimplified>>(`${process.env.REACT_APP_API_LINK}/spotify/me/playlists`);
 }
 
 export const spotifyIsUndefinedError: string = "Spotify Player is Undefined!";

@@ -1,0 +1,81 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoRegular;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoLight;
+  src: url("../fonts/Roboto/Roboto-Light.ttf");
+}
+@font-face {
+  font-family: RobotoBold;
+  src: url("../fonts/Roboto/Roboto-Bold.ttf");
+}
+#merge-with-spotify {
+  display: flex;
+  padding: 100px;
+  height: -webkit-fill-available;
+  margin: auto;
+}
+#merge-with-spotify #spotify-playlists {
+  display: flex;
+  width: 400px;
+  height: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+#merge-with-spotify #spotify-playlists #tabs div {
+  align-items: center;
+  width: 50%;
+  color: white;
+  height: 30px;
+  font-size: 13px;
+  background-color: #0e0e0e;
+  font-family: RobotoRegular;
+}
+#merge-with-spotify #spotify-playlists #tabs div:hover {
+  background-color: #1e1e1e;
+  cursor: pointer;
+}
+#merge-with-spotify #spotify-playlists #playlist-results {
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+}
+#merge-with-spotify #spotify-playlists #playlist-results .spotify-playlist-row {
+  padding: 10px 20px;
+}
+#merge-with-spotify #spotify-playlists #search-window {
+  display: flex;
+  flex-direction: column;
+}
+#merge-with-spotify #spotify-playlists #search-window .text-field {
+  margin: auto;
+  width: 50%;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+  font-family: PTSansRegular;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: #2c2c2c solid 2px;
+  box-sizing: border-box;
+  background: transparent;
+  transition: 0.2s ease-in-out;
+  color: white;
+  outline: none;
+}
+#merge-with-spotify #spotify-playlists #search-window .text-field:focus {
+  border-bottom: #3d3d3d solid 2px !important;
+  transition: 0.2s ease-in-out !important;
+}
+
+/*# sourceMappingURL=mergeWithSpotify.css.map */

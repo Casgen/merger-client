@@ -1,16 +1,16 @@
 .youtube-video {
   margin: 0;
-  padding: 10px 100px 10px 10px;
+  padding: 10px 30px 10px 20px;
   display: flex;
   flex-direction: row;
   transition: 0.2s ease-in-out;
 }
 .youtube-video .thumbnail-div img {
   width: 200px;
-  height: auto;
+  aspect-ratio: 16/9;
 }
 .youtube-video .details {
-  margin-left: 50px;
+  margin: 0px auto 0px 30px;
   display: flex;
   flex-direction: column;
 }
@@ -31,11 +31,27 @@
   color: #9f9f9f;
   font-size: 13px;
 }
+.youtube-video .like {
+  display: flex;
+  height: min-content;
+  margin: auto 30px auto auto;
+  justify-content: center;
+}
+.youtube-video .like img {
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+  width: 32px;
+  height: 32px;
+}
 
 .youtube-video:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.1);
   transition: 0.2s ease-in-out;
+}
+.youtube-video:hover .like img {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
 /*# sourceMappingURL=youtubeVideoSearchResult.css.map */

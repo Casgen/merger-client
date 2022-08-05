@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { convertStringToDuration } from '../../utils/utils';
 import { ContextMenuTrigger } from "react-contextmenu";
-import { VideoContextMenu } from "../contextmenu/VideoContextMenu";
 import { htmlUnescape } from "escape-goat";
+import { TrackContextMenu } from '../contextmenu/TrackContextMenu';
+import axios from 'axios';
+import { ActionTypeQueue } from '../features/queue/queueSlice';
+import { store } from '../../App';
+import Merger from '../../interfaces/Merger';
 import "../../scss/track/youtubeTrackRow.scss";
 
 interface Props {
@@ -19,6 +23,34 @@ export const YoutubeTrackRow: React.FC<Props> = ({ video, handleOnClick }: Props
 	// listener, the function is executed when rendered either way
 	const handleClick = () => {
 		handleOnClick(video);
+	}
+
+	const likeTrack = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+
+		e.stopPropagation(); // this function prevents the event from bubbling up the element's parents
+
+		try {
+			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`, {uri: video.id}, { withCredentials: true });
+		} catch (e: unknown) {
+			console.error(e)
+		}
+	}
+
+
+	const handleAddToQueue = () => store.dispatch({ type: ActionTypeQueue.ADD_SONG, payload: video })
+
+	const handleAddToPlaylist = async (playlist: Merger.Playlist) => {
+
+		try {
+
+			axios.put(`${process.env.REACT_APP_API_LINK}/merger/addToPlaylist`, {
+				playlistId: playlist.id,
+				track: video,
+			})
+
+		} catch (e: unknown) {
+			console.error("failed to add a youtube video to playlist!", e);
+		}
 	}
 
 	const fill = () => setIsLikeHovered(true);
@@ -40,11 +72,16 @@ export const YoutubeTrackRow: React.FC<Props> = ({ video, handleOnClick }: Props
 						{video.contentDetails?.duration && convertStringToDuration(video.contentDetails.duration)}
 					</div>
 					<div className="like">
-						<img src={isLikeHovered ? "/images/heartFilledYoutube.png" : "/images/heartYoutube.png"} onMouseOver={fill} onMouseOut={drain} alt="couldn't load!" />
+						<img src={isLikeHovered ? "/images/heartFilledYoutube.png" : "/images/heartYoutube.png"}
+							onMouseOver={fill}
+							onMouseOut={drain}
+							onClick={likeTrack}
+							alt="Heart"
+						/>
 					</div>
 				</div>
 			</ContextMenuTrigger>
-			<VideoContextMenu id={`track-context-${video.id}`} video={video} />
+			<TrackContextMenu id={`track-context-${video.id}`} onAddToQueue={handleAddToQueue} onAddToPlaylist={handleAddToPlaylist} />
 		</>
 	)
 }
