@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import Merger from "../interfaces/Merger";
 import {store} from "../App";
 import {ActionTypeState} from "../components/features/state/stateSlice";
+import { mergerNextSong } from "./mergerUtils";
 
 export const spotifyPause = async (): Promise<void> => {
     if (window.Spotify.Player === undefined) throw new Error(spotifyIsUndefinedError);
@@ -41,7 +42,7 @@ export const spotifyPlay = async (spotify_uris?: string[]): Promise<void> => {
 export const spotifySeek = async (position: number): Promise<void> => {
     if (window.Spotify === undefined) throw new Error(spotifyIsUndefinedError);
 
-    let res: AxiosResponse<void> = await axios.put(`${process.env.REACT_APP_API_LINK}/spotify/player/seek?device_id=${store.getState().deviceId}&position_ms=${position}`)
+    await axios.put(`${process.env.REACT_APP_API_LINK}/spotify/player/seek?device_id=${store.getState().deviceId}&position_ms=${position}`)
 
     return updatePlaybackState();
 }
@@ -62,9 +63,8 @@ export const spotifySetVolume = (value: number) => {
 }
 
 export const spotifyUpdateState = async (s: Spotify.PlaybackState): Promise<void> => {
-    if (s) {
-
-    }
+	console.log(s);
+	if (s.paused && !store.getState().state.paused) mergerNextSong();
 }
 
 export const waitForSpotifyWebPlaybackSDKToLoad = async () => {
@@ -98,7 +98,6 @@ export const getPlaybackState = async (): Promise<SpotifyApi.CurrentlyPlayingObj
 
 export const updatePlaybackState = async (): Promise<void> => {
     let pbState: SpotifyApi.CurrentlyPlayingObject = await getPlaybackState();
-    console.log(pbState);
     store.dispatch({type: ActionTypeState.SEEK_CHANGE, payload: pbState.progress_ms})
 }
 

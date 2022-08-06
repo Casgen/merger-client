@@ -144,10 +144,10 @@ export const MergeWithSpotify: React.FC = () => {
 				<div id="spotify-playlists">
 					<div id="tabs">
 						<div onClick={() => setIndex(0)} style={index === 0 ? backgroundColor : {}} id="users-playlists-tab">
-							My Playlists
+							<h6>My Playlists</h6>
 						</div>
 						<div onClick={() => setIndex(1)} style={index === 1 ? backgroundColor : {}} id="search-tab">
-							Search playlist
+							<h6>Search playlist</h6>
 						</div>
 					</div>
 					{selectTab()}

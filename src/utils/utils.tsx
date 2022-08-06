@@ -33,15 +33,15 @@ export const generateRandomString = (length: number) => {
 };
 
 export const listArtists = (artists: SpotifyApi.ArtistObjectSimplified[]): JSX.Element[] => {
-	let elements: Array<JSX.Element> = Array();
+	let elements: Array<JSX.Element> = [];
 
 	for (let i: number = 0; i < artists.length; i++) {
 		if (i === 0) {
-			elements.push(<Link className='artist-title' key={artists[i].id} to={artists[i].href}>{artists[i].name}</Link>);
+			elements.push(<Link onClick={e => e.stopPropagation()} className='artist-title' key={artists[i].id} to={`/spotify/artist/${artists[i].id}`}>{artists[i].name}</Link>);
 			continue;
 		}
 		elements.push(<span>, </span>);
-		elements.push(<Link className='artist-title' key={artists[i].id} to={artists[i].href}>{artists[i].name}</Link>);
+		elements.push(<Link onClick={e => e.stopPropagation()} className='artist-title' key={artists[i].id} to={`/spotify/artist/${artists[i].id}`}>{artists[i].name}</Link>);
 	}
 	return elements;
 }

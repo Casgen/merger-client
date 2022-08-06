@@ -1,0 +1,83 @@
+@use "../fonts";
+
+#account-page {
+	display:flex;
+	justify-content: center;
+	margin:auto;
+	padding: 20px;
+	width: 100%;
+
+	> div {
+		min-height: 200px;
+		background-color: #1e1e1e;
+		border-radius: 15px;
+		padding: 20px;
+		display:flex;
+		width: 250px;
+		flex-direction: column;
+	}
+
+	> div h4 {
+		color:white;
+		font-family: PTSansRegular;
+		font-size: 20px;
+		color:white;
+		text-align:center;
+	}
+
+	> div h1 {
+		font-family: PTSansRegular;
+		font-size: 20px;
+		margin:auto;
+		text-align: center;
+		color:white;
+	}
+
+
+	> div img:first-child {
+		width: 32px;
+	}
+
+	> div img:nth-child(2) {
+		width: 128px;
+		height: 128px;
+		margin:auto;
+	}
+
+	#merger {
+		margin-right: 20px;
+	}
+
+	#spotify {
+		margin-left: 20px;
+	}
+
+	.username {
+		display:flex;
+
+		h4:nth-child(2) {
+			margin-left: auto;
+		}
+	}
+
+
+	.logout-btn, .login-btn {
+		text-decoration: none;
+		margin:auto;
+		font-family: PTSansRegular;
+		font-weight: bold;
+		font-size: 15px;
+		border-radius: 5px;
+		background-color: #0e0e0e;
+		padding: 15px 20px;
+		color:white;
+		transition: 0.2s ease-in-out;
+	}
+
+	.logout-btn:hover, .login-btn:hover {
+		background-color: #121212;
+		transition: 0.2s ease-in-out;
+		cursor: pointer
+	}
+
+}

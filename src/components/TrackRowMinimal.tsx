@@ -1,30 +1,21 @@
-import React, {MouseEventHandler} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom';
 import {convertNumberToDuration} from '../utils/utils';
 import "../scss/track/trackRowSearch.scss";
 import {mergerLoadAndPlay} from "../utils/mergerUtils";
-import {ContextMenu, ContextMenuTrigger, MenuItem} from "react-contextmenu";
+import { ContextMenuTrigger } from "react-contextmenu";
 
-interface Props {
+interface TrackRowMinimalProps {
     track: SpotifyApi.TrackObjectFull | undefined,
     showArtist: boolean;
 }
 
-export const TrackRowMinimal: React.FC<Props> = ({track, showArtist}: Props) => {
+export const TrackRowMinimal: React.FC<TrackRowMinimalProps> = ({track, showArtist}: TrackRowMinimalProps) => {
 
     const handlePlay = () => {
         if (track !== undefined) mergerLoadAndPlay(track);
     }
 
-    const handleContextMenu = (event: React.MouseEvent<HTMLImageElement>) => {
-        event.preventDefault();
-        const xPos: string = event.pageX + "px";
-        const yPos: string = event.pageY + "px";
-    }
-
-    function handleAddToQueue(e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) {
-
-    }
 
     return (
         <>

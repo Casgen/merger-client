@@ -1,8 +1,7 @@
 
-import axios, { AxiosResponse } from "axios";
-import React, { CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
+import axios from "axios";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { YoutubePlaylistSearchResult } from "../components/search/YoutubePlaylistSearchResult";
 import { TextField } from "../components/TextField";
 import { getPlaylist } from "../utils/spotifyUtils";
 import Merger from "../interfaces/Merger";

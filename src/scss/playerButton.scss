@@ -8,6 +8,8 @@
   padding: 0px;
   width: auto;
   height: auto;
+  opacity: 0.9;
+  transition: 0.2s ease-in-out;
 }
 
 #play-button img,
@@ -22,7 +24,15 @@
   height: 16px;
 }
 
-#play-button:hover img {
-  width: 34px;
-  height: 34px;
+#play-button {
+	margin: auto 20px;
+}
+
+#play-button:hover,
+#pause-button:hover,
+#prev-button:hover,
+#next-button:hover {
+	opacity: 1;
+	transition: 0.2s ease-in-out;
+	cursor:pointer;
 }

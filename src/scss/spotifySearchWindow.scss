@@ -47,6 +47,7 @@
   #artists {
     display: flex;
     overflow-y: hidden;
+    padding-bottom: 15px;
 
     .artist-block {
       margin: 0px 10px 0px 10px;
@@ -65,17 +66,18 @@
       flex-direction: row;
       overflow-y: hidden;
       width: 100%;
+      height: 260px;
       overflow-x: auto;
       margin-bottom: 10px;
 
     .playlist-block {
-      margin: 0px 10px 0px 10px;
+      margin: 0px 10px;
     }
     .playlist-block:first-child {
-      margin: 0px 10px 0px 0px;
+      margin-left: 0px;
     }
     .playlist-block:last-child {
-      margin: 0px 0px 0px 10px;
+      margin-right: 10px;
     }
   }
 }

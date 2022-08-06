@@ -6,6 +6,7 @@ import { ActionTypeQueue } from "../features/queue/queueSlice";
 import { getYoutubeVideo } from "../../utils/youtubeUtils";
 import "../../scss/search/youtubeVideoSearchResult.scss";
 import { useState } from "react";
+import { mergerLoadAndPlay } from "../../utils/mergerUtils";
 
 interface Props {
 	item: gapi.client.youtube.SearchResult,
@@ -21,9 +22,9 @@ export const YoutubeVideoSearchResult: React.FC<Props> = ({ item, playVideo }: P
 	const drain = () => setIsLikeHovered(false);
 
 	const handleClick = () => {
-		if (!item.id) return console.log("Failed to play a video. ResourceId is Undefined!");
+		if (!item.id?.videoId) return console.log("Failed to play a video. ResourceId is Undefined!");
 
-		playVideo(item.id);
+		mergerLoadAndPlay(item.id.videoId);
 	}
 
 	const likeVideo = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {

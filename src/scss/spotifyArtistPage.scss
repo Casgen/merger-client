@@ -6,6 +6,7 @@
     background-size: 100%;
     background-position-y: 50%;
     position: relative;
+    border-bottom: 2px solid white;
 
     h1 {
       font-family: PTSansRegular;
@@ -45,19 +46,33 @@
         width: 50%;
         flex-wrap: wrap;
         margin-left: 50px;
-        display: flex;
         flex-direction: column;
+	display:flex;
+
         > div {
           background-color: rgba(168, 168, 168, 0.25);
-          border-radius: 15px 0px 0px 15px;
-          margin: auto;
+          border-radius: 10px 0px 0px 10px;
+	  margin:auto;
           flex-direction: row;
-          padding: 30px;
+          padding: 15px;
           display:flex;
           flex-wrap: wrap;
-          height: 410px;
-          justify-content: center;
+          height: 450px;
           overflow-y: scroll;
+	  justify-content:space-around;
+	  .artist-block {
+		  width: 80px;
+		  margin:5px;
+		  padding: 10px;
+		  div {
+			  width: 50px;
+			  height: 50px;
+		  }
+
+		  h3 {
+			  font-size: 14px;
+		  }
+	  }
           * {
             margin-bottom: 10px;
           }

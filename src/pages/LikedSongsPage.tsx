@@ -35,7 +35,7 @@ export const LikedSongsPage: React.FC = () => {
 
 	const generateRows = (value: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video): JSX.Element => {
 		if (isSpotifyTrackObject(value))
-			return <SpotifyTrackRow showAlbum={true} handleOnClick={handlePlay} track={value} key={value.uri} />
+			return <SpotifyTrackRow album={value.album} img={value.album.images[2].url} showArtist={true} onClick={handlePlay} track={value} key={value.uri} />
 
 		return <YoutubeTrackRow key={value.id} video={value} handleOnClick={handlePlay} />
 	}

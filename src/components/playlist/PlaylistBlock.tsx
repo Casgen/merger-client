@@ -19,7 +19,7 @@ export const PlaylistBlock: React.FC<Props> = ({ playlist }: Props) => {
 		<>
 			<ContextMenuTrigger id={`playlist-${playlist.id}`}>
 				<div className="playlist-block">
-					<img src={playlist.images[0].url} alt="Error loading!"></img>
+					<img src={playlist.images[0] ? playlist.images[0].url : "/images/noteimg.png"} alt="Error loading!"></img>
 					<div>
 						<Link className='playlist-title' to={`/spotify/playlist/${playlist.id}`}>{trimString(playlist.name, 22)}</Link>
 						<div>

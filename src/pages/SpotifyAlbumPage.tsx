@@ -1,32 +1,50 @@
-import axios, {AxiosResponse} from 'axios';
-import React, {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom';
-import AlbumTable from '../components/album/AlbumTable';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import '../scss/albumWindow.scss'
-import {AlbumHeading} from "../components/album/AlbumHeading";
+import { TrackListHeader } from '../components/player/TrackListHeader';
+import { addOtherSongsToQueuePlaylist, mergerLoadAndPlay } from '../utils/mergerUtils';
+import { SpotifyTrackRow } from '../components/player/SpotifyTrackRow';
+import { PlayerHeader } from '../components/player/PlayerHeader';
 
 
 export const SpotifyAlbumPage: React.FC = () => {
 
-    const {id} = useParams<{ id: string | undefined }>();
-    const [album, setAlbum] = useState<SpotifyApi.AlbumObjectFull>();
+	const { id } = useParams<{ id: string | undefined }>();
+	const [album, setAlbum] = useState<SpotifyApi.AlbumObjectFull>();
+	const [tracks, setTracks] = useState<Array<SpotifyApi.TrackObjectFull>>();
 
-    const loadAlbum = (): void => {
-        if (id !== undefined) {
-            axios.get<SpotifyApi.AlbumObjectFull>(`${process.env.REACT_APP_API_LINK}/spotify/album/${id}`).then((res: AxiosResponse<SpotifyApi.AlbumObjectFull>) => {
-                setAlbum(res.data);
-            })
-        }
-    }
+	const loadAlbum = async () => {
+		if (!id) return console.error("Can't load, Id is undefined!");
 
-    useEffect(() => {
-        loadAlbum();
-    }, [id])
+		try {
+			let album = await axios.get<SpotifyApi.AlbumObjectFull>(`${process.env.REACT_APP_API_LINK}/spotify/albums/${id}`);
+			setAlbum(album.data);
 
-    return (
-        <div id="spotify-album-page">
-            {album && <AlbumHeading album={album}/>}
-            {album?.tracks.items && <AlbumTable content={album?.tracks.items}/>}
-        </div>
-    )
+			let tracks = await axios.get<Array<SpotifyApi.TrackObjectFull>>(`${process.env.REACT_APP_API_LINK}/spotify/albums/${id}/tracks`);
+			setTracks(tracks.data);
+
+		} catch (e: unknown) {
+			console.error(e);
+		}
+
+	}
+	const handlePlay = (track: SpotifyApi.TrackObjectSimplified) => {
+		if (tracks) addOtherSongsToQueuePlaylist(track.uri, tracks);
+		mergerLoadAndPlay(track);
+	}
+
+	useEffect(() => {
+		loadAlbum();
+	}, [id])
+
+	return (
+		<div id="spotify-album-page">
+			{album && <PlayerHeader img={album.images[0] && album.images[0].url}title={album.name} creator={album.artists[0].name} numOfTracks={album.tracks.total} />}
+			{album && <TrackListHeader showNum={true} showArtist={false} />}
+			{tracks && tracks.map((track: SpotifyApi.TrackObjectSimplified) => {
+				return <SpotifyTrackRow onClick={handlePlay} showArtist={false} num={track.track_number} track={track} />
+			})}
+		</div>
+	)
 }

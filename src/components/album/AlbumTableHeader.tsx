@@ -1,6 +1,5 @@
 import React from 'react'
 
-type Props = {}
 
 export const AlbumTableHeader: React.FC = () => {
     return (

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import "../../scss/progressBar.scss";
-import {mergerNextSong, mergerSeek} from '../../utils/mergerUtils';
+import {mergerNextSong} from '../../utils/mergerUtils';
 import {convertNumberToDuration} from '../../utils/utils';
 import {useAppSelector} from "../hooks";
 import {rootState} from "../../App";
@@ -28,14 +28,8 @@ const ProgressBar: React.FC<Props> = ({func}: Props) => {
 
     const handleIncrement = () => {
         setValue((prevValue: number) => {
-            if (mergerState.state.duration &&
-                !mergerState.state.pausedByUser &&
-                value >= mergerState.state.duration) {
-                mergerNextSong()
-            }
             return prevValue + 250;
         })
-
     }
 
     useEffect(() => {

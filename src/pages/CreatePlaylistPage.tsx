@@ -20,7 +20,8 @@ export const CreatePlaylistPage: React.FC = () => {
 			title, desc
 		}, {withCredentials: true}).then((res) => {
 			let newPlaylist: Merger.Playlist = res.data as Merger.Playlist;
-			history.push(`/merger/playlist/${newPlaylist.id}`);
+			history.push(`/merger/playlist/${newPlaylist}`);
+			history.go(0);
 		}).catch((err) => {
 			if (err.response.status as number === 403) return setErrorMsg(err.response.data.message);
 		})

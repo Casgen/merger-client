@@ -18,7 +18,6 @@
 			width: 50%;
 			flex-direction: column;
 			#playlist-results {
-				margin: 20px 0px;
 				display:flex;
 				flex-direction: column;
 				overflow-y: scroll;
@@ -121,5 +120,24 @@
 			color: white;
 			font-size: 17px;
 		}
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	#merge-with-youtube {
+		overflow-y: scroll;
+		#lists {
+			height:auto;
+			flex-direction: column;
+			#search-window {
+				height:600px;
+				margin:auto;
+			}
+
+			#spotify-playlist {
+				margin-bottom: 20px;
+			}
+		}
+
 	}
 }

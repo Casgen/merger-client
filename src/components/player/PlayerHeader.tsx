@@ -1,23 +1,29 @@
-import React, { ReactEventHandler, SyntheticEvent } from 'react'
+import React from 'react'
+import "../../scss/mediaHeader.scss";
 
-interface Props {
-    src?: string,
-    title: string | undefined,
-    creator: string | undefined
+interface PlayerHeaderProps {
+	img?: string,
+	title: string | undefined,
+	creator: string | undefined,
+	numOfTracks?: number,
+	desc?: string | null
 }
 
-export const PlayerHeader: React.FC<Props> = (props: Props) => {
+export const PlayerHeader: React.FC<PlayerHeaderProps> = (props: PlayerHeaderProps) => {
 
-    return (
-        <div id="media-header">
-            <div>
-                <img src={props.src ? props.src : "/images/noteimg.png"} alt="Playlist"/>
-
-            </div>
-            <div>
-                <h1>{props.title}</h1>
-                <h6>{props.creator}</h6>
-            </div>
-        </div>
-    )
+	return (
+		<div id="media-header">
+			<div>
+				<img src={props.img ? props.img : "/images/noteimg.png"} alt="Playlist" />
+			</div>
+			<div>
+				<h1>{props.title}</h1>
+				<h6>
+					{props.creator}
+					{props.numOfTracks && <> ● {props.numOfTracks} tracks</>}
+				</h6>
+				{props.desc && <h6>{props.desc}</h6>}
+			</div>
+		</div>
+	)
 }

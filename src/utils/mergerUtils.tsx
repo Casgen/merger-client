@@ -10,11 +10,8 @@ import {
 import { store } from "../App";
 import { ActionTypeQueue } from "../components/features/queue/queueSlice";
 import { ActionTypeState } from "../components/features/state/stateSlice";
-import { isResourceId, isYoutubeVideo, setupYoutubePlayer, youtubePause, youtubePlay } from "./youtubeUtils";
+import { isYoutubeVideo, youtubePause, youtubePlay } from "./youtubeUtils";
 import axios from "axios";
-import { Maybe } from "typescript-monads";
-
-var typescriptMonads = require("typescript-monads");
 
 export const mergerTogglePlayBack = () => {
 	let state: Merger.PlayerState = store.getState().state;
@@ -29,7 +26,7 @@ export const mergerTogglePlayBack = () => {
 	throw new Error(initializationError);
 }
 
-export const mergerLoadAndPlay = async (track: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video | gapi.client.youtube.ResourceId) => {
+export const mergerLoadAndPlay = async (track: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video | gapi.client.youtube.ResourceId | string) => {
 
 	let state: Merger.PlayerState = store.getState().state;
 

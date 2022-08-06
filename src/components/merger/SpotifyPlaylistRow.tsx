@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../../scss/playlists/SpotifyPlaylistRow.scss";
 import { RadioProps } from "../primitive/RadioGroupSpotify";
 

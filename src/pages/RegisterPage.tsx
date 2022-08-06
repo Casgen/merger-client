@@ -23,7 +23,7 @@ export const RegisterPage: React.FC = () => {
 
     return (
         <div id="form-window">
-            <img src="/images/mergericon.png"/>
+            <img src="/images/mergericon.png" alt="Merger icon"/>
             <h2>Sign up to Merger</h2>
             <form onSubmit={tryRegistering}>
                 <h6>E-mail</h6>

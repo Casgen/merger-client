@@ -9,18 +9,18 @@
   }
 
   .title {
-    font-family: PTSansRegular;
+    font-family: RobotoRegular;
     text-decoration: none;
     display:flex;
     align-items: center;
     margin: auto auto auto 0px;
     transition: 0.1s ease-in-out;
-    width: 45%;
+    width: 44%;
 
     h5 {
 	color: white;
       overflow-y: hidden;
-      font-weight: bold;
+      font-weight: lighter;
       font-size: 0.8em;
     }
 
@@ -38,7 +38,9 @@
   }
 
   .channel {
-    font-family: PTSansRegular;
+    font-family: RobotoRegular;
+    opacity: 0.8;
+    font-size: 13px;
     width: 20%;
     margin:auto;
   }
@@ -57,7 +59,8 @@
 
   .duration {
     width: 7%;
-    font-family: PTSansRegular;
+    opacity: 0.8;
+    font-family: RobotoRegular;
     font-weight: lighter;
     font-size: 13px;
     text-align: center;
