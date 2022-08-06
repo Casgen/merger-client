@@ -46,7 +46,7 @@ export const SpotifySearchWindow: React.FC = () => {
 						<div id="albums">
 							{
 								results?.albums?.items.map((value: SpotifyApi.AlbumObjectSimplified): JSX.Element => {
-									return <AlbumBlock key={value.id} album={value} />
+									return <AlbumBlock showArtist={true} key={value.id} album={value} />
 								})
 							}
 						</div>}

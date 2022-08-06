@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import moment from "moment";
 import { store } from "../App";
 import { ActionTypeState } from "../components/features/state/stateSlice";
+import { mergerNextSong } from "./mergerUtils";
 
 export const youtubeIsUndefinedError: string = "Youtube Player is undefined!";
 
@@ -20,7 +21,10 @@ export const setupYoutubePlayer = (track: gapi.client.youtube.Video | gapi.clien
 	}
 
 	if (window.youtubePlayer == null) {
-		let youtubePlayer = YouTubePlayer('youtube-player-window', { ...YoutubeOptions, videoId: videoId });
+		let youtubePlayer = YouTubePlayer('youtube-player-window', { ...YoutubeOptions, videoId: videoId.concat("?wmode=opaque") });
+
+		let container = document.getElementById("youtube-container");
+		if (container) container.style.display = "block";
 
 		let video: gapi.client.youtube.Video;
 		getYoutubeVideo(videoId).then((res) => {
@@ -62,19 +66,7 @@ export const setupYoutubePlayer = (track: gapi.client.youtube.Video | gapi.clien
 					break;
 				}
 				case 0:
-					store.dispatch({
-						type: ActionTypeState.STATE_CHANGE, payload: {
-							currentPlayer: Merger.PlayerType.Youtube,
-							paused: true,
-							resuming: true,
-							currentSong: video ? video : store.getState().state.currentSong,
-							nextSong: store.getState().state.nextSong,
-							previousSong: store.getState().state.previousSong,
-							progressMs: progress,
-							duration: duration,
-							ytState: 0
-						}
-					});
+					mergerNextSong();
 					break;
 				case 2:
 					store.dispatch({

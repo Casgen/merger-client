@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { ContextMenu, MenuItem, SubMenu } from "react-contextmenu";
 import "../../scss/track/trackContextMenu.scss";
-import { store } from "../../App";
-import { ActionTypeQueue } from "../features/queue/queueSlice";
 import axios, { AxiosResponse } from "axios";
 import Merger from "../../interfaces/Merger";
 

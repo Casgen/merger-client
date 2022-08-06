@@ -1,17 +1,26 @@
 import React from 'react'
 import "../../scss/track/trackListHeader.scss"
 
-export const TrackListHeader: React.FC = () => {
+interface TrackListHeaderProps {
+	showNum?: boolean,
+	showAlbum?: boolean,
+	showArtist?: boolean
+}
+
+export const TrackListHeader: React.FC<TrackListHeaderProps> = ({showNum, showAlbum, showArtist} : TrackListHeaderProps) => {
 	return (
 		<div id="header-row">
+			<div id="num">
+				{showNum && <h6>#</h6>}
+			</div>
 			<div id="name">
 				<h5>Name</h5>
 			</div>
 			<div id="artist">
-				<h6>Artist</h6>
+				{showArtist && <h6>Artist</h6>}
 			</div>
 			<div id="album">
-				<h6>Album</h6>
+				{showAlbum && <h6>Album</h6>}
 			</div>
 			<div id="duration">
 				<h6>Duration</h6>

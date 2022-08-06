@@ -15,7 +15,7 @@ export const SpotifyArtistPage: React.FC = () => {
     const [relatedArtists, setRelatedArtists] = useState<SpotifyApi.ArtistsRelatedArtistsResponse>();
 
     const loadArtist = () => {
-        if (id != undefined) {
+        if (id !== undefined) {
             axios.get<SpotifyApi.ArtistObjectFull>(`${process.env.REACT_APP_API_LINK}/spotify/artist/${id}`).then((res: AxiosResponse<SpotifyApi.ArtistObjectFull>) => {
                 setArtist(res.data);
             }).catch((err) => {
@@ -60,9 +60,8 @@ export const SpotifyArtistPage: React.FC = () => {
                     <div id="top-tracks">
                         <h2>Top Tracks</h2>
                         <div>
-                            {topTracks?.tracks.map((value: SpotifyApi.TrackObjectFull, index: number): JSX.Element => {
+                            {topTracks?.tracks.map((value: SpotifyApi.TrackObjectFull): JSX.Element => {
                                 return <TrackRowMinimal track={value} showArtist={false} key={value.id}/>
-
                             })}
                         </div>
                     </div>

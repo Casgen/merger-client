@@ -3,8 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import "../../scss/search/youtubePlaylistSearchResult.scss";
 import { getPlaylistItems } from "../../utils/youtubeUtils";
 import { useEffect, useState } from "react";
-import { ContextMenu, ContextMenuTrigger, MenuItem, SubMenu } from "react-contextmenu";
-import axios from "axios";
+import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
 
 interface Props {
 	playlistId: string | undefined,
@@ -13,7 +12,7 @@ interface Props {
 }
 
 
-export const YoutubePlaylistSearchResult: React.FC<Props> = ({ playlistId, title, img}: Props) => {
+export const YoutubePlaylistSearchResult: React.FC<Props> = ({ playlistId, title, img }: Props) => {
 
 	const history = useHistory()
 
@@ -35,7 +34,7 @@ export const YoutubePlaylistSearchResult: React.FC<Props> = ({ playlistId, title
 	}
 
 
-	const mergeWithPlaylist = () =>	history.push(`/merger/mergeWithSpotify/${playlistId}`)
+	const mergeWithPlaylist = () => history.push(`/merger/mergeWithSpotify/${playlistId}`)
 
 	useEffect(() => {
 		loadItems()

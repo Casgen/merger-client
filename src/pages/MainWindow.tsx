@@ -1,6 +1,8 @@
 import { BrowserHistory, createBrowserHistory } from 'history'
-import React from 'react';
+import React, { useState } from 'react';
+import { store } from '../App';
 import ShrinkButton from '../components/ShrinkButton';
+import Merger from '../interfaces/Merger';
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -14,10 +16,27 @@ interface Props {
 }
 
 export const MainWindow: React.FC<Props> = (props: Props) => {
+
+	const [currentPlayer, setCurrentPlayer] = useState<Merger.PlayerType | undefined>();
+
+	const updateType = () => {
+		setCurrentPlayer(store.getState().state.currentPlayer)		
+	}
+
+	store.subscribe(updateType)
+
+
 	return (
 		<div id="main-window">
 			<ShrinkButton />
-			<div id="youtube-player-window">
+			<div id="youtube-container">
+				<div id="blocking-overlay" style={window.youtubePlayer && currentPlayer === Merger.PlayerType.Spotify ? {display:"flex"} : {display:'none'}}>
+					<h3>
+						Spotify is currently playing...
+					</h3>
+				</div>
+				<div id="youtube-player-window">
+				</div>
 			</div>
 			{props.children}
 		</div>

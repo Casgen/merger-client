@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from 'axios';
+import {AxiosResponse} from 'axios';
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router';
 import "../scss/playlistWindow.scss"
@@ -48,11 +48,11 @@ const PlaylistWindow: React.FC = () => {
     return (
         <div id="playlist-window">
             <div id="playlist-table">
-		<PlayerHeader src={playlist?.images[0].url} creator={playlist?.owner.display_name} title={playlist?.name}  />
-                <TrackListHeader/>
+		<PlayerHeader desc={playlist?.description} numOfTracks={playlist?.tracks.total} img={playlist?.images[0] && playlist.images[0].url} creator={playlist?.owner.display_name} title={playlist?.name}  />
+                <TrackListHeader showArtist={true} showAlbum={true}/>
                 {
                     playlist?.tracks && playlist?.tracks.items.map((value: SpotifyApi.PlaylistTrackObject): JSX.Element | null => {
-                        return <SpotifyTrackRow showLike={true} handleOnClick={handlePlay} showAlbum={true} track={value.track} key={value.track.id}/>
+                        return <SpotifyTrackRow showLike={true} showArtist={true} img={value.track.album.images[2] && value.track.album.images[2].url} onClick={handlePlay} album={value.track.album} track={value.track} key={value.track.id}/>
                     })
                 }
             </div>        </div>

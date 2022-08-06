@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PlayerHeader } from "../components/player/PlayerHeader";
@@ -51,7 +51,7 @@ export const MergerPlaylistPage: React.FC = () => {
 
 	const generateRows = (value: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video, index: number): JSX.Element | null => {
 		if (isSpotifyTrackObject(value))
-			return <SpotifyTrackRow showLike={true} showAlbum={true} handleOnClick={handlePlay} track={value} key={generateRandomString(14)} /> /* stylelint-disable-line react/jsx-no-undef */ /* stylelint-disable-line react/jsx-no-undef */
+			return <SpotifyTrackRow img={value.album.images[2].url} showArtist={true} showLike={true} album={value.album} onClick={handlePlay} track={value} key={generateRandomString(14)} /> /* stylelint-disable-line react/jsx-no-undef */ /* stylelint-disable-line react/jsx-no-undef */
 
 		return <YoutubeTrackRow showLike={true} key={generateRandomString(14)} video={value} handleOnClick={handlePlay} /> /* stylelint-disable-line react/jsx-no-undef */
 	}
@@ -62,7 +62,7 @@ export const MergerPlaylistPage: React.FC = () => {
 
 	return (
 		<div id="playlist-window">
-			<PlayerHeader title={playlist?.title} creator={playlist?.creator.username} />
+			<PlayerHeader title={playlist?.title} creator={playlist?.creator.username} desc={playlist?.desc} numOfTracks={playlist?.tracks?.length}/>
 			<div id="merger-playlist">
 				<TrackListHeader />
 				{tracks.map(generateRows)}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppSelector } from "../components/hooks";
 import { rootState } from "../App";
 import Merger from "../interfaces/Merger";
@@ -9,7 +9,7 @@ import {
 	addOtherSongsToQueuePlaylist,
 	mergerLoadAndPlay
 } from "../utils/mergerUtils";
-import { isSpotifyTrackObject } from "../utils/spotifyUtils";
+import { isSpotifyTrackObject, isSpotifyTrackObjectFull } from "../utils/spotifyUtils";
 import { YoutubeTrackRow } from "../components/player/YoutubeTrackRow";
 import { generateRandomString } from "../utils/utils";
 
@@ -30,8 +30,8 @@ export const QueuePage: React.FC = () => {
 
 	const generateRows = (value: SpotifyApi.TrackObjectFull | gapi.client.youtube.Video, index: number): JSX.Element | null => {
 		if (index >= mergerQueue.counter) {
-			if (isSpotifyTrackObject(value))
-				return <SpotifyTrackRow showLike={true} showAlbum={true} handleOnClick={handlePlay} track={value} key={generateRandomString(14)} />
+			if (isSpotifyTrackObjectFull(value))
+				return <SpotifyTrackRow showLike={true} album={value.album} img={value.album.images[2].url} showArtist={true} onClick={handlePlay} track={value} key={generateRandomString(14)} />
 
 			return <YoutubeTrackRow showLike={true} key={generateRandomString(14)} video={value} handleOnClick={handlePlay} />
 		}

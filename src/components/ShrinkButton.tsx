@@ -8,7 +8,7 @@ const ShrinkButton: React.FC = () => {
     const [scrollValue, setScrollValue] = useState<number>(0);
 
     const handleClick = () => {
-        let playerWindow = document.getElementById("youtube-player-window");
+        let playerWindow = document.getElementById("youtube-container");
         let mainWindow = document.getElementById("main-window");
 
         if (playerWindow !== null && mainWindow) {
@@ -25,8 +25,8 @@ const ShrinkButton: React.FC = () => {
             }
 
             mainWindow.scrollTo(0,scrollValue);
-            playerWindow.style.width ="320px";
-            playerWindow.style.height = "240px";
+            playerWindow.style.width ="260px";
+            playerWindow.style.height = "180px";
             mainWindow.style.overflowY = "auto";
             setTimeout(() => { if (playerWindow !== null) playerWindow.style.position = "fixed"}, 500)
             setIsShrunk(true);

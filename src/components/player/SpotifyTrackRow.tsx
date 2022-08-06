@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { convertNumberToDuration, trimString } from '../../utils/utils';
+import { convertNumberToDuration, listArtists, trimString } from '../../utils/utils';
 import { ContextMenuTrigger } from "react-contextmenu";
 import { TrackContextMenu } from "../contextmenu/TrackContextMenu";
 import "../../scss/track/spotifyTrackRow.scss";
@@ -10,21 +10,23 @@ import { ActionTypeQueue } from '../features/queue/queueSlice';
 import Merger from '../../interfaces/Merger';
 
 interface Props {
-	track: SpotifyApi.TrackObjectFull,
-	key: string,
-	handleOnClick: Function,
-	showAlbum: boolean,
+	track: SpotifyApi.TrackObjectSimplified,
+	img?: string,
+	album?: SpotifyApi.AlbumObjectSimplified,
+	showArtist?: boolean,
+	onClick: Function,
 	showLike?: boolean,
+	num?: number
 }
 
-export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlbum, showLike }: Props) => {
+export const SpotifyTrackRow: React.FC<Props> = (props: Props) => {
 
 	const [isLikeHovered, setIsLikeHovered] = useState<boolean>(false);
 
 	// Have to do it like this. for some reason if i declare that the function should be executed right in the onClick
 	// listener, the function is executed when rendered either way
 	const handleClick = () => {
-		handleOnClick(track);
+		props.onClick(props.track);
 	}
 
 	const fill = () => setIsLikeHovered(true);
@@ -35,14 +37,14 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 		e.stopPropagation(); // this function prevents the event from bubbling up the element's parents
 
 		try {
-			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`, {uri: track.uri}, { withCredentials: true });
+			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`, { uri: props.track.uri }, { withCredentials: true });
 		} catch (e: unknown) {
 			console.error(e)
 		}
 	}
 
 	const handleAddToQueue = (e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
-		store.dispatch({ type: ActionTypeQueue.ADD_SONG, payload: track })
+		store.dispatch({ type: ActionTypeQueue.ADD_SONG, payload: props.track })
 	}
 
 	const handleAddToPlaylist = async (playlist: Merger.PlaylistFull) => {
@@ -50,7 +52,7 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 			console.log(playlist.id)
 			axios.put(`${process.env.REACT_APP_API_LINK}/merger/addToPlaylist`, {
 				playlistId: playlist.id,
-				track: track
+				track: props.track
 			}, { withCredentials: true })
 		} catch (e: unknown) {
 			console.error("Failed to add a track to playlist", e);
@@ -59,28 +61,30 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 
 	return (
 		<>
-			<ContextMenuTrigger id={`track-context-${track.id}`} holdToDisplay={1000}>
+			<ContextMenuTrigger id={`track-context-${props.track.id}`} holdToDisplay={1000}>
 				<div onClick={handleClick} className="track-row">
+					{props.num &&
+						<div className="num">
+							<h4>{props.num}</h4>
+						</div>
+					}
 					<div className="name">
-						<img src={track.album.images[2]?.url} alt="Err"></img>
-						<h5>{track.name}</h5>
+						{props.img && <img src={props.img} alt="Err"></img>}
+						<h5>{props.track.name}</h5>
 					</div>
 					<div className="artist">
-						{track.artists.map((artist: SpotifyApi.ArtistObjectSimplified, index: number) => {
-							if (index === 0) return <Link key={artist.id} to={artist.href}>{artist.name}</Link>;
-							return <Link key={artist.id} to={artist.href}>, {artist.name}</Link>;
-						})}
+						{props.showArtist && listArtists(props.track.artists)}
 					</div>
-					{showAlbum &&
+					{props.album &&
 						<div className="album">
-							<Link to={track.album.uri}>{trimString(track.album.name,30)}</Link>
+							<Link to={props.album.uri}>{trimString(props.album.name, 30)}</Link>
 						</div>
 					}
 					<div className="duration">
-						{convertNumberToDuration(track.duration_ms)}
+						{convertNumberToDuration(props.track.duration_ms)}
 					</div>
 					<div className="like">
-						{showLike &&
+						{props.showLike &&
 							<img className="like"
 								onClick={(e) => likeTrack(e)}
 								src={isLikeHovered ? "/images/heartFilledSpotify.png" : "/images/heartSpotify.png"}
@@ -91,7 +95,7 @@ export const SpotifyTrackRow: React.FC<Props> = ({ track, handleOnClick, showAlb
 					</div>
 				</div>
 			</ContextMenuTrigger>
-			<TrackContextMenu onAddToPlaylist={handleAddToPlaylist} onAddToQueue={handleAddToQueue} id={`track-context-${track.id}`} />
+			<TrackContextMenu onAddToPlaylist={handleAddToPlaylist} onAddToQueue={handleAddToQueue} id={`track-context-${props.track.id}`} />
 		</>
 	)
 }

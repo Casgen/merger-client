@@ -11,7 +11,7 @@ import Merger from "../../interfaces/Merger";
 import { ActionTypeDeviceID } from "../features/deviceId/deviceIdSlice";
 import {
 	getSpotifyAccessToken,
-	spotifySeek, updatePlaybackState,
+	spotifySeek, spotifyUpdateState, updatePlaybackState,
 	waitForSpotifyWebPlaybackSDKToLoad
 } from "../../utils/spotifyUtils";
 import { Link } from "react-router-dom";
@@ -63,7 +63,7 @@ export const Player: React.FC = () => {
 			console.error("Failed to validate Spotify account", message);
 		});
 		spotifyPlayer.addListener('player_state_changed', (state) => {
-			//spotifyUpdateState(state);
+			spotifyUpdateState(state);
 		});
 		spotifyPlayer.addListener("ready", ({ device_id }) => {
 			dispatcher({ type: ActionTypeDeviceID.SET_DEVICE_ID, payload: device_id });
@@ -73,6 +73,7 @@ export const Player: React.FC = () => {
 		setSDK(spotifyPlayer);
 	};
 
+	
 
 	const setProgress = async (value: number) => {
 		if (mergerState.state.currentPlayer !== undefined) {
@@ -126,12 +127,12 @@ export const Player: React.FC = () => {
 			<div>
 				<div id="player-buttons-container">
 					<PlayerButton disabled={!mergerState.state.previousSong} id="prev-button"
-						src="/images/PrevButton.svg" execFunc={mergerPrevSong} />
+						src="/images/PrevButton.png" execFunc={mergerPrevSong} />
 					<PlayerButton disabled={false} src={mergerState.state.paused ? stateImg.play : stateImg.pause}
 						text="Toggle Play"
 						id="play-button" execFunc={mergerTogglePlayBack} />
 					<PlayerButton disabled={!mergerState.state.nextSong} id="next-button"
-						src="/images/NextButton.svg" execFunc={mergerNextSong} />
+						src="/images/NextButton.png" execFunc={mergerNextSong} />
 				</div>
 				<ProgressBar func={setProgress} />
 			</div>

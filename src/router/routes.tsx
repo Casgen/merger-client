@@ -1,5 +1,5 @@
 import { BrowserHistory, createBrowserHistory } from "history";
-import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Player } from "../components/player/Player";
 import SideBar from "../components/SideBar";
 import "../scss/index.scss";
@@ -20,6 +20,7 @@ import { LikedSongsPage } from "../pages/LikedSongsPage";
 import { YoutubePlaylistPage } from "../pages/YoutubePlaylistPage";
 import { MergeWithSpotify } from "../pages/MergeWithSpotifyPage";
 import { MergeWithYoutube } from "../pages/MergeWithYoutube";
+import { AccountPage } from "../pages/AccountPage";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -42,6 +43,7 @@ export const Routes: React.FC = () => (
 						<Route exact path="/login" component={LoginPage}/>
 						<Route exact path="/" component={Home}/>
 						<Route exact path="/likedSongs" component={LikedSongsPage}/>
+						<Route exact path="/account" component={AccountPage}/>
 						<Route exact path="/youtube/playlist/:id">
 							<YoutubePlaylistPage/>
 						</Route>
@@ -57,7 +59,7 @@ export const Routes: React.FC = () => (
 						<Route path="/spotify/playlist/:id">
 							<PlaylistWindow></PlaylistWindow>
 						</Route>
-						<Route path="/spotify/album/:id">
+						<Route path="/spotify/albums/:id">
 							<SpotifyAlbumPage></SpotifyAlbumPage>
 						</Route>
 						<Route path="/spotify/search">

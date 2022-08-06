@@ -1,87 +1,117 @@
-#form-window {
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  margin: auto;
-  padding: 50px 50px;
-  width: 300px;
-  background-color: #1e1e1e;
+#login-forms {
+	display:flex;
+	margin:auto;
+	justify-content:space-around;
+	width: 80%;
 
-  h2 {
-    margin: 20px auto 20px auto;
-    color: white;
-    font-family: RobotoRegular;
-    flex-grow: 1;
-  }
+	#form-window {
+	  display: flex;
+	  flex-direction: column;
+	  border-radius: 20px;
+	  margin: auto;
+	  padding: 50px 50px;
+	  width: 300px;
+	  background-color: #1e1e1e;
 
-  #response-box {
-    background-color: #ff4747;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-    font-family: PTSansRegular;
-    font-weight: bold;
-  }
+	  h2 {
+	    margin: 20px auto 20px auto;
+	    color: white;
+	    font-family: RobotoRegular;
+	    flex-grow: 1;
+	  }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 20px auto;
+	  #response-box {
+	    background-color: #ff4747;
+	    color: white;
+	    padding: 20px;
+	    border-radius: 5px;
+	    font-family: PTSansRegular;
+	    font-weight: bold;
+	  }
 
-    h6 {
-      margin: 10px auto 10px 0px;
-      color: white;
-      font-family: PTSansRegular;
-      font-size: 15px;
-    }
+	  form {
+	    display: flex;
+	    flex-direction: column;
+	    width: 100%;
+	    margin: 20px auto;
 
-    .text-field {
-      width: 100%;
-      margin: auto;
-      height: 40px;
-      text-align: center;
-      font-size: 16px;
-      font-family: PTSansRegular;
-      border-top: none;
-      border-right: none;
-      border-left: none;
-      border-bottom: #2c2c2c solid 2px;
-      box-sizing: border-box;
-      background: transparent;
-      transition: 0.2s ease-in-out;
-      color: white;
-      outline: none; //has to be set to remove the default border
-    }
+	    h6 {
+	      margin: 10px auto 10px 0px;
+	      color: white;
+	      font-family: PTSansRegular;
+	      font-size: 15px;
+	    }
 
-    .text-field:focus {
-      border-bottom: #3d3d3d solid 2px !important;
-      transition: 0.2s ease-in-out !important;
-    }
+	    .text-field {
+	      width: 100%;
+	      margin: auto;
+	      height: 40px;
+	      text-align: center;
+	      font-size: 16px;
+	      font-family: PTSansRegular;
+	      border-top: none;
+	      border-right: none;
+	      border-left: none;
+	      border-bottom: #2c2c2c solid 2px;
+	      box-sizing: border-box;
+	      background: transparent;
+	      transition: 0.2s ease-in-out;
+	      color: white;
+	      outline: none; //has to be set to remove the default border
+	    }
+
+	    .text-field:focus {
+	      border-bottom: #3d3d3d solid 2px !important;
+	      transition: 0.2s ease-in-out !important;
+	    }
+
+	    #spotify-login {
+
+	    }
 
 
-    #submit-btn {
-      margin: 30px auto 20px auto;
-      width: 100%;
-      transition: 0.2s ease-in-out;
-      background-color: #303e72;
-      font-family: PTSansRegular;
-      font-weight: bolder;
-      border: none;
-      color: white;
-      padding: 10px 10px;
-      border-radius: 5px;
-    }
+	    #submit-btn {
+	      margin: 30px auto 20px auto;
+	      width: 100%;
+	      transition: 0.2s ease-in-out;
+	      background-color: #303e72;
+	      font-family: PTSansRegular;
+	      font-weight: bolder;
+	      border: none;
+	      color: white;
+	      padding: 10px 10px;
+	      border-radius: 5px;
+	    }
 
-    #submit-btn:hover {
-      background-color: #27315b;
-      cursor: pointer;
-      transition: 0.2s ease-in-out;
-    }
-  }
+	    #submit-btn:hover {
+	      background-color: #27315b;
+	      cursor: pointer;
+	      transition: 0.2s ease-in-out;
+	    }
+	  }
 
-  img {
-    width: 64px;
-    margin: auto;
-  }
+	  img {
+	    width: 64px;
+	    margin: auto;
+	  }
+	}
+
+	#spotify-login {
+		background-color: #1e1e1e;
+		display:flex;
+		flex-direction: column;
+		padding: 20px;
+		margin:auto;
+	  	border-radius: 20px;
+
+		p, a {
+			color:white;
+			font-family: PTSansRegular;
+		}
+
+		img {
+			margin:auto;
+			width:100px;
+		}
+	}
 }

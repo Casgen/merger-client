@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { convertStringToDuration } from '../../utils/utils';
+import { convertStringToDuration, trimString } from '../../utils/utils';
 import { ContextMenuTrigger } from "react-contextmenu";
 import { htmlUnescape } from "escape-goat";
 import { TrackContextMenu } from '../contextmenu/TrackContextMenu';
@@ -46,7 +46,7 @@ export const YoutubeTrackRow: React.FC<Props> = ({ video, handleOnClick }: Props
 			axios.put(`${process.env.REACT_APP_API_LINK}/merger/addToPlaylist`, {
 				playlistId: playlist.id,
 				track: video,
-			})
+			},{withCredentials: true})
 
 		} catch (e: unknown) {
 			console.error("failed to add a youtube video to playlist!", e);
@@ -62,7 +62,7 @@ export const YoutubeTrackRow: React.FC<Props> = ({ video, handleOnClick }: Props
 				<div onClick={handleClick} className="youtube-track-row">
 					<div className="title">
 						<img src={video.snippet?.thumbnails?.default?.url} alt="Err"></img>
-						<h5>{htmlUnescape(video.snippet?.title as string)}</h5>
+						<h5>{htmlUnescape(trimString(video.snippet?.title as string,62))}</h5>
 					</div>
 					<div className="channel">
 						{video.snippet?.channelTitle}
