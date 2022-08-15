@@ -47,7 +47,7 @@ export const LikedSongsPage: React.FC = () => {
 	return (
 		<div id="liked-songs-page">
 			<h1>Liked songs</h1>
-			<TrackListHeader />
+			<TrackListHeader showArtist={true} showAlbum={true}/>
 			{tracks.map(generateRows)}
 		</div>
 	)

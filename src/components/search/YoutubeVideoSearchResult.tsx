@@ -1,5 +1,5 @@
 import { htmlUnescape } from "escape-goat";
-import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
+import { ContextMenuTrigger } from "react-contextmenu";
 import axios, { AxiosResponse } from "axios";
 import { store } from "../../App";
 import { ActionTypeQueue } from "../features/queue/queueSlice";
@@ -7,6 +7,8 @@ import { getYoutubeVideo } from "../../utils/youtubeUtils";
 import "../../scss/search/youtubeVideoSearchResult.scss";
 import { useState } from "react";
 import { mergerLoadAndPlay } from "../../utils/mergerUtils";
+import Merger from "../../interfaces/Merger";
+import { TrackContextMenu } from "../contextmenu/TrackContextMenu";
 
 interface Props {
 	item: gapi.client.youtube.SearchResult,
@@ -35,6 +37,18 @@ export const YoutubeVideoSearchResult: React.FC<Props> = ({ item, playVideo }: P
 			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`, item, { withCredentials: true });
 		} catch (e: unknown) {
 			console.error(e)
+		}
+	}
+
+	const handleAddToPlaylist = async (playlist: Merger.PlaylistFull) => {
+		try {
+			console.log(playlist.id)
+			axios.put(`${process.env.REACT_APP_API_LINK}/merger/addToPlaylist`, {
+				playlistId: playlist.id,
+				trackId: item.id?.videoId
+			}, { withCredentials: true })
+		} catch (e: unknown) {
+			console.error("Failed to add a track to playlist", e);
 		}
 	}
 
@@ -76,14 +90,7 @@ export const YoutubeVideoSearchResult: React.FC<Props> = ({ item, playVideo }: P
 						</div>
 					</div>
 				</ContextMenuTrigger>
-				<ContextMenu id={`video-${item.id.videoId as string}`}>
-					<MenuItem onClick={handleAddToQueue}>
-						Add to Queue
-					</MenuItem>
-					<MenuItem>
-						Add to a playlist
-					</MenuItem>
-				</ContextMenu>
+				<TrackContextMenu onAddToPlaylist={handleAddToPlaylist} onAddToQueue={handleAddToQueue} id={`video-${item.id.videoId as string}`} />
 			</> :
 			<h2>Error! couldn't load a search result!</h2>
 

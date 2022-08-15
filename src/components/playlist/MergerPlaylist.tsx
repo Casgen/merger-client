@@ -28,7 +28,6 @@ export const MergerPlaylist: React.FC<Props> = (props: Props) => {
 
 	return (
 		<div id="merger-playlists" style={{ display: props.display }}>
-			{console.log(playlists)}
 			{ isLoggedIn ?
 				playlists !== null && playlists.map((playlist: Merger.Playlist): JSX.Element => {
 					return <Link to={`/merger/playlist/${playlist.id}`} key={playlist.id}>{playlist.title}</Link>

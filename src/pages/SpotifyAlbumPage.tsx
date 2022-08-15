@@ -18,10 +18,16 @@ export const SpotifyAlbumPage: React.FC = () => {
 		if (!id) return console.error("Can't load, Id is undefined!");
 
 		try {
-			let album = await axios.get<SpotifyApi.AlbumObjectFull>(`${process.env.REACT_APP_API_LINK}/spotify/albums/${id}`);
+			let album = await axios.get<SpotifyApi.AlbumObjectFull>(
+				`${process.env.REACT_APP_API_LINK}/spotify/albums/${id}`
+			);
+
 			setAlbum(album.data);
 
-			let tracks = await axios.get<Array<SpotifyApi.TrackObjectFull>>(`${process.env.REACT_APP_API_LINK}/spotify/albums/${id}/tracks`);
+			let tracks = await axios.get<Array<SpotifyApi.TrackObjectFull>>(
+				`${process.env.REACT_APP_API_LINK}/spotify/albums/${id}/tracks`
+			);
+
 			setTracks(tracks.data);
 
 		} catch (e: unknown) {
@@ -40,10 +46,18 @@ export const SpotifyAlbumPage: React.FC = () => {
 
 	return (
 		<div id="spotify-album-page">
-			{album && <PlayerHeader img={album.images[0] && album.images[0].url}title={album.name} creator={album.artists[0].name} numOfTracks={album.tracks.total} />}
+			{album && <PlayerHeader
+				img={album.images[0] && album.images[0].url}
+				title={album.name}
+				creator={album.artists[0].name}
+				numOfTracks={album.tracks.total} />}
 			{album && <TrackListHeader showNum={true} showArtist={false} />}
 			{tracks && tracks.map((track: SpotifyApi.TrackObjectSimplified) => {
-				return <SpotifyTrackRow onClick={handlePlay} showArtist={false} num={track.track_number} track={track} />
+				return <SpotifyTrackRow
+					onClick={handlePlay}
+					showArtist={false}
+					num={track.track_number}
+					track={track} />
 			})}
 		</div>
 	)

@@ -20,19 +20,30 @@
 }
 #merge-with-spotify {
   display: flex;
-  padding: 100px;
+  flex-direction: column;
+  padding: 50px;
   height: -webkit-fill-available;
   margin: auto;
 }
-#merge-with-spotify #spotify-playlists {
+#merge-with-spotify #lists {
+  display: flex;
+  height: 64vh;
+}
+#merge-with-spotify #lists #spotify-playlists {
   display: flex;
   width: 400px;
-  height: 100%;
   flex-direction: column;
+  height: 100%;
+  background-color: #1e1e1e;
   overflow-y: scroll;
+  margin-right: 20px;
 }
-#merge-with-spotify #spotify-playlists #tabs div {
-  align-items: center;
+#merge-with-spotify #lists #spotify-playlists #tabs {
+  display: flex;
+}
+#merge-with-spotify #lists #spotify-playlists #tabs div {
+  display: flex;
+  padding: 5px;
   width: 50%;
   color: white;
   height: 30px;
@@ -40,23 +51,29 @@
   background-color: #0e0e0e;
   font-family: RobotoRegular;
 }
-#merge-with-spotify #spotify-playlists #tabs div:hover {
+#merge-with-spotify #lists #spotify-playlists #tabs div h6 {
+  font-family: PTSansRegular;
+  font-size: 14px;
+  font-weight: lighter;
+  margin: auto;
+}
+#merge-with-spotify #lists #spotify-playlists #tabs div:hover {
   background-color: #1e1e1e;
   cursor: pointer;
 }
-#merge-with-spotify #spotify-playlists #playlist-results {
+#merge-with-spotify #lists #spotify-playlists #playlist-results {
   margin: 20px 0px;
   display: flex;
   flex-direction: column;
 }
-#merge-with-spotify #spotify-playlists #playlist-results .spotify-playlist-row {
+#merge-with-spotify #lists #spotify-playlists #playlist-results .spotify-playlist-row {
   padding: 10px 20px;
 }
-#merge-with-spotify #spotify-playlists #search-window {
+#merge-with-spotify #lists #spotify-playlists #search-window {
   display: flex;
   flex-direction: column;
 }
-#merge-with-spotify #spotify-playlists #search-window .text-field {
+#merge-with-spotify #lists #spotify-playlists #search-window .text-field {
   margin: auto;
   width: 50%;
   height: 40px;
@@ -73,9 +90,77 @@
   color: white;
   outline: none;
 }
-#merge-with-spotify #spotify-playlists #search-window .text-field:focus {
+#merge-with-spotify #lists #spotify-playlists #search-window .text-field:focus {
   border-bottom: #3d3d3d solid 2px !important;
   transition: 0.2s ease-in-out !important;
+}
+#merge-with-spotify #lists #youtube-playlist {
+  margin: auto;
+}
+#merge-with-spotify form {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  margin: 20px auto auto auto;
+}
+#merge-with-spotify form select {
+  appearance: none;
+  background-color: #343434;
+  color: white;
+  border: none;
+  text-decoration: white;
+  padding: 10px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 0;
+  border-radius: 0px;
+  outline: none;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  font-family: RobotoRegular;
+}
+#merge-with-spotify form select option {
+  padding: 10px;
+  margin: 10px;
+  height: 40px;
+  border-radius: 0px;
+  font-family: RobotoRegular;
+}
+#merge-with-spotify form input {
+  background-color: #343434;
+  border-sizing: border-box;
+  outline: none;
+  width: 50%;
+  height: 40px;
+  margin: 20px auto auto auto;
+  border-radius: 5px;
+  padding: 5px;
+  font-family: PTSansRegular;
+  font-weight: bolder;
+  color: white;
+  font-size: 17px;
+}
+
+@media screen and (max-width: 1000px) {
+  #merge-with-spotify #lists {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  #merge-with-spotify #lists #spotify-playlists {
+    margin: auto;
+  }
+  #merge-with-spotify #lists #youtube-playlist {
+    margin-bottom: 20px;
+  }
+  #merge-with-spotify #lists #youtube-playlist .youtube-playlist {
+    padding: 10px 20px;
+  }
+  #merge-with-spotify form {
+    width: 50%;
+  }
 }
 
 /*# sourceMappingURL=mergeWithSpotify.css.map */

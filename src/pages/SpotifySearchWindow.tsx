@@ -1,12 +1,12 @@
-import axios, { AxiosResponse } from 'axios';
-import React, { useState } from 'react'
-import { AlbumBlock } from '../components/album/AlbumBlock';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { SearchBar } from '../components/search/SearchBar';
-import { TrackRowMinimal } from '../components/TrackRowMinimal';
 import Merger from '../interfaces/Merger';
 import "../scss/spotifySearchWindow.scss";
-import { ArtistBlock } from "../components/artist/ArtistBlock";
-import { PlaylistBlock } from '../components/playlist/PlaylistBlock';
+import { PlaylistCollection } from '../components/collections/PlaylistCollection';
+import { TrackCollection } from '../components/collections/TrackCollection';
+import { ArtistCollection } from '../components/collections/ArtistCollection';
+import { AlbumCollection } from '../components/collections/AlbumCollection';
 
 export const SpotifySearchWindow: React.FC = () => {
 
@@ -18,7 +18,7 @@ export const SpotifySearchWindow: React.FC = () => {
 			clearTimeout(typingTimeout);
 		}
 
-		setTypingTimeout(setTimeout((time: string) => search(value), 500));
+		setTypingTimeout(setTimeout((time: string) => { search(value) }, 500));
 	}
 
 	const search = async (value: string) => {
@@ -29,10 +29,21 @@ export const SpotifySearchWindow: React.FC = () => {
 
 			setResults(res.data);
 
+			window.history.replaceState(null, '', `search?query=${value}`);
+
 		} catch (e: unknown) {
 			console.error(e);
 		}
 	}
+
+	useEffect(() => {
+
+		if (!window.location.search) return undefined;
+
+		let query: string = decodeURIComponent(window.location.search.substring(1).split("=")[1]);
+
+		search(query);
+	}, [])
 
 	return (
 		<div id="spotify-search-window">
@@ -42,37 +53,20 @@ export const SpotifySearchWindow: React.FC = () => {
 				results !== null &&
 				<div id="search-result-container">
 					<h1>Albums</h1>
-					{results.albums !== undefined && results.albums?.items.length > 0 &&
-						<div id="albums">
-							{
-								results?.albums?.items.map((value: SpotifyApi.AlbumObjectSimplified): JSX.Element => {
-									return <AlbumBlock showArtist={true} key={value.id} album={value} />
-								})
-							}
-						</div>}
+					{(results.albums && results.albums?.items.length > 0) &&
+						<AlbumCollection albums={results.albums.items} />}
 
 					<h1>Tracks</h1>
-					{results.tracks !== undefined && results.tracks?.items.length > 0 &&
-						<div id="tracks">
-							{results?.tracks.items.map((value: SpotifyApi.TrackObjectFull): JSX.Element => {
-								return <TrackRowMinimal showArtist={true} key={value.id} track={value} />
-							})}
-						</div>}
+					{(results.tracks && results.tracks?.items.length > 0) &&
+						<TrackCollection tracks={results.tracks.items} />}
+
 					<h1>Artists</h1>
-					{results.artists !== undefined && results.artists.items.length > 0 &&
-						<div id="artists">
-							{results.artists.items.map((value: SpotifyApi.ArtistObjectFull): JSX.Element => {
-								return <ArtistBlock artist={value} key={value.id} />
-							})}
-						</div>}
+					{(results.artists && results.artists.items.length > 0) &&
+						<ArtistCollection artists={results.artists?.items} />}
+
 					<h1>Playlists</h1>
-					{results.playlists !== undefined && results.playlists.items.length > 0 &&
-						<div id="playlists">
-							{results.playlists?.items.map((playlist: SpotifyApi.PlaylistObjectSimplified): JSX.Element => {
-								return <PlaylistBlock playlist={playlist} key={playlist.id} />
-							})}
-						</div>
-					}
+					{(results.playlists && results.playlists?.items.length > 0) &&
+						<PlaylistCollection playlists={results.playlists.items} />}
 				</div>
 			}
 		</div>

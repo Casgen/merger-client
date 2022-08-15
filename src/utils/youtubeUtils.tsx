@@ -1,12 +1,11 @@
 import YouTubePlayer from "youtube-player";
 import Merger, { YoutubeOptions } from "../interfaces/Merger";
 import axios, { AxiosResponse } from "axios";
-import moment from "moment";
 import { store } from "../App";
 import { ActionTypeState } from "../components/features/state/stateSlice";
 import { mergerNextSong } from "./mergerUtils";
 
-export const youtubeIsUndefinedError: string = "Youtube Player is undefined!";
+export const youtubeIsUndefinedError = "Youtube Player is undefined!";
 
 export const setupYoutubePlayer = (track: gapi.client.youtube.Video | gapi.client.youtube.ResourceId | string) => {
 
@@ -21,18 +20,10 @@ export const setupYoutubePlayer = (track: gapi.client.youtube.Video | gapi.clien
 	}
 
 	if (window.youtubePlayer == null) {
-		let youtubePlayer = YouTubePlayer('youtube-player-window', { ...YoutubeOptions, videoId: videoId.concat("?wmode=opaque") });
+		let youtubePlayer = YouTubePlayer('youtube-player-window', { ...YoutubeOptions, videoId: videoId });
 
 		let container = document.getElementById("youtube-container");
 		if (container) container.style.display = "block";
-
-		let video: gapi.client.youtube.Video;
-		getYoutubeVideo(videoId).then((res) => {
-			if (res.data !== undefined) {
-				video = res.data;
-			}
-		});
-
 
 		let mainWindow: HTMLElement | null = document.getElementById("main-window");
 
@@ -42,15 +33,11 @@ export const setupYoutubePlayer = (track: gapi.client.youtube.Video | gapi.clien
 		}
 
 		youtubePlayer.on("stateChange", async (event) => {
-			let duration: number | undefined;
+			let duration: number;
 			let progress: number = await window.youtubePlayer.getCurrentTime() * 1000;
-			console.log(event.data);
 
-			if (video !== undefined) {
-				duration = await moment.duration(video.contentDetails?.duration).asMilliseconds();
-			} else {
-				duration = store.getState().state.duration;
-			}
+			duration = await window.youtubePlayer.getDuration() * 1000; 
+			console.log(duration);
 
 			switch (event.data) {
 				case -1: {
@@ -87,6 +74,7 @@ export const setupYoutubePlayer = (track: gapi.client.youtube.Video | gapi.clien
 							...store.getState().state,
 							paused: false,
 							resuming: true,
+							duration: duration,
 							progressMs: progress,
 							ytState: 1
 						}

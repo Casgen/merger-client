@@ -64,7 +64,7 @@ export const MergerPlaylistPage: React.FC = () => {
 		<div id="playlist-window">
 			<PlayerHeader title={playlist?.title} creator={playlist?.creator.username} desc={playlist?.desc} numOfTracks={playlist?.tracks?.length}/>
 			<div id="merger-playlist">
-				<TrackListHeader />
+				<TrackListHeader showArtist={true} showAlbum={true}/>
 				{tracks.map(generateRows)}
 			</div>
 		</div>

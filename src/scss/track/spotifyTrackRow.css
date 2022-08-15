@@ -1,7 +1,7 @@
 .track-row {
   display: flex;
   flex-direction: row;
-  padding: 0px 10px;
+  padding: 0px 10px 0px 0px;
   transition: 0.2s ease-in-out;
   line-height: 14px;
   transition: background-color 100ms ease-in;
@@ -10,23 +10,50 @@
   flex-grow: 1;
   display: flex;
   align-items: center;
+  padding-left: 10px;
+}
+.track-row .name img {
+  width: 42px;
+  height: 42px;
+  border-radius: 3px;
+  margin-right: 10px;
 }
 .track-row a {
   text-decoration: none;
+  transition: 0.2s ease-in-out;
+  opacity: 0.8;
+}
+.track-row a:hover {
+  text-decoration: underline;
+  transition: 0.2s ease-in-out;
+  opacity: 1;
 }
 .track-row h5,
 .track-row a,
 .track-row h6 {
   color: white;
-  font-family: PTSansRegular;
+  font-family: RobotoRegular;
+  font-size: 13px;
+}
+.track-row h5 {
+  font-weight: lighter;
+}
+.track-row .num {
+  font-family: RobotoLight;
+  margin: auto 0px;
+  width: 5%;
+  font-weight: lighter;
+  font-size: 14px;
+  color: grey;
+  text-align: center;
 }
 .track-row .artist {
   width: 25%;
-  margin: auto;
+  margin: auto 0px;
 }
 .track-row .album {
   width: 20%;
-  margin: auto;
+  margin: auto 0px;
 }
 .track-row .like {
   display: flex;
@@ -41,17 +68,12 @@
 .track-row .duration {
   width: 7%;
   margin: auto;
+  opacity: 0.8;
   text-align: center;
-  font-family: PTSansRegular;
+  font-family: RobotoRegular;
   font-weight: lighter;
   font-size: 13px;
   color: white;
-}
-.track-row div:first-child img {
-  width: 42px;
-  height: 42px;
-  border-radius: 3px;
-  margin-right: 10px;
 }
 
 .track-row:hover {

@@ -36,6 +36,7 @@
 .spotify-playlist-row:hover {
   background-color: #232323;
   transition: 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=SpotifyPlaylistRow.css.map */

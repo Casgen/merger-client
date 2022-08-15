@@ -1,0 +1,89 @@
+@font-face {
+  font-family: PTSansBold;
+  src: url("../fonts/PTSans/PTSans-Bold.ttf");
+}
+@font-face {
+  font-family: PTSansRegular;
+  src: url("../fonts/PTSans/PTSans-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoRegular;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: RobotoLight;
+  src: url("../fonts/Roboto/Roboto-Light.ttf");
+}
+@font-face {
+  font-family: RobotoBold;
+  src: url("../fonts/Roboto/Roboto-Bold.ttf");
+}
+#account-page {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 20px;
+  width: 100%;
+}
+#account-page > div {
+  min-height: 200px;
+  background-color: #1e1e1e;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  width: 250px;
+  flex-direction: column;
+}
+#account-page > div h4 {
+  color: white;
+  font-family: PTSansRegular;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+}
+#account-page > div h1 {
+  font-family: PTSansRegular;
+  font-size: 20px;
+  margin: auto;
+  text-align: center;
+  color: white;
+}
+#account-page > div img:first-child {
+  width: 32px;
+}
+#account-page > div img:nth-child(2) {
+  width: 128px;
+  height: 128px;
+  margin: auto;
+}
+#account-page #merger {
+  margin-right: 20px;
+}
+#account-page #spotify {
+  margin-left: 20px;
+}
+#account-page .username {
+  display: flex;
+}
+#account-page .username h4:nth-child(2) {
+  margin-left: auto;
+}
+#account-page .logout-btn, #account-page .login-btn {
+  text-decoration: none;
+  margin: auto;
+  font-family: PTSansRegular;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: #0e0e0e;
+  padding: 15px 20px;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+#account-page .logout-btn:hover, #account-page .login-btn:hover {
+  background-color: #121212;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=accountPage.css.map */

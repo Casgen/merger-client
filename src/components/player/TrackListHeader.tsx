@@ -14,7 +14,6 @@ export const TrackListHeader: React.FC<TrackListHeaderProps> = ({showNum, showAl
 				{showNum && <h6>#</h6>}
 			</div>
 			<div id="name">
-				<h5>Name</h5>
 			</div>
 			<div id="artist">
 				{showArtist && <h6>Artist</h6>}
