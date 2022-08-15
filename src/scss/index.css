@@ -40,6 +40,7 @@ body {
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  overflow-y: hidden;
 }
 #main-container #horizontal-container {
   display: flex;
@@ -49,63 +50,11 @@ body {
 }
 #main-container #horizontal-container #side-bar {
   background-color: rgb(14, 14, 14);
-  width: 190px;
-  flex-direction: column;
+  width: 200px;
   border-right: 1px solid rgb(37, 37, 37);
 }
-#main-container #horizontal-container #side-bar #search-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
-  margin: 5px auto;
-  height: 35px;
-  border-radius: 5px;
-  background-color: #232323;
-  text-decoration: none;
-}
-#main-container #horizontal-container #side-bar #search-button div {
-  height: 15px;
-  margin: auto auto auto 12px;
-}
-#main-container #horizontal-container #side-bar #search-button div img {
-  width: 15px;
-  height: 15px;
-  filter: invert(100%);
-}
-#main-container #horizontal-container #side-bar #search-button h3 {
-  font-family: RobotoLight;
-  margin-right: auto;
-  font-weight: 100;
-  font-size: 18px;
-  color: rgb(216, 216, 216);
-}
-#main-container #horizontal-container #side-bar #liked-songs-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
-  margin: 10px auto;
-  height: 35px;
-  border-radius: 5px;
-  background-color: #232323;
-  text-decoration: none;
-}
-#main-container #horizontal-container #side-bar #liked-songs-button div {
-  height: 20px;
-  margin: auto;
-}
-#main-container #horizontal-container #side-bar #liked-songs-button div img {
-  width: 20px;
-  height: 20px;
-  filter: invert(100%);
-}
-#main-container #horizontal-container #side-bar #liked-songs-button h3 {
-  font-family: RobotoLight;
-  margin-right: auto;
-  font-weight: 100;
-  font-size: 17px;
-  color: rgb(216, 216, 216);
+#main-container #horizontal-container #side-bar #buttons {
+  min-height: 20%;
 }
 
 #main-window {
@@ -155,13 +104,20 @@ body {
   justify-content: center;
   flex-direction: column;
   width: 12.5%;
+  margin-right: 20px;
 }
 #player div:nth-child(3) a {
   margin: auto 0px auto auto;
+  opacity: 0.9;
+  transition: 0.2s ease-in-out;
 }
 #player div:nth-child(3) a img {
   width: 20px;
   height: 20px;
+}
+#player div:nth-child(3) a:hover {
+  opacity: 1;
+  transition: 0.2s ease-in-out;
 }
 
 #player-buttons-container {
@@ -170,17 +126,42 @@ body {
   margin: auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-#youtube-player-window {
+#youtube-container {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  display: none;
+  transition: all 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+#youtube-container #youtube-player-window {
   z-index: 1;
   position: absolute;
   right: 0;
   transition: all 0.5s ease-in-out;
-  visibility: collapse;
   width: 100%;
   height: 100%;
+}
+#youtube-container #blocking-overlay {
+  z-index: 2;
+  background-color: rgba(46, 46, 46, 0.6901960784);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  transition: all 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+#youtube-container #blocking-overlay h3 {
+  text-align: center;
+  margin: auto;
+  color: white;
+  font-family: PTSansRegular;
 }
 
 #search-bar {
@@ -196,9 +177,15 @@ body {
   height: auto;
 }
 #search-bar .text-field {
-  border-radius: 20px;
+  color: white;
   font-family: PTSansRegular;
-  font-size: 14px;
+  font-size: 15px;
+  outline: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: #aaaaaa solid 2px;
+  background-color: transparent;
   height: 25px;
 }
 

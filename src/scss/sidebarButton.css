@@ -1,0 +1,33 @@
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0px auto;
+  height: 40px;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+.sidebar-btn div {
+  height: 15px;
+  margin: auto auto auto 12px;
+}
+.sidebar-btn div img {
+  width: 15px;
+  height: 15px;
+  filter: invert(100%);
+}
+.sidebar-btn h3 {
+  font-family: RobotoLight;
+  margin-right: auto;
+  font-weight: 100;
+  font-size: 18px;
+  color: rgb(216, 216, 216);
+}
+
+.sidebar-btn:hover {
+  background-color: #1e1e1e;
+  transition: 0.2s ease-in-out;
+}
+
+/*# sourceMappingURL=sidebarButton.css.map */

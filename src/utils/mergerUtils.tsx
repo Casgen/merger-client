@@ -1,7 +1,6 @@
 import Merger from "../interfaces/Merger";
 import {
 	isSpotifyTrackObject,
-	isSpotifyTrackObjectFull,
 	spotifyPause,
 	spotifyPlay,
 	spotifySeek,
@@ -10,7 +9,7 @@ import {
 import { store } from "../App";
 import { ActionTypeQueue } from "../components/features/queue/queueSlice";
 import { ActionTypeState } from "../components/features/state/stateSlice";
-import { isYoutubeVideo, youtubePause, youtubePlay } from "./youtubeUtils";
+import { isYoutubeVideo, youtubePlay } from "./youtubeUtils";
 import axios from "axios";
 
 export const mergerTogglePlayBack = () => {
@@ -57,16 +56,7 @@ export const mergerPrevSong = async () => {
 	let state: Merger.PlayerState = store.getState().state;
 	if (state.previousSong !== undefined) {
 
-		if (isSpotifyTrackObjectFull(state.previousSong)) {
-			if (!state.paused && state.currentPlayer === Merger.PlayerType.Youtube)
-				youtubePause();
-			spotifyPlay([state.previousSong.uri]);
-		} else {
-			if (!state.paused && state.currentPlayer === Merger.PlayerType.Spotify)
-				spotifyPause();
-			youtubePlay(state.previousSong.id);
-		}
-
+		mergerLoadAndPlay(state.previousSong);
 		/*This needs to be done in order to prevent unexpected behaviour, if I really depend on getting the value straight
 		from the state, the value can't be guaranteed to be updated right away*/
 		let oldIndex: number = store.getState().queue.counter - 1;
@@ -86,15 +76,10 @@ export const mergerPrevSong = async () => {
 export const mergerNextSong = async () => {
 	let state: Merger.PlayerState = store.getState().state;
 	if (state.nextSong !== undefined) {
-		if (isSpotifyTrackObjectFull(state.nextSong)) {
-			if (!state.paused && state.currentPlayer === Merger.PlayerType.Youtube)
-				youtubePause();
-			spotifyPlay([state.nextSong.uri]);
-		} else {
-			if (!state.paused && state.currentPlayer === Merger.PlayerType.Spotify)
-				spotifyPause();
-			youtubePlay(state.nextSong.id);
-		}
+
+		console.log("called");
+
+		mergerLoadAndPlay(state.nextSong);
 
 		let oldIndex: number = 1 + store.getState().queue.counter;
 		store.dispatch({ type: ActionTypeQueue.INC_QUEUE_COUNTER });

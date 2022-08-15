@@ -32,8 +32,9 @@ export const YoutubeSearchWindow: React.FC = () => {
     }
 
     const generateResults = (result: gapi.client.youtube.SearchResult): JSX.Element | null => {
-        if (result.id?.videoId) return <YoutubeVideoSearchResult playVideo={playVideo} key={result.id?.videoId}
-                                                                 item={result}/>
+        if (result.id?.videoId) return <YoutubeVideoSearchResult
+                playVideo={playVideo} key={result.id?.videoId}
+                item={result}/>
         if (result.id?.playlistId) return (<YoutubePlaylistSearchResult
 			playlistId={result.id.playlistId}
 			key={result.id?.playlistId}

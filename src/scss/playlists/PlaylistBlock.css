@@ -1,0 +1,47 @@
+.playlist-block {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  background-color: #1e1e1e;
+  width: 180px;
+  margin: 0px 10px 0px 10px;
+  border-radius: 8px;
+}
+.playlist-block img {
+  border-radius: 8px 8px 0px 0px;
+  width: auto;
+  aspect-ratio: 1;
+}
+.playlist-block > div {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.playlist-block > div a {
+  font-family: PTSansRegular;
+  text-decoration: none;
+  color: #c5c5c5;
+  overflow: hidden;
+  font-size: 15px;
+  transition: 0.1s ease-in-out;
+}
+.playlist-block > div > a {
+  white-space: nowrap;
+}
+.playlist-block > div div {
+  font-family: PTSansRegular;
+  color: white;
+  text-decoration: none;
+  color: #c5c5c5;
+  font-size: 15px;
+  transition: 0.1s ease-in-out;
+}
+.playlist-block > div div a {
+  font-size: 12px;
+}
+.playlist-block > div a:hover {
+  transition: 0.1s ease-in-out;
+  color: white;
+}
+
+/*# sourceMappingURL=PlaylistBlock.css.map */

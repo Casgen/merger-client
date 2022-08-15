@@ -1,0 +1,40 @@
+#play-button,
+#pause-button,
+#prev-button,
+#next-button {
+  background: none;
+  border: 0px;
+  border-radius: 100%;
+  padding: 0px;
+  width: auto;
+  height: auto;
+  opacity: 0.9;
+  transition: 0.2s ease-in-out;
+}
+
+#play-button img,
+#pause-button img {
+  width: 32px;
+  height: 32px;
+}
+
+#prev-button img,
+#next-button img {
+  width: 16px;
+  height: 16px;
+}
+
+#play-button {
+  margin: auto 20px;
+}
+
+#play-button:hover,
+#pause-button:hover,
+#prev-button:hover,
+#next-button:hover {
+  opacity: 1;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=playerButton.css.map */

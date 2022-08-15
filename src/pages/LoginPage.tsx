@@ -48,7 +48,7 @@ export const LoginPage: React.FC = () => {
 			<div id="spotify-login">
 				<img src="/images/spotify.png" alt="Spotify img" />
 				<p>
-				<Link to={`${process.env.REACT_APP_API_LINK}/spotify/auth/login`}>Login</Link> with Spotify
+				<a href={`${process.env.REACT_APP_API_LINK}/spotify/auth/login`}>Login</a> with Spotify
 				</p>
 			</div>
 		</div>

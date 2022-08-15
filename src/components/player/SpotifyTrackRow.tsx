@@ -1,6 +1,6 @@
-import React, { MouseEventHandler, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { convertNumberToDuration, listArtists, trimString } from '../../utils/utils';
+import { convertNumberToDuration, generateRandomString, listArtists, trimString } from '../../utils/utils';
 import { ContextMenuTrigger } from "react-contextmenu";
 import { TrackContextMenu } from "../contextmenu/TrackContextMenu";
 import "../../scss/track/spotifyTrackRow.scss";
@@ -52,7 +52,7 @@ export const SpotifyTrackRow: React.FC<Props> = (props: Props) => {
 			console.log(playlist.id)
 			axios.put(`${process.env.REACT_APP_API_LINK}/merger/addToPlaylist`, {
 				playlistId: playlist.id,
-				track: props.track
+				trackId: props.track.uri
 			}, { withCredentials: true })
 		} catch (e: unknown) {
 			console.error("Failed to add a track to playlist", e);
@@ -61,7 +61,7 @@ export const SpotifyTrackRow: React.FC<Props> = (props: Props) => {
 
 	return (
 		<>
-			<ContextMenuTrigger id={`track-context-${props.track.id}`} holdToDisplay={1000}>
+			<ContextMenuTrigger key={`${generateRandomString(7).concat(props.track.id)}`} id={`track-context-${props.track.id}`} holdToDisplay={1000}>
 				<div onClick={handleClick} className="track-row">
 					{props.num &&
 						<div className="num">
@@ -73,7 +73,9 @@ export const SpotifyTrackRow: React.FC<Props> = (props: Props) => {
 						<h5>{props.track.name}</h5>
 					</div>
 					<div className="artist">
-						{props.showArtist && listArtists(props.track.artists)}
+						{props.showArtist && listArtists(props.track.artists).map((element) => {
+							return element;
+						})}
 					</div>
 					{props.album &&
 						<div className="album">
@@ -95,7 +97,7 @@ export const SpotifyTrackRow: React.FC<Props> = (props: Props) => {
 					</div>
 				</div>
 			</ContextMenuTrigger>
-			<TrackContextMenu onAddToPlaylist={handleAddToPlaylist} onAddToQueue={handleAddToQueue} id={`track-context-${props.track.id}`} />
+			<TrackContextMenu onAddToPlaylist={handleAddToPlaylist} onAddToQueue={handleAddToQueue} id={`track-context-${props.track.id}`} key={`${generateRandomString(7).concat(props.track.id)}`}/>
 		</>
 	)
 }

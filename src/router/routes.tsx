@@ -21,6 +21,7 @@ import { YoutubePlaylistPage } from "../pages/YoutubePlaylistPage";
 import { MergeWithSpotify } from "../pages/MergeWithSpotifyPage";
 import { MergeWithYoutube } from "../pages/MergeWithYoutube";
 import { AccountPage } from "../pages/AccountPage";
+import {Callback} from "../pages/Callback";
 
 export const history: BrowserHistory = createBrowserHistory();
 
@@ -38,6 +39,7 @@ export const Routes: React.FC = () => (
 				</SideBar>
 				<MainWindow>
 					<Switch>
+						<Route exact path="/callback" component={Callback}/>
 						<Route exact path="/createPlaylist" component={CreatePlaylistPage}/>
 						<Route exact path="/register" component={RegisterPage}/>
 						<Route exact path="/login" component={LoginPage}/>

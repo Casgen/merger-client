@@ -11,7 +11,7 @@ import Merger from "../../interfaces/Merger";
 import { ActionTypeDeviceID } from "../features/deviceId/deviceIdSlice";
 import {
 	getSpotifyAccessToken,
-	spotifySeek, spotifyUpdateState, updatePlaybackState,
+	spotifyUpdateState,
 	waitForSpotifyWebPlaybackSDKToLoad
 } from "../../utils/spotifyUtils";
 import { Link } from "react-router-dom";
@@ -42,73 +42,82 @@ export const Player: React.FC = () => {
 				getSpotifyAccessToken().then((token: string) => {
 					cb(token);
 				}).catch((err) => {
-					console.error("failed to obtain the access token! SDK can not be initialized!", err);
+					console.error(
+						"failed to obtain the access token! SDK can not be initialized!",
+						err);
 				})
 			},
 			volume: 0.5,
 		});
+
 		spotifyPlayer.addListener("initialization_error", ({ message }: { message: string }) => {
 			console.log(message);
 		});
+
 		spotifyPlayer.addListener("authentication_error", ({ message }: { message: string }) => {
 			console.log(message);
 		});
+
 		spotifyPlayer.addListener("account_error", ({ message }: { message: string }) => {
 			console.log(message);
 		});
+
 		spotifyPlayer.addListener("playback_error", ({ message }: { message: string }) => {
 			console.log(message);
 		});
+
 		spotifyPlayer.addListener("account_error", ({ message }: { message: string }) => {
 			console.error("Failed to validate Spotify account", message);
 		});
-		spotifyPlayer.addListener('player_state_changed', (state) => {
-			spotifyUpdateState(state);
+
+		spotifyPlayer.addListener('player_state_changed', async (state) => {
+			await spotifyUpdateState(state);
 		});
+
 		spotifyPlayer.addListener("ready", ({ device_id }) => {
 			dispatcher({ type: ActionTypeDeviceID.SET_DEVICE_ID, payload: device_id });
 			console.log("Ready with Device ID", device_id);
 		});
-		spotifyPlayer.connect().then((res) => res ? console.log("Spotify Connected.") : console.error("Spotify couldn't connect!"));
+
+		spotifyPlayer.connect().then(
+			(res) => res ? console.log("Spotify Connected.") : console.error("Spotify couldn't connect!")
+		);
+
 		setSDK(spotifyPlayer);
 	};
 
-	
-
 	const setProgress = async (value: number) => {
-		if (mergerState.state.currentPlayer !== undefined) {
+
+		if (mergerState.state.currentPlayer) {
+
 			if (mergerState.state.currentPlayer === Merger.PlayerType.Spotify) {
-				if (SDK) {
-					await spotifySeek(value);
-					updatePlaybackState();
-					return;
-				}
+				if (SDK) return SDK.seek(value);
+
 				throw new Error(initializationError)
 			}
 
-			if (window.youtubePlayer) {
-				window.youtubePlayer.seekTo(Math.round(value / 1000), true);
-				return;
-			}
+			if (window.youtubePlayer)
+				return window.youtubePlayer.seekTo(Math.round(value / 1000), true);
 		}
+
 		throw new Error(initializationError);
 	}
 
 	const setVolume = (value: number) => {
-		if (store.getState().state.currentPlayer !== undefined) {
-			if (store.getState().state.currentPlayer === Merger.PlayerType.Spotify) {
-				if (SDK) {
-					SDK.setVolume(value / 100);
-					return;
-				}
-				throw new Error(initializationError)
-			}
+		if (!store.getState().state.currentPlayer) return console.error(initializationError)
 
-			if (window.youtubePlayer !== undefined) {
-				window.youtubePlayer.setVolume(value);
-				return;
-			}
+		if (store.getState().state.currentPlayer === Merger.PlayerType.Spotify) {
+			if (!SDK) throw new Error(initializationError)
+
+			SDK.setVolume(value / 100);
+			return;
 		}
+
+		if (window.youtubePlayer !== undefined) {
+			window.youtubePlayer.setVolume(value);
+			return;
+		}
+
 		throw new Error(initializationError)
 	}
 
@@ -141,7 +150,7 @@ export const Player: React.FC = () => {
 					<img src="/images/queueIcon.png" alt="error" />
 				</Link>
 			</div>
-			<VolumeSlider isDisabled={!store.getState().state.currentPlayer} func={(value: number) => setVolume(value)} />
+			<VolumeSlider isDisabled={!store.getState().state.currentPlayer} func={setVolume} />
 		</div>
 	);
 }
