@@ -51,13 +51,16 @@ export const SpotifyAlbumPage: React.FC = () => {
 				title={album.name}
 				creator={album.artists[0].name}
 				numOfTracks={album.tracks.total} />}
-			{album && <TrackListHeader showNum={true} showArtist={false} />}
+			{album && <TrackListHeader showNum={true} showArtist={false} showLike={true}/>}
 			{tracks && tracks.map((track: SpotifyApi.TrackObjectSimplified) => {
 				return <SpotifyTrackRow
+					key={track.id}
 					onClick={handlePlay}
 					showArtist={false}
 					num={track.track_number}
-					track={track} />
+					track={track} 
+					showLike={true}
+				/>
 			})}
 		</div>
 	)

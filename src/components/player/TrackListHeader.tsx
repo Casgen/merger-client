@@ -5,9 +5,10 @@ interface TrackListHeaderProps {
 	showNum?: boolean,
 	showAlbum?: boolean,
 	showArtist?: boolean
+	showLike?: boolean;
 }
 
-export const TrackListHeader: React.FC<TrackListHeaderProps> = ({showNum, showAlbum, showArtist} : TrackListHeaderProps) => {
+export const TrackListHeader: React.FC<TrackListHeaderProps> = ({showNum, showAlbum, showArtist, showLike} : TrackListHeaderProps) => {
 	return (
 		<div id="header-row">
 			<div id="num">
@@ -24,7 +25,8 @@ export const TrackListHeader: React.FC<TrackListHeaderProps> = ({showNum, showAl
 			<div id="duration">
 				<h6>Duration</h6>
 			</div>
-			<div id="like"></div>
+			{ showLike && <div id="like"></div>}
+			
 		</div>
 	)
 }

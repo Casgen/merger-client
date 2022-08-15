@@ -73,9 +73,7 @@ export const SpotifyTrackRow: React.FC<Props> = (props: Props) => {
 						<h5>{props.track.name}</h5>
 					</div>
 					<div className="artist">
-						{props.showArtist && listArtists(props.track.artists).map((element) => {
-							return element;
-						})}
+						{props.showArtist && listArtists(props.track.artists)}
 					</div>
 					{props.album &&
 						<div className="album">

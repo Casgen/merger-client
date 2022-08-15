@@ -43,8 +43,8 @@ export const SearchBar: React.FC<Props> = ({ type, func, value }: Props) => {
 				<TextField value={value} id="textfield" onChange={handleChange} type="text"></TextField>
 			</form>
 			{type === Merger.PlayerType.Spotify ?
-				<Link to="/youtube/search"><img src="/images/youtube.png" alt="Error"></img></Link>
-				: <Link to="/spotify/search"><img src="/images/spotify.png" alt="Error"></img></Link>}
+				<Link to="/youtube/search"><img src="/images/spotify.png" alt="Error"></img></Link>
+				: <Link to="/spotify/search"><img src="/images/youtube.png" alt="Error"></img></Link>}
 		</div>
 	)
 }

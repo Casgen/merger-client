@@ -34,7 +34,7 @@ export const YoutubeVideoSearchResult: React.FC<Props> = ({ item, playVideo }: P
 		e.stopPropagation(); // this function prevents the event from bubbling up the element's parents
 
 		try {
-			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`, item, { withCredentials: true });
+			axios.put(`${process.env.REACT_APP_API_LINK}/merger/likeTrack`, {uri: item.id?.videoId}, { withCredentials: true });
 		} catch (e: unknown) {
 			console.error(e)
 		}
